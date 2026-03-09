@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fish VR — Fishing Advisor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Raleway:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #050d1a;
+    --ocean-mid: #0a1f3a;
+    --ocean-light: #0d3060;
+    --teal: #00c9b1;
+    --teal-glow: rgba(0,201,177,0.15);
+    --gold: #f0b429;
+    --gold-glow: rgba(240,180,41,0.2);
+    --text: #c8e8f8;
+    --text-dim: rgba(200,232,248,0.5);
+    --glass: rgba(10,31,58,0.7);
+    --glass-border: rgba(0,201,177,0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Raleway', sans-serif;
+    background: var(--ocean-deep);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(0,60,120,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(0,100,80,0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(10,0,60,0.5) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Lang Switcher */
+  .lang-switch {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 20;
+    display: flex;
+    gap: 0.8rem;
+    background: rgba(0,10,30,0.6);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+  }
+  .lang-switch span {
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.2s;
+  }
+  .lang-switch span:hover { color: var(--text); }
+  .lang-switch span.active { color: var(--teal); font-weight: bold; text-shadow: 0 0 8px var(--teal-glow); }
+
+  .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .bubble {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(0,201,177,0.3), transparent);
+    border: 1px solid rgba(0,201,177,0.15);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(110vh); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.5; }
+    100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+  }
+  header {
+    position: relative; z-index: 10;
+    text-align: center; padding: 4rem 1rem 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    background: linear-gradient(180deg, rgba(0,20,60,0.8) 0%, transparent 100%);
+  }
+  .fish-icon { font-size: 3rem; display: block; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px var(--teal)); animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    background: linear-gradient(135deg, var(--teal), #60efff, var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: 0.05em; margin-bottom: 0.5rem;
+  }
+  .subtitle { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.3em; text-transform: uppercase; }
+  .container {
+    position: relative; z-index: 5;
+    max-width: 1300px; margin: 0 auto; padding: 2rem 1rem 4rem;
+    display: grid; grid-template-columns: 360px 1fr; gap: 2rem; align-items: start;
+  }
+  @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(20px);
+    position: sticky; top: 1rem;
+  }
+  .panel-title {
+    font-family: 'Cinzel Decorative', serif; font-size: 0.85rem;
+    color: var(--teal); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .panel-title::after { content:''; flex:1; height:1px; background: linear-gradient(90deg, var(--glass-border), transparent); }
+  .form-group { margin-bottom: 1.2rem; }
+  label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+  select {
+    width: 100%; background: rgba(0,10,30,0.6); border: 1px solid var(--glass-border);
+    border-radius: 8px; color: var(--text); padding: 0.65rem 2.5rem 0.65rem 0.9rem;
+    font-family: 'Raleway', sans-serif; font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300c9b1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.9rem center;
+  }
+  select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-glow); }
+  select option { background: #0a1f3a; color: var(--text); }
+  .enchant-select-area { max-height: 220px; overflow-y: auto; padding-right: 0.3rem; }
+  .enchant-select-area::-webkit-scrollbar { width: 4px; }
+  .enchant-select-area::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 2px; }
+  .enchant-option {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.5rem;
+    border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.78rem;
+  }
+  .enchant-option:hover { background: rgba(0,201,177,0.08); }
+  .enchant-option input[type="checkbox"] {
+    width: 14px; height: 14px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0;
+  }
+  .enchant-name { flex: 1; color: var(--text-dim); }
+  .rarity-badge { font-family: 'Space Mono', monospace; font-size: 0.58rem; padding: 0.1rem 0.4rem; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+  .r-common    { background: rgba(100,200,100,0.2); color: #80e080; border: 1px solid rgba(100,200,100,0.3); }
+  .r-uncommon  { background: rgba(100,150,255,0.2); color: #90b0ff; border: 1px solid rgba(100,150,255,0.3); }
+  .r-rare      { background: rgba(180,80,255,0.2);  color: #d080ff; border: 1px solid rgba(180,80,255,0.3); }
+  .r-epic      { background: rgba(255,140,0,0.2);   color: #ffaa40; border: 1px solid rgba(255,140,0,0.3); }
+  .r-legendary { background: rgba(240,180,41,0.25); color: var(--gold); border: 1px solid rgba(240,180,41,0.4); }
+  .btn {
+    width: 100%; padding: 0.85rem;
+    background: linear-gradient(135deg, var(--teal), #0096a0);
+    border: none; border-radius: 10px; color: #001a20;
+    font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.08em; cursor: pointer; transition: all 0.25s;
+    margin-top: 1rem; position: relative; overflow: hidden;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,201,177,0.4); }
+  .btn:active { transform: translateY(0); }
+  .stats-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--glass-border); }
+  .stat-item { text-align: center; background: rgba(0,10,30,0.5); border-radius: 8px; padding: 0.6rem; }
+  .stat-val { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--teal); }
+  .stat-label { font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem; }
+  .results-area { display: flex; flex-direction: column; gap: 1.5rem; }
+  .result-card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; overflow: hidden; backdrop-filter: blur(20px);
+    transition: transform 0.2s, border-color 0.2s; animation: fadeIn 0.4s ease both;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
+  .result-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .card-header {
+    padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .island-icon { font-size: 2.2rem; }
+  .island-name { font-family: 'Cinzel Decorative', serif; font-size: 1rem; color: var(--gold); margin-bottom: 0.2rem; }
+  .island-meta { font-size: 0.7rem; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+  .score-badge { margin-left: auto; font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--teal); text-align: center; min-width: 60px; }
+  .score-badge small { display: block; font-size: 0.58rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+  .card-body { padding: 1.2rem 1.5rem; }
+  .section-label { font-size: 0.65rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; margin-bottom: 0.7rem; font-family: 'Space Mono', monospace; }
+  .fish-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+  .fish-table th { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--glass-border); font-family: 'Space Mono', monospace; }
+  .fish-table td { padding: 0.45rem 0.6rem; font-size: 0.82rem; border-bottom: 1px solid rgba(0,201,177,0.05); }
+  .fish-table tr:last-child td { border-bottom: none; }
+  .fish-rarity { font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 0.15rem 0.5rem; border-radius: 4px; white-space: nowrap; }
+  .rar-Abundant { background: rgba(150,200,150,0.15); color: #aada9e; border: 1px solid rgba(150,200,150,0.2); }
+  .rar-Common   { background: rgba(180,220,255,0.15); color: #a8d4ff; border: 1px solid rgba(180,220,255,0.2); }
+  .rar-Curious  { background: rgba(255,220,100,0.15); color: #ffd96e; border: 1px solid rgba(255,220,100,0.2); }
+  .rar-Elusive  { background: rgba(255,160,80,0.15);  color: #ffad6e; border: 1px solid rgba(255,160,80,0.2); }
+  .rar-Fabled   { background: rgba(255,100,100,0.15); color: #ff9090; border: 1px solid rgba(255,100,100,0.2); }
+  .rar-Mythic   { background: rgba(200,80,255,0.15);  color: #e080ff; border: 1px solid rgba(200,80,255,0.2); }
+  .rar-Exotic   { background: rgba(240,180,41,0.2);   color: var(--gold); border: 1px solid rgba(240,180,41,0.3); }
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.6rem; margin-top: 0.5rem; }
+  .tip-item { background: rgba(0,201,177,0.06); border: 1px solid rgba(0,201,177,0.15); border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.78rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+  .tip-text { line-height: 1.4; color: var(--text-dim); }
+  .tip-text strong { color: var(--text); }
+  .zone-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+  .zone-chip { font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 0.25rem 0.6rem; border-radius: 20px; border: 1px solid; white-space: nowrap; }
+  .zone-chip.special { background: rgba(240,180,41,0.1); border-color: rgba(240,180,41,0.3); color: var(--gold); }
+  .zone-chip.normal  { background: rgba(0,201,177,0.08); border-color: rgba(0,201,177,0.2); color: var(--teal); }
+  .upgrade-box { background: linear-gradient(135deg, rgba(240,180,41,0.08), rgba(240,180,41,0.03)); border: 1px solid rgba(240,180,41,0.25); border-radius: 10px; padding: 1rem; margin-top: 1rem; }
+  .upgrade-title { font-family: 'Space Mono', monospace; font-size: 0.62rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .upgrade-list { list-style: none; }
+  .upgrade-list li { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.3rem; padding-left: 0.2rem; line-height: 1.4; display: flex; align-items: flex-start; gap: 0.4rem; }
+  .upgrade-list li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+  .upgrade-list li strong { color: var(--text); }
+  .divider { height: 1px; background: var(--glass-border); margin: 1rem 0; }
+  .empty-state { text-align: center; padding: 5rem 2rem; color: var(--text-dim); }
+  .empty-state .big-fish { font-size: 5rem; display: block; margin-bottom: 1rem; opacity: 0.4; animation: float 4s ease-in-out infinite; }
+  .empty-state h3 { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-dim); }
+  .moonrain-notice { background: linear-gradient(135deg, rgba(0,60,120,0.5), rgba(0,100,140,0.3)); border: 1px solid rgba(100,200,255,0.3); border-radius: 10px; padding: 0.8rem 1rem; font-size: 0.78rem; color: #a8d8ff; display: flex; gap: 0.6rem; align-items: flex-start; }
+</style>
+</head>
+<body>
+
+<div class="bubbles" id="bubbles"></div>
+
+<div class="lang-switch">
+  <span onclick="setLang('es')" id="btn-es" class="active">ES</span> | 
+  <span onclick="setLang('en')" id="btn-en">EN</span>
+</div>
+
+<header>
+  <span class="fish-icon">🎣</span>
+  <h1 data-i18n="title">Fish VR — Asesor de Pesca</h1>
+  <p class="subtitle" data-i18n="subtitle">Optimiza tu estrategia · Maximiza tus monedas</p>
+</header>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-title" data-i18n="configTitle">⚙️ Tu Configuración</div>
+
+    <div class="form-group">
+      <label data-i18n="rodLabel">🎣 Caña de Pescar</label>
+      <select id="rodSelect" onchange="updateStats()">
+        <option value="" id="opt-rod-default">— Selecciona tu caña —</option>
+        <option value="stick">Stick and String ($0)</option>
+        <option value="sunleaf" id="opt-rod-sunleaf">Sunleaf Rod ($0 — Tienda venta)</option>
+        <option value="toy">Toy Rod ($750)</option>
+        <option value="sturdy">Sturdy Wooden Rod ($2,000)</option>
+        <option value="slim">Slim Rod ($10,000)</option>
+        <option value="telescopic">Telescopic Rod ($15,000)</option>
+        <option value="metallic">Metallic Rod ($15,000)</option>
+        <option value="darkwood">Darkwood Rod ($25,000)</option>
+        <option value="speedy">Speedy Rod ($55,000)</option>
+        <option value="fortunate">Fortunate Rod ($75,000)</option>
+        <option value="alien">Alien Rod ($200,000)</option>
+        <option value="rustfang">Rustfang Rod ($250,000)</option>
+        <option value="runesteel">Runesteel Rod ($700,000)</option>
+        <option value="pharaoh">Rod of the Pharaoh ($750,000)</option>
+        <option value="perpetuity" id="opt-rod-perp">Rod of Perpetuity (Nivel 500)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label data-i18n="lineLabel">🧵 Sedal (Line)</label>
+      <select id="lineSelect" onchange="updateStats()">
+        <option value="basic" id="opt-line-basic">Basic Line (Gratis)</option>
+        <option value="aquamarine">Aquamarine Line ($100)</option>
+        <option value="carbon">Carbon Line ($1,000)</option>
+        <option value="heavyduty">Heavy Duty Line ($4,000)</option>
+        <option value="flavored">Flavored Line ($10,000)</option>
+        <option value="lucky">Lucky Line ($10,000)</option>
+        <option value="diamond">Diamond Line ($25,000)</option>
+        <option value="cerberus">Fur of Cerberus ($35,000)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label data-i18n="bobberLabel">🔵 Flotador (Bobber)</label>
+      <select id="bobberSelect" onchange="updateStats()">
+        <option value="basic" id="opt-bobber-basic">Basic Bobber (Gratis)</option>
+        <option value="paulie">Paulie's Bobber ($100)</option>
+        <option value="blue">Blue Bobber ($100)</option>
+        <option value="dud">Dud Bobber ($1,000)</option>
+        <option value="feline">Feline Bobber ($2,000)</option>
+        <option value="ornamental">Ornamental Bobber ($10,000)</option>
+        <option value="luckybobber">Lucky Bobber ($10,000)</option>
+        <option value="slime">Rainbow Slime Bobber ($35,000)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label data-i18n="timeLabel">⏰ Hora del Día</label>
+      <select id="timeSelect" onchange="updateStats()">
+        <option value="Any" data-i18n="optAny">Cualquiera</option>
+        <option value="Morning" data-i18n="optMorning">Mañana (Morning)</option>
+        <option value="Day" data-i18n="optDay">Día (Day)</option>
+        <option value="Evening" data-i18n="optEvening">Tarde (Evening)</option>
+        <option value="Night" data-i18n="optNight">Noche (Night)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label data-i18n="weatherLabel">🌦️ Clima Actual</label>
+      <select id="weatherSelect" onchange="updateStats()">
+        <option value="Any" data-i18n="optAnyWeather">Cualquiera</option>
+        <option value="Clear" data-i18n="optClear">Despejado (Clear)</option>
+        <option value="Rainy" data-i18n="optRainy">Lluvioso (Rainy)</option>
+        <option value="Stormy" data-i18n="optStormy">Tormenta (Stormy)</option>
+        <option value="Foggy" data-i18n="optFoggy">Niebla (Foggy)</option>
+        <option value="Moonrain" data-i18n="optMoonrain">🌙 Moonrain (x2 Suerte!)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label data-i18n="enchantLabel">✨ Encantamientos Activos</label>
+      <div class="enchant-select-area" id="enchantList"></div>
+    </div>
+
+    <button class="btn" onclick="analyze()" data-i18n="btnAnalyze">🔍 Analizar Mejores Zonas</button>
+
+    <div class="stats-bar" id="statsBar" style="display:none">
+      <div class="stat-item">
+        <div class="stat-val" id="statLuck">0</div>
+        <div class="stat-label" data-i18n="statLuck">Suerte</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val" id="statAttr">0</div>
+        <div class="stat-label" data-i18n="statAttr">Atracción</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val" id="statExp">0</div>
+        <div class="stat-label" data-i18n="statExp">Experticia</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-area" id="results">
+    <div class="empty-state">
+      <span class="big-fish">🐟</span>
+      <h3 data-i18n="emptyTitle">Esperando tu configuración</h3>
+      <p id="empty-desc">Selecciona tu caña, accesorios y condiciones<br>para ver las mejores zonas de pesca.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- I18N DICTIONARY ---
+const i18n = {
+  es: {
+    title: "Fish VR — Asesor de Pesca",
+    subtitle: "Optimiza tu estrategia · Maximiza tus monedas",
+    configTitle: "⚙️ Tu Configuración",
+    rodLabel: "🎣 Caña de Pescar",
+    lineLabel: "🧵 Sedal (Line)",
+    bobberLabel: "🔵 Flotador (Bobber)",
+    timeLabel: "⏰ Hora del Día",
+    weatherLabel: "🌦️ Clima Actual",
+    enchantLabel: "✨ Encantamientos Activos",
+    btnAnalyze: "🔍 Analizar Mejores Zonas",
+    statLuck: "Suerte",
+    statAttr: "Atracción",
+    statExp: "Experticia",
+    emptyTitle: "Esperando tu configuración",
+    emptyDesc: "Selecciona tu caña, accesorios y condiciones<br>para ver las mejores zonas de pesca.",
+    
+    // Select Options
+    optRodDefault: "— Selecciona tu caña —",
+    optSale: "Tienda venta",
+    optLevel: "Nivel 500",
+    optFree: "Gratis",
+    optAny: "Cualquiera",
+    optMorning: "Mañana (Morning)",
+    optDay: "Día (Day)",
+    optEvening: "Tarde (Evening)",
+    optNight: "Noche (Night)",
+    optAnyWeather: "Cualquiera",
+    optClear: "Despejado (Clear)",
+    optRainy: "Lluvioso (Rainy)",
+    optStormy: "Tormenta (Stormy)",
+    optFoggy: "Niebla (Foggy)",
+    optMoonrain: "🌙 Moonrain (x2 Suerte!)",
+
+    // Alerts & dynamic text
+    alertRod: "¡Selecciona tu caña primero!",
+    moonNotice: "<strong>¡Moonrain activo!</strong> Tu suerte se ha duplicado. Es el momento perfecto para cazar peces raros en cualquier isla.",
+    eff: "Eficiencia",
+    bestFishTitle: "🐟 Mejores Peces en estas Condiciones",
+    fishName: "Nombre",
+    fishRarity: "Rareza",
+    fishWeather: "Clima Ideal",
+    fishTime: "Hora Ideal",
+    badCond: "⚠️ Condiciones actuales no son ideales para esta zona — cambia hora o clima",
+    specialZones: "🌀 Zonas Especiales Posibles (aparecen aleatoriamente)",
+    tipsTitle: "💬 Consejos",
+    upgradesTitle: "💡 Próximas Mejoras Recomendadas",
+    
+    // Upgrades
+    upgSlim: "Siguiente caña: <strong>Slim Rod</strong> — mejor balance, +20 suerte, +25 atracción ($10,000)",
+    upgDark: "<strong>Darkwood Rod</strong> (+30 suerte, +30 atracción) — ideal para zonas variadas ($25,000)",
+    upgFort: "<strong>Fortunate Rod</strong> (+100 suerte, +65 Big Catch) — cambia completamente el juego ($75,000)",
+    upgAlien: "<strong>Alien Rod</strong>: Max Weight enorme + buena suerte ($200,000)",
+    upgRune: "<strong>Runesteel</strong> o <strong>Rod of the Pharaoh</strong> para pescar peces de récord",
+    upgLine: "<strong>Lucky Line</strong> (+30 suerte) o <strong>Diamond Line</strong> (+25 suerte, stats balanceados)",
+    upgBob: "<strong>Lucky Bobber</strong> (+40 suerte) — el bobber más rentable por precio ($10,000)",
+    upgEnch: "Busca encantamiento <strong>God's Own Luck</strong> (+250 suerte) o <strong>Mutator</strong> (2x mutaciones)"
+  },
+  en: {
+    title: "Fish VR — Fishing Advisor",
+    subtitle: "Optimize your strategy · Maximize your coins",
+    configTitle: "⚙️ Your Setup",
+    rodLabel: "🎣 Fishing Rod",
+    lineLabel: "🧵 Fishing Line",
+    bobberLabel: "🔵 Bobber",
+    timeLabel: "⏰ Time of Day",
+    weatherLabel: "🌦️ Current Weather",
+    enchantLabel: "✨ Active Enchantments",
+    btnAnalyze: "🔍 Analyze Best Zones",
+    statLuck: "Luck",
+    statAttr: "Attraction",
+    statExp: "Expertise",
+    emptyTitle: "Waiting for your setup",
+    emptyDesc: "Select your rod, accessories and conditions<br>to see the best fishing zones.",
+    
+    optRodDefault: "— Select your rod —",
+    optSale: "Shop sale",
+    optLevel: "Level 500",
+    optFree: "Free",
+    optAny: "Any",
+    optMorning: "Morning",
+    optDay: "Day",
+    optEvening: "Evening",
+    optNight: "Night",
+    optAnyWeather: "Any",
+    optClear: "Clear",
+    optRainy: "Rainy",
+    optStormy: "Stormy",
+    optFoggy: "Foggy",
+    optMoonrain: "🌙 Moonrain (x2 Luck!)",
+
+    alertRod: "Please select your rod first!",
+    moonNotice: "<strong>Moonrain active!</strong> Your luck is doubled. It's the perfect time to hunt rare fish on any island.",
+    eff: "Efficiency",
+    bestFishTitle: "🐟 Best Fish for these Conditions",
+    fishName: "Name",
+    fishRarity: "Rarity",
+    fishWeather: "Ideal Weather",
+    fishTime: "Ideal Time",
+    badCond: "⚠️ Current conditions are not ideal for this zone — change time or weather",
+    specialZones: "🌀 Possible Special Zones (spawn randomly)",
+    tipsTitle: "💬 Tips",
+    upgradesTitle: "💡 Recommended Next Upgrades",
+
+    upgSlim: "Next rod: <strong>Slim Rod</strong> — better balance, +20 luck, +25 attr ($10,000)",
+    upgDark: "<strong>Darkwood Rod</strong> (+30 luck, +30 attr) — ideal for varied zones ($25,000)",
+    upgFort: "<strong>Fortunate Rod</strong> (+100 luck, +65 Big Catch) — completely changes the game ($75,000)",
+    upgAlien: "<strong>Alien Rod</strong>: Huge Max Weight + good luck ($200,000)",
+    upgRune: "<strong>Runesteel</strong> or <strong>Rod of the Pharaoh</strong> to catch record fish",
+    upgLine: "<strong>Lucky Line</strong> (+30 luck) or <strong>Diamond Line</strong> (+25 luck, balanced stats)",
+    upgBob: "<strong>Lucky Bobber</strong> (+40 luck) — the most cost-effective bobber ($10,000)",
+    upgEnch: "Look for <strong>God's Own Luck</strong> (+250 luck) or <strong>Mutator</strong> (2x mutations)"
+  }
+};
+
+const RARITY_LOCALE = {
+  es: { Abundant:"Abundante", Common:"Común", Curious:"Curioso", Elusive:"Elusivo", Fabled:"Fabuloso", Mythic:"Mítico", Exotic:"Exótico" },
+  en: { Abundant:"Abundant", Common:"Common", Curious:"Curious", Elusive:"Elusive", Fabled:"Fabled", Mythic:"Mythic", Exotic:"Exotic" }
+};
+const WEATHER_LOCALE = {
+  es: { Any:"Cualquiera", Clear:"Despejado", Rainy:"Lluvioso", Stormy:"Tormenta", Foggy:"Niebla" },
+  en: { Any:"Any", Clear:"Clear", Rainy:"Rainy", Stormy:"Stormy", Foggy:"Foggy" }
+};
+const TIME_LOCALE = {
+  es: { Any:"Cualquiera", Morning:"Mañana", Day:"Día", Evening:"Tarde", Night:"Noche" },
+  en: { Any:"Any", Morning:"Morning", Day:"Day", Evening:"Evening", Night:"Night" }
+};
+
+let currentLang = 'es';
+
+// --- DATA ---
+const RODS = {
+  stick:      { name:"Stick and String",   price:0,      luck:-50, str:0,  exp:0,  attr:0,   bcr:0,  mw:5000 },
+  sunleaf:    { name:"Sunleaf Rod",        price:0,      luck:10,  str:5,  exp:10, attr:25,  bcr:15, mw:250000 },
+  toy:        { name:"Toy Rod",            price:750,    luck:0,   str:0,  exp:0,  attr:0,   bcr:0,  mw:15000 },
+  sturdy:     { name:"Sturdy Wooden Rod",  price:2000,   luck:15,  str:0,  exp:5,  attr:20,  bcr:0,  mw:30000 },
+  slim:       { name:"Slim Rod",           price:10000,  luck:20,  str:10, exp:10, attr:25,  bcr:20, mw:500000 },
+  telescopic: { name:"Telescopic Rod",     price:15000,  luck:10,  str:15, exp:15, attr:10,  bcr:5,  mw:2005000 },
+  metallic:   { name:"Metallic Rod",       price:15000,  luck:0,   str:55, exp:55, attr:10,  bcr:10, mw:1000000 },
+  darkwood:   { name:"Darkwood Rod",       price:25000,  luck:30,  str:10, exp:10, attr:30,  bcr:5,  mw:1800000 },
+  speedy:     { name:"Speedy Rod",         price:55000,  luck:1,   str:5,  exp:5,  attr:60,  bcr:0,  mw:1500000 },
+  fortunate:  { name:"Fortunate Rod",      price:75000,  luck:100, str:10, exp:5,  attr:10,  bcr:65, mw:1500000 },
+  alien:      { name:"Alien Rod",          price:200000, luck:55,  str:10, exp:10, attr:45,  bcr:30, mw:32000000 },
+  rustfang:   { name:"Rustfang Rod",       price:250000, luck:70,  str:20, exp:20, attr:25,  bcr:35, mw:35000000 },
+  runesteel:  { name:"Runesteel Rod",      price:700000, luck:90,  str:25, exp:20, attr:30,  bcr:40, mw:100000000 },
+  pharaoh:    { name:"Rod of the Pharaoh", price:750000, luck:222, str:20, exp:40, attr:-10, bcr:35, mw:100000000 },
+  perpetuity: { name:"Rod of Perpetuity",  price:0,      luck:150, str:30, exp:30, attr:50,  bcr:10, mw:500000000 },
+};
+
+const LINES = {
+  basic:      { luck:0,  str:0,   exp:0,   attr:0,  bcr:0 },
+  aquamarine: { luck:0,  str:0,   exp:0,   attr:5,  bcr:0 },
+  carbon:     { luck:0,  str:7,   exp:7,   attr:0,  bcr:0 },
+  heavyduty:  { luck:0,  str:10,  exp:10,  attr:0,  bcr:10 },
+  flavored:   { luck:0,  str:0,   exp:0,   attr:30, bcr:0 },
+  lucky:      { luck:30, str:0,   exp:0,   attr:0,  bcr:0 },
+  diamond:    { luck:25, str:15,  exp:15,  attr:10, bcr:0 },
+  cerberus:   { luck:25, str:-5,  exp:-15, attr:20, bcr:10 },
+};
+
+const BOBBERS = {
+  basic:      { luck:0,  str:0,  exp:0, attr:0,  bcr:0 },
+  paulie:     { luck:0,  str:0,  exp:5, attr:5,  bcr:0 },
+  blue:       { luck:5,  str:0,  exp:0, attr:0,  bcr:0 },
+  dud:        { luck:5,  str:0,  exp:5, attr:0,  bcr:0 },
+  feline:     { luck:5,  str:0,  exp:0, attr:0,  bcr:10 },
+  ornamental: { luck:10, str:5,  exp:0, attr:10, bcr:0 },
+  luckybobber:{ luck:40, str:0,  exp:0, attr:0,  bcr:0 },
+  slime:      { luck:30, str:10, exp:0, attr:10, bcr:10 },
+};
+
+const ENCHANTMENTS = [
+  { id:"lazy",       name:"Lazy",              rarity:"Common",    luck:10,  str:10, exp:75,  attr:-75, bcr:10, mwB:0,         special:null },
+  { id:"lucky",      name:"Lucky",             rarity:"Common",    luck:15,  str:0,  exp:0,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"expert",     name:"Expert",            rarity:"Common",    luck:0,   str:0,  exp:10,  attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"powerful",   name:"Powerful",          rarity:"Common",    luck:0,   str:10, exp:0,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"speedy",     name:"Speedy",            rarity:"Common",    luck:0,   str:0,  exp:0,   attr:10,  bcr:0,  mwB:0,         special:null },
+  { id:"bigcatch",   name:"Big Catch Boost",   rarity:"Common",    luck:0,   str:0,  exp:0,   attr:0,   bcr:10, mwB:0,         special:null },
+  { id:"reinforced", name:"Reinforced",        rarity:"Common",    luck:0,   str:0,  exp:0,   attr:0,   bcr:0,  mwB:400000,    special:null },
+  { id:"curious",    name:"Curious",           rarity:"Common",    luck:0,   str:0,  exp:5,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"undecided",  name:"Undecided",         rarity:"Uncommon",  luck:5,   str:5,  exp:5,   attr:5,   bcr:5,  mwB:5000,      special:null },
+  { id:"allround",   name:"All-Rounder",       rarity:"Rare",      luck:10,  str:10, exp:10,  attr:10,  bcr:10, mwB:100000,    special:null },
+  { id:"patient",    name:"Patient",           rarity:"Rare",      luck:100, str:0,  exp:0,   attr:-40, bcr:0,  mwB:0,         special:null },
+  { id:"lightspeed", name:"Light-Speed Reels", rarity:"Rare",      luck:0,   str:0,  exp:0,   attr:40,  bcr:0,  mwB:0,         special:null },
+  { id:"lucksac",    name:"Luck Sacrifice",    rarity:"Rare",      luck:-60, str:0,  exp:0,   attr:0,   bcr:60, mwB:0,         special:null },
+  { id:"nightwatch", name:"Night Watcher",     rarity:"Rare",      luck:30,  str:10, exp:10,  attr:30,  bcr:30, mwB:25000000,  special:"night" },
+  { id:"notoriousbig",name:"Notoriously Big",  rarity:"Rare",      luck:0,   str:0,  exp:0,   attr:0,   bcr:10, mwB:50000000,  special:null },
+  { id:"mouthwater", name:"Mouth-Watering",    rarity:"Rare",      luck:0,   str:0,  exp:0,   attr:25,  bcr:30, mwB:0,         special:null },
+  { id:"bigboys",    name:"BIG BOYS ONLY",     rarity:"Epic",      luck:0,   str:0,  exp:0,   attr:0,   bcr:65, mwB:100000000, special:null },
+  { id:"doubleup",   name:"Double Up!!",       rarity:"Epic",      luck:20,  str:0,  exp:0,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"luckchosen", name:"Luck of the Chosen",rarity:"Epic",      luck:100, str:0,  exp:0,   attr:0,   bcr:10, mwB:0,         special:null },
+  { id:"balance",    name:"Master of Balance", rarity:"Epic",      luck:20,  str:20, exp:20,  attr:20,  bcr:20, mwB:400000,    special:null },
+  { id:"mutator",    name:"Mutator",           rarity:"Epic",      luck:30,  str:0,  exp:0,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"shinyhunt",  name:"Shiny Hunter",      rarity:"Epic",      luck:80,  str:0,  exp:0,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"speedemon",  name:"Speed Demon",       rarity:"Epic",      luck:0,   str:0,  exp:0,   attr:60,  bcr:0,  mwB:0,         special:null },
+  { id:"sonofkript", name:"Son of Kriptan",    rarity:"Epic",      luck:50,  str:10, exp:10,  attr:50,  bcr:50, mwB:50000000,  special:"day" },
+  { id:"godsluck",   name:"God's Own Luck",    rarity:"Legendary", luck:250, str:0,  exp:0,   attr:0,   bcr:0,  mwB:0,         special:null },
+  { id:"messenger",  name:"Messenger of Heavens",rarity:"Legendary",luck:0,  str:0,  exp:0,   attr:100, bcr:0,  mwB:0,         special:null },
+  { id:"strongest",  name:"Strongest Angler",  rarity:"Legendary", luck:20,  str:85, exp:85,  attr:10,  bcr:20, mwB:1000000000,special:null },
+];
+
+const ISLANDS = [
+  {
+    id:"coconut", name:"Coconut Bay", icon:"🌴", color:"#00c9b1",
+    desc:{ es:"Isla inicial · Agua dulce y salada", en:"Starter island · Freshwater & saltwater" },
+    specialZones:["School of Fish","Strange Whirlpool","Sparkling Pool"],
+    fish:[
+      {name:"Bream",             rarity:"Abundant",water:"Freshwater",weather:"Any",  time:"Day"},
+      {name:"Roach",             rarity:"Abundant",water:"Freshwater",weather:"Any",  time:"Evening"},
+      {name:"Goldfish",          rarity:"Abundant",water:"Freshwater",weather:"Clear",time:"Any",wB:1.5},
+      {name:"Mackerel",          rarity:"Abundant",water:"Saltwater", weather:"Foggy",time:"Any",wB:1.5},
+      {name:"Needlefish",        rarity:"Abundant",water:"Saltwater", weather:"Stormy",time:"Any",wB:1.5},
+      {name:"Carp",              rarity:"Common",  water:"Freshwater",weather:"Any",  time:"Morning"},
+      {name:"Black Shark Minnow",rarity:"Common",  water:"Freshwater",weather:"Rainy",time:"Morning",wB:1.5},
+      {name:"Boxfish",           rarity:"Common",  water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"Gulper Eel",        rarity:"Common",  water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"John Dory",         rarity:"Common",  water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"Lionfish",          rarity:"Curious", water:"Saltwater", weather:"Any",  time:"Night"},
+      {name:"Northern Pufferfish",rarity:"Curious",water:"Saltwater",weather:"Any",  time:"Day"},
+      {name:"Red Melon Discus",  rarity:"Curious", water:"Freshwater",weather:"Foggy",time:"Any",wB:1.5},
+      {name:"Alligator Gar",     rarity:"Elusive", water:"Freshwater",weather:"Stormy",time:"Any",wB:1.5},
+      {name:"Salween Rita Catfish",rarity:"Elusive",water:"Freshwater",weather:"Any",time:"Night"},
+      {name:"European Anglerfish",rarity:"Elusive",water:"Saltwater",weather:"Any",  time:"Night"},
+      {name:"Hogfish",           rarity:"Elusive", water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"Goliath Tigerfish", rarity:"Fabled",  water:"Freshwater",weather:"Any",  time:"Any"},
+      {name:"Frilled Shark",     rarity:"Fabled",  water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"Blind Bladefish",   rarity:"Mythic",  water:"Freshwater",weather:"Any",  time:"Any"},
+      {name:"Red Dartfin",       rarity:"Mythic",  water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"Spineback Ray",     rarity:"Exotic",  water:"Saltwater", weather:"Any",  time:"Any"},
+      {name:"Dragonfly Fish",    rarity:"Exotic",  water:"Freshwater",weather:"Any",  time:"Any"},
+    ],
+    tips:{
+      es:[
+        "Punto de inicio — acumula monedas vendiendo peces aquí",
+        "Busca <strong>Sparkling Pool</strong> para peces Shiny (x2 dinero)",
+        "Tienes acceso a peces Exotic: Spineback Ray y Dragonfly Fish",
+        "Durante Moonrain aquí consigues peces raros mucho más fácil"
+      ],
+      en:[
+        "Starting point — hoard coins by selling fish here",
+        "Look for <strong>Sparkling Pool</strong> for Shiny fish (2x money)",
+        "You have access to Exotics: Spineback Ray and Dragonfly Fish",
+        "During Moonrain you can get rare fish much easier here"
+      ]
+    }
+  },
+  {
+    id:"crescent", name:"Crescent Isle", icon:"🌊", color:"#4488ff",
+    desc:{ es:"Isla salada · Solo agua de mar", en:"Salty isle · Saltwater only" },
+    specialZones:["School of Fish","Strange Whirlpool","Shadow Chasm","Celestial Chasm"],
+    fish:[
+      {name:"Ocean Perch",       rarity:"Abundant",water:"Saltwater",weather:"Stormy",time:"Any",wB:1.5},
+      {name:"Tarpon",            rarity:"Abundant",water:"Saltwater",weather:"Foggy", time:"Any",wB:1.5},
+      {name:"Black Scorpionfish",rarity:"Common",  water:"Saltwater",weather:"Any",   time:"Evening"},
+      {name:"Snook",             rarity:"Common",  water:"Saltwater",weather:"Rainy", time:"Any",wB:1.5},
+      {name:"Lionfish",          rarity:"Curious", water:"Saltwater",weather:"Any",   time:"Night"},
+      {name:"Clownfish",         rarity:"Curious", water:"Saltwater",weather:"Any",   time:"Day"},
+      {name:"Regal Blue Tang",   rarity:"Curious", water:"Saltwater",weather:"Any",   time:"Morning"},
+      {name:"Parrotfish",        rarity:"Elusive", water:"Saltwater",weather:"Clear", time:"Day",wB:1.5},
+      {name:"Permit",            rarity:"Elusive", water:"Saltwater",weather:"Stormy",time:"Any",wB:1.5},
+      {name:"Hammerhead Shark",  rarity:"Fabled",  water:"Saltwater",weather:"Any",   time:"Evening"},
+      {name:"Brickfish",         rarity:"Fabled",  water:"Saltwater",weather:"Any",   time:"Any"},
+      {name:"Armored Brutefish", rarity:"Mythic",  water:"Saltwater",weather:"Any",   time:"Any"},
+      {name:"Celestial Whitefin",rarity:"Exotic",  water:"Saltwater",weather:"Any",   time:"Any"},
+    ],
+    tips:{
+      es:[
+        "Solo peces de agua salada — lleva sedal salino",
+        "<strong>Celestial Chasm</strong>: x1.9 peces Galaxy (3x dinero!)",
+        "Aquí empieza la quest del Volcanic Depths",
+        "Tormenta activa = +50% aparición de Ocean Perch y Permit"
+      ],
+      en:[
+        "Saltwater fish only — equip salty line",
+        "<strong>Celestial Chasm</strong>: 1.9x Galaxy fish (3x money!)",
+        "The Volcanic Depths quest starts here",
+        "Storm active = +50% spawn for Ocean Perch and Permit"
+      ]
+    }
+  },
+  {
+    id:"luxian", name:"Luxian Dunes", icon:"🏜️", color:"#f0b429",
+    desc:{ es:"Desierto · Agua dulce y salada", en:"Desert · Freshwater & saltwater" },
+    specialZones:["Strange Whirlpool","Midas Rift","Sandy Updraft","Savanna Rift"],
+    fish:[
+      {name:"Ide",               rarity:"Abundant",water:"Freshwater",weather:"Any",   time:"Morning"},
+      {name:"Tench",             rarity:"Abundant",water:"Freshwater",weather:"Any",   time:"Night"},
+      {name:"Perch",             rarity:"Abundant",water:"Freshwater",weather:"Stormy",time:"Any",wB:1.5},
+      {name:"GillHead Bream",    rarity:"Abundant",water:"Saltwater", weather:"Clear", time:"Any",wB:1.5},
+      {name:"Tilefish",          rarity:"Abundant",water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Rainbow Trout",     rarity:"Common",  water:"Freshwater",weather:"Foggy", time:"Any",wB:1.5},
+      {name:"Eel",               rarity:"Common",  water:"Freshwater",weather:"Any",   time:"Night"},
+      {name:"Bluefish",          rarity:"Common",  water:"Saltwater", weather:"Rainy", time:"Any",wB:1.5},
+      {name:"Hawaiian Triggerfish",rarity:"Common",water:"Saltwater",weather:"Any",   time:"Any"},
+      {name:"John Dory",         rarity:"Common",  water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Barracuda",         rarity:"Curious", water:"Saltwater", weather:"Any",   time:"Morning"},
+      {name:"Snow Yellow Discus",rarity:"Curious",water:"Freshwater",weather:"Foggy", time:"Any",wB:1.5},
+      {name:"Amberjack",         rarity:"Curious", water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Goonch Catfish",    rarity:"Elusive", water:"Freshwater",weather:"Rainy", time:"Any",wB:1.5},
+      {name:"Siamese Giant Carp",rarity:"Elusive",water:"Freshwater",weather:"Any",   time:"Morning"},
+      {name:"Wahoo",             rarity:"Elusive", water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Ironfin Stalker",   rarity:"Fabled",  water:"Freshwater",weather:"Any",   time:"Any"},
+      {name:"Pinnate Batfish",   rarity:"Fabled",  water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Ancient Warriorfish",rarity:"Mythic",water:"Freshwater",weather:"Any",   time:"Any"},
+      {name:"Humpback Gar",      rarity:"Mythic",  water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Shellonodon",       rarity:"Exotic",  water:"Saltwater", weather:"Any",   time:"Any"},
+      {name:"Royal Bananafish",  rarity:"Exotic",  water:"Freshwater",weather:"Any",   time:"Any"},
+    ],
+    tips:{
+      es:[
+        "<strong>Midas Rift</strong>: x1.9 peces Gold (3x dinero) — muy rentable",
+        "<strong>Sandy Updraft</strong>: x1.9 peces Sandy (1.2x dinero)",
+        "Mayor variedad de peces — 2 Exotics disponibles",
+        "Se completa la quest del Volcanic Depths aquí (templo al fondo)"
+      ],
+      en:[
+        "<strong>Midas Rift</strong>: 1.9x Gold fish (3x money) — very profitable",
+        "<strong>Sandy Updraft</strong>: 1.9x Sandy fish (1.2x money)",
+        "Highest fish variety — 2 Exotics available",
+        "Volcanic Depths quest ends here (temple at the back)"
+      ]
+    }
+  },
+  {
+    id:"tanglewood", name:"Tanglewood Creek", icon:"🌿", color:"#56c45e",
+    desc:{ es:"Pantano · Solo agua de pantano", en:"Swamp · Swampwater only" },
+    specialZones:["Shadow Chasm","Occult Pool","Strange Whirlpool"],
+    fish:[
+      {name:"Bluegill Sunfish", rarity:"Abundant",water:"Swampwater",weather:"Clear",time:"Any",wB:1.5},
+      {name:"Bowfin",           rarity:"Common",  water:"Swampwater",weather:"Any",  time:"Evening"},
+      {name:"Channel Catfish",  rarity:"Common",  water:"Swampwater",weather:"Foggy",time:"Any",wB:1.5},
+      {name:"Cottonmouth Snake",rarity:"Curious", water:"Swampwater",weather:"Clear",time:"Any",wB:1.5},
+      {name:"Frog",             rarity:"Curious", water:"Swampwater",weather:"Rainy",time:"Any",wB:1.5},
+      {name:"Alligator Snapping Turtle",rarity:"Elusive",water:"Swampwater",weather:"Any",time:"Any"},
+      {name:"American Alligator",rarity:"Fabled", water:"Swampwater",weather:"Any",  time:"Night"},
+      {name:"Giant Gharial",    rarity:"Fabled",  water:"Swampwater",weather:"Any",  time:"Any"},
+      {name:"Venomous Watcher", rarity:"Mythic",  water:"Swampwater",weather:"Any",  time:"Any"},
+      {name:"Dreadshell Colossus",rarity:"Exotic",water:"Swampwater",weather:"Any",  time:"Any"},
+    ],
+    tips:{
+      es:[
+        "<strong>American Alligator</strong> necesario para la quest (pesca de noche)",
+        "<strong>Occult Pool</strong>: x1.9 peces Cursed (1.1x dinero)",
+        "Poca variedad pero acceso al Exotic: Dreadshell Colossus",
+        "<strong>Shadow Chasm</strong>: x1.9 peces Shadow (2x dinero)"
+      ],
+      en:[
+        "<strong>American Alligator</strong> needed for quest (fish at night)",
+        "<strong>Occult Pool</strong>: 1.9x Cursed fish (1.1x money)",
+        "Low variety but access to Exotic: Dreadshell Colossus",
+        "<strong>Shadow Chasm</strong>: 1.9x Shadow fish (2x money)"
+      ]
+    }
+  },
+  {
+    id:"volcanic", name:"Volcanic Depths", icon:"🌋", color:"#ff5533",
+    desc:{ es:"Zona especial · Requiere quest · Solo lava", en:"Special zone · Quest required · Lava only" },
+    specialZones:["Ionized Fissure","Shadow Chasm","Strange Whirlpool"],
+    fish:[
+      {name:"Flame Guppy",      rarity:"Abundant",water:"Lava",weather:"Any",time:"Any"},
+      {name:"Magma Carp",       rarity:"Abundant",water:"Lava",weather:"Any",time:"Any"},
+      {name:"Ashscale Trout",   rarity:"Common",  water:"Lava",weather:"Any",time:"Any"},
+      {name:"Basalt Eel",       rarity:"Common",  water:"Lava",weather:"Any",time:"Any"},
+      {name:"Cinderfin",        rarity:"Curious", water:"Lava",weather:"Any",time:"Any"},
+      {name:"Obsidian Fish",    rarity:"Curious", water:"Lava",weather:"Any",time:"Any"},
+      {name:"Crystal Pike",     rarity:"Elusive", water:"Lava",weather:"Any",time:"Any"},
+      {name:"Molten Angler",    rarity:"Elusive", water:"Lava",weather:"Any",time:"Any"},
+      {name:"Ifrit Barracuda",  rarity:"Fabled",  water:"Lava",weather:"Any",time:"Any"},
+      {name:"Pyrite Snapper",   rarity:"Fabled",  water:"Lava",weather:"Any",time:"Any"},
+      {name:"Igneous Stingray", rarity:"Mythic",  water:"Lava",weather:"Any",time:"Any"},
+      {name:"Red Demonfish",    rarity:"Mythic",  water:"Lava",weather:"Any",time:"Any"},
+      {name:"Hellmaw Grouper",  rarity:"Exotic",  water:"Lava",weather:"Any",time:"Any"},
+    ],
+    tips:{
+      es:[
+        "Requiere completar la quest del Volcanic Depths primero",
+        "Todos los peces disponibles a cualquier hora/clima — ideal",
+        "<strong>Ionized Fissure</strong>: x1.9 peces Radioactive (3x dinero!)",
+        "Único lugar para el Exotic <strong>Hellmaw Grouper</strong>"
+      ],
+      en:[
+        "Requires completing the Volcanic Depths quest first",
+        "All fish available at any time/weather — ideal",
+        "<strong>Ionized Fissure</strong>: 1.9x Radioactive fish (3x money!)",
+        "Only place to catch the Exotic <strong>Hellmaw Grouper</strong>"
+      ]
+    }
+  },
+];
+
+const RARITY_SCORE = {Abundant:1,Common:2,Curious:3,Elusive:4,Fabled:5,Mythic:6,Exotic:7};
+const RARITY_RATE  = {Abundant:27,Common:25,Curious:18,Elusive:11,Fabled:4.4,Mythic:2.5,Exotic:0.085};
+const RARITY_VALUE = {Abundant:1,Common:1.5,Curious:2,Elusive:2.5,Fabled:4,Mythic:6,Exotic:60};
+
+// --- LOGIC ---
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-es').className = lang === 'es' ? 'active' : '';
+  document.getElementById('btn-en').className = lang === 'en' ? 'active' : '';
+
+  // 1. Update static attributes
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key]) {
+      if (el.tagName === 'INPUT' && el.type === 'button') el.value = i18n[lang][key];
+      else el.innerHTML = i18n[lang][key];
+    }
+  });
+
+  // 2. Update specific element inner text
+  document.getElementById('opt-rod-default').innerText = i18n[lang].optRodDefault;
+  document.getElementById('opt-rod-sunleaf').innerText = `Sunleaf Rod ($0 — ${i18n[lang].optSale})`;
+  document.getElementById('opt-rod-perp').innerText = `Rod of Perpetuity (${i18n[lang].optLevel})`;
+  document.getElementById('opt-line-basic').innerText = `Basic Line (${i18n[lang].optFree})`;
+  document.getElementById('opt-bobber-basic').innerText = `Basic Bobber (${i18n[lang].optFree})`;
+  document.getElementById('empty-desc').innerHTML = i18n[lang].emptyDesc;
+
+  // 3. Re-render dynamic lists
+  buildEnchantList();
+  if (document.getElementById('rodSelect').value) analyze();
+}
+
+function buildEnchantList() {
+  const el = document.getElementById('enchantList');
+  const activeIds = getActiveEnchants().map(e => e.id); // Guardar estado
+  el.innerHTML = '';
+  
+  ENCHANTMENTS.forEach(e => {
+    const label = document.createElement('label');
+    label.className = 'enchant-option';
+    label.innerHTML = `
+      <input type="checkbox" id="ench_${e.id}" value="${e.id}" onchange="updateStats()">
+      <span class="enchant-name">${e.name}</span>
+      <span class="rarity-badge r-${e.rarity.toLowerCase()}">${RARITY_LOCALE[currentLang][e.rarity]}</span>
+    `;
+    el.appendChild(label);
+  });
+
+  // Restaurar estado de checkboxes
+  activeIds.forEach(id => {
+    const cb = document.getElementById('ench_'+id);
+    if (cb) cb.checked = true;
+  });
+}
+
+function getActiveEnchants() {
+  return ENCHANTMENTS.filter(e => {
+    const cb = document.getElementById('ench_'+e.id);
+    return cb && cb.checked;
+  });
+}
+
+function calcStats() {
+  const rodKey  = document.getElementById('rodSelect').value;
+  const lineKey = document.getElementById('lineSelect').value;
+  const bobKey  = document.getElementById('bobberSelect').value;
+  const time    = document.getElementById('timeSelect').value;
+  const weather = document.getElementById('weatherSelect').value;
+
+  const rod    = RODS[rodKey]  || {luck:0,str:0,exp:0,attr:0,bcr:0,mw:0,price:0};
+  const line   = LINES[lineKey]  || {luck:0,str:0,exp:0,attr:0,bcr:0};
+  const bobber = BOBBERS[bobKey] || {luck:0,str:0,exp:0,attr:0,bcr:0};
+  const enchs  = getActiveEnchants();
+
+  let luck=rod.luck+line.luck+bobber.luck;
+  let str=rod.str+line.str+bobber.str;
+  let exp=rod.exp+line.exp+bobber.exp;
+  let attr=rod.attr+line.attr+bobber.attr;
+  let bcr=rod.bcr+line.bcr+bobber.bcr;
+  let mw=rod.mw;
+
+  enchs.forEach(e => {
+    let active = true;
+    if (e.special==='night' && time!=='Night') active=false;
+    if (e.special==='day'   && time!=='Day')   active=false;
+    if (active) { luck+=e.luck; str+=e.str; exp+=e.exp; attr+=e.attr; bcr+=e.bcr; mw+=e.mwB; }
+  });
+
+  if (weather==='Moonrain') luck*=2;
+
+  return {luck,str,exp,attr,bcr,mw,weather,time,rodKey,rodPrice:rod.price};
+}
+
+function updateStats() {
+  const rodKey = document.getElementById('rodSelect').value;
+  if (!rodKey) { document.getElementById('statsBar').style.display='none'; return; }
+  const s = calcStats();
+  document.getElementById('statsBar').style.display='grid';
+  document.getElementById('statLuck').textContent = Math.round(s.luck);
+  document.getElementById('statAttr').textContent = Math.round(s.attr);
+  document.getElementById('statExp').textContent  = Math.round(s.exp);
+}
+
+function scoreIsland(island, stats) {
+  const {luck,bcr,weather,time} = stats;
+  let score=0;
+  island.fish.forEach(f => {
+    const timeOk    = f.time==='Any'    || f.time===time    || time==='Any';
+    const weatherOk = f.weather==='Any' || f.weather===weather || weather==='Any' || weather==='Moonrain';
+    if (!timeOk && !weatherOk) return;
+    const rarScore = RARITY_SCORE[f.rarity]||1;
+    const rarValue = RARITY_VALUE[f.rarity]||1;
+    let rate = RARITY_RATE[f.rarity]||1;
+    if (f.weather!=='Any' && (f.weather===weather) && f.wB) rate*=f.wB;
+    const luckBonus = 1+Math.max(0,luck)/500;
+    const bcrBonus  = 1+(bcr/100)*0.5;
+    const condMult  = (timeOk?1:0.3)*(weatherOk?1:0.3);
+    score += rate*rarValue*rarScore*luckBonus*bcrBonus*condMult;
+  });
+  score *= (island.specialZones.length*0.15+1);
+  return score;
+}
+
+function getBestFish(island, stats) {
+  const {weather,time} = stats;
+  return island.fish.map(f => {
+    const timeOk    = f.time==='Any'    || f.time===time    || time==='Any';
+    const weatherOk = f.weather==='Any' || f.weather===weather || weather==='Any' || weather==='Moonrain';
+    const active = timeOk && weatherOk;
+    return {...f, active, priority:(RARITY_SCORE[f.rarity]||1)*(active?2:0.5)};
+  }).sort((a,b)=>b.priority-a.priority).slice(0,6);
+}
+
+function getUpgrades(rodKey, price) {
+  const t = i18n[currentLang];
+  const tips=[];
+  if (price<10000)  tips.push({icon:'🎣',text: t.upgSlim});
+  else if(price<25000) tips.push({icon:'🎣',text: t.upgDark});
+  else if(price<75000) tips.push({icon:'🎣',text: t.upgFort});
+  else if(price<200000) tips.push({icon:'🛸',text: t.upgAlien});
+  else if(price<700000) tips.push({icon:'⚔️',text: t.upgRune});
+
+  tips.push({icon:'🎯',text: t.upgLine});
+  tips.push({icon:'🔵',text: t.upgBob});
+  tips.push({icon:'✨',text: t.upgEnch});
+  return tips.slice(0,4);
+}
+
+function analyze() {
+  const rodKey = document.getElementById('rodSelect').value;
+  if (!rodKey) { alert(i18n[currentLang].alertRod); return; }
+  const stats = calcStats();
+  updateStats();
+
+  const scored = ISLANDS.map(isl=>({island:isl,score:scoreIsland(isl,stats)}))
+                         .sort((a,b)=>b.score-a.score);
+  const maxScore = scored[0].score||1;
+  const results  = document.getElementById('results');
+  results.innerHTML='';
+  const t = i18n[currentLang];
+
+  if (stats.weather==='Moonrain') {
+    const n=document.createElement('div');
+    n.className='moonrain-notice';
+    n.innerHTML=`<span style="font-size:1.5rem">🌙</span><div>${t.moonNotice}</div>`;
+    results.appendChild(n);
+  }
+
+  scored.forEach(({island,score},idx)=>{
+    const bestFish = getBestFish(island,stats);
+    const topFish  = bestFish.filter(f=>f.active).slice(0,5);
+    const upgrades = idx===0 ? getUpgrades(rodKey,stats.rodPrice) : [];
+    const pct = Math.min(100,Math.round((score/maxScore)*100));
+    const card=document.createElement('div');
+    card.className='result-card';
+    card.style.animationDelay=`${idx*0.08}s`;
+
+    const fishRows = topFish.map(f=>`
+      <tr>
+        <td>${f.name}</td>
+        <td><span class="fish-rarity rar-${f.rarity}">${RARITY_LOCALE[currentLang][f.rarity]}</span></td>
+        <td style="font-size:0.7rem;color:var(--text-dim)">${f.weather!=='Any'?'⛅ '+WEATHER_LOCALE[currentLang][f.weather]:'—'}</td>
+        <td style="font-size:0.7rem;color:var(--text-dim)">${f.time!=='Any'?'🕐 '+TIME_LOCALE[currentLang][f.time]:'—'}</td>
+      </tr>`).join('');
+
+    const zoneChips=island.specialZones.map(z=>
+      `<span class="zone-chip ${z==='School of Fish'||z==='Strange Whirlpool'?'normal':'special'}">${z}</span>`
+    ).join('');
+
+    const upgradeHtml = upgrades.length ? `
+      <div class="upgrade-box">
+        <div class="upgrade-title">${t.upgradesTitle}</div>
+        <ul class="upgrade-list">
+          ${upgrades.map(u=>`<li><span>${u.icon}</span><span>${u.text}</span></li>`).join('')}
+        </ul>
+      </div>` : '';
+
+    card.innerHTML=`
+      <div class="card-header">
+        <span class="island-icon">${island.icon}</span>
+        <div>
+          <div class="island-name">${idx===0?'⭐ ':''} ${island.name}</div>
+          <div class="island-meta">${island.desc[currentLang]}</div>
+        </div>
+        <div class="score-badge">${pct}%<small>${t.eff}</small></div>
+      </div>
+      <div class="card-body">
+        ${topFish.length?`
+        <div class="section-label">${t.bestFishTitle}</div>
+        <table class="fish-table">
+          <thead><tr><th>${t.fishName}</th><th>${t.fishRarity}</th><th>${t.fishWeather}</th><th>${t.fishTime}</th></tr></thead>
+          <tbody>${fishRows}</tbody>
+        </table>`:`<p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:1rem">${t.badCond}</p>`}
+        <div class="divider"></div>
+        <div class="section-label">${t.specialZones}</div>
+        <div class="zone-chips">${zoneChips}</div>
+        <div class="divider"></div>
+        <div class="section-label">${t.tipsTitle}</div>
+        <div class="tips-grid">
+          ${island.tips[currentLang].map(tip=>`<div class="tip-item"><span style="flex-shrink:0">→</span><span class="tip-text">${tip}</span></div>`).join('')}
+        </div>
+        ${upgradeHtml}
+      </div>`;
+    results.appendChild(card);
+  });
+}
+
+function createBubbles() {
+  const c=document.getElementById('bubbles');
+  for(let i=0;i<18;i++){
+    const b=document.createElement('div');
+    b.className='bubble';
+    const size=Math.random()*40+8;
+    b.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(b);
+  }
+}
+
+// Inicialización
+buildEnchantList();
+createBubbles();
+setLang('es'); // Aplica el idioma por defecto y traduce el HTML inicial
+</script>
+</body>
+</html>
