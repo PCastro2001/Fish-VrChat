@@ -100,13 +100,13 @@ select option{background:#0a1f3a;color:var(--text);}
 .fish-table tr:last-child td{border-bottom:none;}
 .fish-table tr:hover td{background:rgba(0,201,177,.04);}
 .fr{font-family:'Space Mono',monospace;font-size:.58rem;padding:.1rem .42rem;border-radius:4px;white-space:nowrap;}
-.rar-Abundant{background:rgba(150,200,150,.15);color:#aada9e;border:1px solid rgba(150,200,150,.2);}
-.rar-Common{background:rgba(180,220,255,.15);color:#a8d4ff;border:1px solid rgba(180,220,255,.2);}
-.rar-Curious{background:rgba(255,220,100,.15);color:#ffd96e;border:1px solid rgba(255,220,100,.2);}
-.rar-Elusive{background:rgba(255,160,80,.15);color:#ffad6e;border:1px solid rgba(255,160,80,.2);}
-.rar-Fabled{background:rgba(255,100,100,.15);color:#ff9090;border:1px solid rgba(255,100,100,.2);}
-.rar-Mythic{background:rgba(200,80,255,.15);color:#e080ff;border:1px solid rgba(200,80,255,.2);}
-.rar-Exotic{background:rgba(240,180,41,.2);color:var(--gold);border:1px solid rgba(240,180,41,.3);}
+.rar-Abundant{background:rgba(230,230,230,.12);color:#e8e8e8;border:1px solid rgba(230,230,230,.3);}
+.rar-Common{background:rgba(80,200,100,.15);color:#6ddc88;border:1px solid rgba(80,200,100,.3);}
+.rar-Curious{background:rgba(60,140,255,.15);color:#70b8ff;border:1px solid rgba(60,140,255,.3);}
+.rar-Elusive{background:rgba(160,80,255,.15);color:#c080ff;border:1px solid rgba(160,80,255,.3);}
+.rar-Fabled{background:rgba(255,220,40,.15);color:#ffe84a;border:1px solid rgba(255,220,40,.3);}
+.rar-Mythic{background:rgba(255,60,60,.15);color:#ff6060;border:1px solid rgba(255,60,60,.3);}
+.rar-Exotic{background:rgba(255,100,180,.18);color:#ff80c8;border:1px solid rgba(255,100,180,.35);}
 .tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.45rem;margin-top:.4rem;}
 .tip-item{background:rgba(0,201,177,.06);border:1px solid rgba(0,201,177,.15);border-radius:8px;padding:.5rem .7rem;font-size:.74rem;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;color:var(--text-dim);}
 .tip-item strong{color:var(--text);}
@@ -511,7 +511,7 @@ const ZONE_BONUSES={
 const RARITY_SCORE={Abundant:1,Common:2,Curious:3,Elusive:4,Fabled:5,Mythic:6,Exotic:7};
 const RARITY_RATE ={Abundant:27,Common:25,Curious:18,Elusive:11,Fabled:4.4,Mythic:2.5,Exotic:0.085};
 const RARITY_VALUE={Abundant:1,Common:1.5,Curious:2,Elusive:2.5,Fabled:4,Mythic:6,Exotic:60};
-const DIFF_COLOR  ={Abundant:"#56c45e",Common:"#a8d4ff",Curious:"#ffd96e",Elusive:"#ffad6e",Fabled:"#ff9090",Mythic:"#e080ff",Exotic:"#f0b429"};
+const DIFF_COLOR  ={Abundant:"#e8e8e8",Common:"#6ddc88",Curious:"#70b8ff",Elusive:"#c080ff",Fabled:"#ffe84a",Mythic:"#ff6060",Exotic:"#ff80c8"};
 
 const ISLANDS=[
   {id:"coconut",name:"Coconut Bay",icon:"🌴",
