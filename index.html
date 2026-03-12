@@ -267,63 +267,32 @@ select option{background:#0a1f3a;color:var(--text);}
 <body>
 <div class="bubbles" id="bubbles"></div>
 
-<!-- ===== CREATOR BANNER ===== -->
-<div style="
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem .9rem;
-  background: rgba(0,201,177,.06);
-  border-bottom: 1px solid rgba(0,201,177,.15);
-  position: relative;
-  z-index: 2;
-">
-  <!-- 👇 Reemplaza 'TU_FOTO.jpg' con el nombre de tu imagen (debe estar en la misma carpeta) -->
-  <img
-    src="TU_FOTO.jpg"
-    alt="Jeffrey Fox"
-    style="
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(0,201,177,.6);
-      box-shadow: 0 0 14px rgba(0,201,177,.3);
-      flex-shrink: 0;
-    "
-    onerror="this.style.display='none'"
-  >
-  <div style="line-height:1.4">
-    <div style="font-size:.56rem;font-family:'Space Mono',monospace;color:var(--text-dim);text-transform:uppercase;letter-spacing:.14em;" data-t="createdBy">Creado por</div>
-    <a
-      href="https://vrchat.com/home/user/usr_5d6434f0-0b0e-400b-a92e-3f713ff634ec"
-      target="_blank"
-      rel="noopener noreferrer"
-      style="
-        font-family:'Cinzel Decorative',cursive;
-        font-size:.95rem;
-        font-weight:700;
-        color: var(--teal);
-        text-decoration: none;
-        letter-spacing:.04em;
-        text-shadow: 0 0 14px rgba(0,201,177,.4);
-        transition: color .2s, text-shadow .2s;
-        display:inline-block;
-      "
-      onmouseover="this.style.color='#60efff';this.style.textShadow='0 0 22px rgba(96,239,255,.6)'"
-      onmouseout="this.style.color='var(--teal)';this.style.textShadow='0 0 14px rgba(0,201,177,.4)'"
-    >Jeffrey Fox
-      <span style="font-family:'Space Mono',monospace;font-size:.55rem;color:var(--text-dim);font-weight:400;letter-spacing:.06em;margin-left:.5rem;vertical-align:middle" data-t="vrProfileLink">🌐 Perfil en VRChat</span>
-    </a>
-  </div>
-</div>
-
 <header>
   <div class="header-top">
     <span class="fish-icon">🎣</span>
     <h1>Fish VR — <span data-t="titleSub">Asesor de Pesca</span></h1>
-    <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 EN</button>
+    <div style="display:flex;align-items:center;gap:.7rem;flex-shrink:0;">
+      <!-- Créditos del creador -->
+      <a
+        href="https://vrchat.com/home/user/usr_5d6434f0-0b0e-400b-a92e-3f713ff634ec"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Jeffrey Fox — VRChat Profile"
+        style="display:flex;align-items:center;gap:.5rem;text-decoration:none;background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.25);border-radius:20px;padding:.28rem .7rem .28rem .35rem;transition:background .2s,border-color .2s;"
+        onmouseover="this.style.background='rgba(0,201,177,.18)';this.style.borderColor='rgba(0,201,177,.6)'"
+        onmouseout="this.style.background='rgba(0,201,177,.08)';this.style.borderColor='rgba(0,201,177,.25)'"
+      >
+        <!-- 👇 Reemplaza TU_FOTO.jpg con tu imagen -->
+        <img src="TU_FOTO.jpg" alt="Jeffrey Fox"
+          style="width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(0,201,177,.6);flex-shrink:0;"
+          onerror="this.style.display='none'">
+        <div style="line-height:1.2">
+          <div style="font-size:.48rem;font-family:'Space Mono',monospace;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;" data-t="createdBy">Creado por</div>
+          <div style="font-family:'Cinzel Decorative',cursive;font-size:.65rem;font-weight:700;color:var(--teal);letter-spacing:.03em;">Jeffrey Fox</div>
+        </div>
+      </a>
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 EN</button>
+    </div>
   </div>
   <p class="subtitle" data-t="subtitle">Optimiza tu estrategia · Maximiza tus monedas</p>
 </header>
