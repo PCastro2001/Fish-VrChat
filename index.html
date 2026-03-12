@@ -167,6 +167,96 @@ select option{background:#0a1f3a;color:var(--text);}
 .no-results{text-align:center;padding:3.5rem 2rem;color:var(--text-dim);grid-column:1/-1;}
 /* open sea special zone note */
 .opensea-note{background:linear-gradient(135deg,rgba(240,180,41,.08),transparent);border:1px solid rgba(240,180,41,.2);border-radius:8px;padding:.6rem .85rem;font-size:.72rem;color:rgba(240,180,41,.8);display:flex;gap:.5rem;align-items:center;margin-top:.5rem;}
+/* ===== RANKING TAB ===== */
+.rank-container{max-width:1200px;margin:0 auto;padding:2rem 1rem 4rem;}
+.rank-top{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.8rem;}
+@media(max-width:700px){.rank-top{grid-template-columns:1fr;}}
+.rank-control-box{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:1.2rem;backdrop-filter:blur(20px);}
+.rank-control-title{font-family:'Cinzel Decorative',serif;font-size:.75rem;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.rank-control-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--glass-border),transparent);}
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.goal-btn{padding:.6rem .5rem;border-radius:10px;border:1px solid var(--glass-border);background:rgba(0,10,30,.5);color:var(--text-dim);cursor:pointer;transition:all .2s;font-family:'Raleway',sans-serif;font-size:.75rem;text-align:center;line-height:1.3;}
+.goal-btn:hover{border-color:var(--teal);color:var(--text);}
+.goal-btn.active{border-color:var(--teal);background:rgba(0,201,177,.12);color:var(--teal);font-weight:600;}
+.goal-btn .goal-icon{display:block;font-size:1.3rem;margin-bottom:.25rem;}
+.budget-row{display:flex;gap:.5rem;align-items:center;margin-top:.8rem;}
+.budget-input{flex:1;background:rgba(0,10,30,.6);border:1px solid var(--glass-border);border-radius:8px;color:var(--text);padding:.5rem .75rem;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;transition:border-color .2s;}
+.budget-input:focus{border-color:var(--teal);}
+.budget-chips{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;}
+.bchip{font-family:'Space Mono',monospace;font-size:.6rem;padding:.22rem .55rem;border-radius:12px;border:1px solid var(--glass-border);background:rgba(0,10,30,.4);color:var(--text-dim);cursor:pointer;transition:all .15s;}
+.bchip:hover{border-color:var(--teal);color:var(--teal);}
+.bchip.active{background:rgba(0,201,177,.1);border-color:var(--teal);color:var(--teal);}
+.rank-list{display:flex;flex-direction:column;gap:.75rem;}
+.rank-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;overflow:hidden;backdrop-filter:blur(20px);animation:fadeIn .35s ease both;transition:border-color .2s,transform .2s;}
+.rank-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+.rank-card.rank-gold{border-color:rgba(240,180,41,.5);background:linear-gradient(135deg,rgba(240,180,41,.06),var(--glass));}
+.rank-card.rank-silver{border-color:rgba(180,190,210,.4);}
+.rank-card.rank-bronze{border-color:rgba(180,110,50,.4);}
+.rank-inner{display:grid;grid-template-columns:52px 1fr auto;gap:.75rem;align-items:center;padding:.9rem 1.1rem;}
+.rank-num{font-family:'Cinzel Decorative',serif;font-size:1.5rem;font-weight:900;text-align:center;line-height:1;}
+.rank-num.n1{color:var(--gold);}
+.rank-num.n2{color:#b0bec5;}
+.rank-num.n3{color:#bf8c5a;}
+.rank-num.nN{color:var(--text-dim);font-size:1.1rem;}
+.rank-combo{font-family:'Cinzel Decorative',serif;font-size:.78rem;color:var(--text);margin-bottom:.35rem;line-height:1.4;}
+.rank-pieces{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.4rem;}
+.piece-tag{font-family:'Space Mono',monospace;font-size:.58rem;padding:.12rem .45rem;border-radius:6px;border:1px solid;}
+.piece-rod{background:rgba(0,201,177,.08);border-color:rgba(0,201,177,.3);color:var(--teal);}
+.piece-line{background:rgba(100,150,255,.08);border-color:rgba(100,150,255,.3);color:#90b0ff;}
+.piece-bob{background:rgba(180,80,255,.08);border-color:rgba(180,80,255,.3);color:#c080ff;}
+.rank-why{font-size:.7rem;color:var(--text-dim);line-height:1.4;font-style:italic;}
+.rank-why strong{color:var(--text);font-style:normal;}
+.rank-score-col{text-align:right;min-width:70px;}
+.rank-score-val{font-family:'Space Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--teal);}
+.rank-score-lbl{font-size:.55rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-top:.1rem;}
+.rank-stats-row{display:flex;gap:.4rem;flex-wrap:wrap;padding:.55rem 1.1rem;border-top:1px solid var(--glass-border);background:rgba(0,0,0,.15);}
+.mini-stat{font-family:'Space Mono',monospace;font-size:.6rem;padding:.15rem .45rem;border-radius:5px;background:rgba(0,10,30,.5);border:1px solid var(--glass-border);}
+.mini-stat span{color:var(--teal);}
+.rank-section-title{font-family:'Cinzel Decorative',serif;font-size:.8rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem;}
+.rank-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(240,180,41,.3),transparent);}
+.goal-desc-box{background:linear-gradient(135deg,rgba(0,201,177,.06),transparent);border:1px solid rgba(0,201,177,.15);border-radius:10px;padding:.7rem 1rem;margin-bottom:1.2rem;font-size:.76rem;color:var(--text-dim);line-height:1.5;}
+.goal-desc-box strong{color:var(--teal);}
+.price-total{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gold);margin-top:.2rem;}
+.over-budget .rank-inner{opacity:.45;}
+.over-budget{border-color:rgba(255,255,255,.05)!important;}
+/* ===== COMPARATOR ===== */
+.comp-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,201,177,.3),transparent);margin:2.5rem 0;}
+.comp-section-title{font-family:'Cinzel Decorative',serif;font-size:.8rem;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+.comp-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--glass-border),transparent);}
+.comp-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1.4rem;}
+.comp-slot{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:1.1rem;backdrop-filter:blur(20px);position:relative;transition:border-color .2s;}
+.comp-slot:hover{border-color:var(--teal);}
+.comp-slot-num{font-family:'Cinzel Decorative',serif;font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.8rem;}
+.comp-slot select{width:100%;background:rgba(0,10,30,.6);border:1px solid var(--glass-border);border-radius:7px;color:var(--text);padding:.48rem 2.2rem .48rem .75rem;font-family:'Raleway',sans-serif;font-size:.8rem;outline:none;transition:border-color .2s;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300c9b1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;margin-bottom:.45rem;}
+.comp-slot select:focus{border-color:var(--teal);}
+.comp-slot select option{background:#0a1f3a;}
+.comp-remove{position:absolute;top:.6rem;right:.7rem;font-size:.7rem;color:var(--text-dim);cursor:pointer;padding:.15rem .4rem;border-radius:4px;border:1px solid transparent;transition:all .15s;}
+.comp-remove:hover{color:var(--coral);border-color:var(--coral);}
+.comp-add-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem;border-radius:12px;border:1px dashed var(--glass-border);color:var(--text-dim);cursor:pointer;font-family:'Raleway',sans-serif;font-size:.8rem;transition:all .2s;background:rgba(0,10,30,.3);}
+.comp-add-btn:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,201,177,.05);}
+.comp-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1rem;}
+.comp-result-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;overflow:hidden;backdrop-filter:blur(20px);transition:border-color .2s,transform .15s;animation:fadeIn .3s ease both;}
+.comp-result-card:hover{transform:translateY(-2px);}
+.comp-result-card.comp-best{border-color:var(--gold);background:linear-gradient(135deg,rgba(240,180,41,.07),var(--glass));}
+.comp-result-card.comp-second{border-color:rgba(180,190,210,.35);}
+.comp-result-card.comp-third{border-color:rgba(180,110,50,.35);}
+.comp-result-header{padding:.75rem 1rem;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;}
+.comp-result-name{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--text);}
+.comp-result-score{font-family:'Space Mono',monospace;font-size:.9rem;font-weight:700;color:var(--teal);}
+.comp-stat-bars{padding:.8rem 1rem;}
+.comp-bar-row{display:grid;grid-template-columns:70px 1fr 42px;gap:.35rem;align-items:center;margin-bottom:.38rem;}
+.comp-bar-name{font-size:.6rem;color:var(--text-dim);}
+.comp-bar-track{height:7px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.comp-bar-fill{height:100%;border-radius:4px;transition:width .7s ease;}
+.comp-bar-val{font-family:'Space Mono',monospace;font-size:.58rem;text-align:right;}
+.comp-bar-val.neg{color:var(--coral);}
+.comp-total-price{padding:.5rem 1rem;border-top:1px solid var(--glass-border);font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gold);background:rgba(0,0,0,.15);}
+.comp-winner-badge{font-size:.6rem;font-family:'Space Mono',monospace;padding:.12rem .45rem;border-radius:6px;background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.4);color:var(--gold);}
+.comp-goal-scores{padding:.55rem 1rem;display:flex;flex-direction:column;gap:.25rem;border-top:1px solid var(--glass-border);}
+.comp-goal-row{display:flex;justify-content:space-between;font-size:.62rem;}
+.comp-goal-label{color:var(--text-dim);}
+.comp-goal-val{font-family:'Space Mono',monospace;color:var(--teal);}
+.comp-goal-val.best-goal{color:var(--gold);font-weight:700;}
 </style>
 </head>
 <body>
@@ -184,6 +274,7 @@ select option{background:#0a1f3a;color:var(--text);}
 <nav class="tabs">
   <button class="tab-btn active" onclick="switchTab('advisor')" data-t="tabAdvisor">⚙️ Asesor de Zonas</button>
   <button class="tab-btn" onclick="switchTab('fishsearch')" data-t="tabSearch">🔍 Buscador de Peces</button>
+  <button class="tab-btn" onclick="switchTab('ranking')" data-t="tabRanking">🏆 Rankings</button>
 </nav>
 
 <!-- ===== TAB 1: ASESOR ===== -->
@@ -343,6 +434,80 @@ select option{background:#0a1f3a;color:var(--text);}
 </div>
 </div>
 
+<!-- ===== TAB 3: RANKING ===== -->
+<div class="tab-content" id="tab-ranking">
+<div class="rank-container">
+  <div class="rank-top">
+    <!-- Goal selector -->
+    <div class="rank-control-box">
+      <div class="rank-control-title" data-t="rankGoal">🎯 Objetivo de Juego</div>
+      <div class="goal-grid">
+        <button class="goal-btn active" onclick="setGoal('money',this)">
+          <span class="goal-icon">💰</span><span data-t="goalMoney">Máximo Dinero</span>
+        </button>
+        <button class="goal-btn" onclick="setGoal('speed',this)">
+          <span class="goal-icon">⚡</span><span data-t="goalSpeed">Pescar Rápido</span>
+        </button>
+        <button class="goal-btn" onclick="setGoal('big',this)">
+          <span class="goal-icon">🐋</span><span data-t="goalBig">Peces Grandes</span>
+        </button>
+        <button class="goal-btn" onclick="setGoal('rare',this)">
+          <span class="goal-icon">🎯</span><span data-t="goalRare">Peces Raros</span>
+        </button>
+        <button class="goal-btn" onclick="setGoal('easy',this)">
+          <span class="goal-icon">😌</span><span data-t="goalEasy">Minijuego Fácil</span>
+        </button>
+        <button class="goal-btn" onclick="setGoal('balance',this)">
+          <span class="goal-icon">⚖️</span><span data-t="goalBalance">Balance General</span>
+        </button>
+      </div>
+    </div>
+    <!-- Budget selector -->
+    <div class="rank-control-box">
+      <div class="rank-control-title" data-t="rankBudget">💵 Presupuesto Máximo</div>
+      <div class="budget-chips">
+        <span class="bchip" onclick="setBudget(0,this)" data-t="budgetAny">Sin límite</span>
+        <span class="bchip" onclick="setBudget(5000,this)">$5,000</span>
+        <span class="bchip" onclick="setBudget(15000,this)">$15,000</span>
+        <span class="bchip" onclick="setBudget(30000,this)">$30,000</span>
+        <span class="bchip" onclick="setBudget(75000,this)">$75,000</span>
+        <span class="bchip" onclick="setBudget(200000,this)">$200,000</span>
+        <span class="bchip" onclick="setBudget(500000,this)">$500,000</span>
+        <span class="bchip active" onclick="setBudget(999999999,this)" data-t="budgetAll">Todo</span>
+      </div>
+      <div class="budget-row" style="margin-top:1rem">
+        <input class="budget-input" id="budgetCustom" type="number" placeholder="$ Personalizado..." oninput="setCustomBudget()">
+      </div>
+      <div style="margin-top:.8rem;font-size:.68rem;color:var(--text-dim)" data-t="budgetNote">
+        Los combos fuera del presupuesto se muestran atenuados
+      </div>
+    </div>
+  </div>
+
+  <!-- Goal description -->
+  <div class="goal-desc-box" id="goalDescBox"></div>
+
+  <!-- Ranking list -->
+  <div class="rank-section-title" id="rankTitle">🏆 Top 10 Combos</div>
+  <div class="rank-list" id="rankList"></div>
+
+  <!-- COMPARATOR SECTION -->
+  <div class="comp-divider"></div>
+  <div class="comp-section-title" data-t="compTitle">⚔️ Comparador Manual de Combos</div>
+  <p style="font-size:.76rem;color:var(--text-dim);margin-bottom:1.2rem;line-height:1.5" data-t="compDesc">Arma hasta 4 combos personalizados y compáralos lado a lado en todos los objetivos.</p>
+
+  <div class="comp-slots" id="compSlots"></div>
+  <div class="comp-add-btn" id="compAddBtn" onclick="addCompSlot()">
+    <span>＋</span><span data-t="compAdd">Agregar combo</span>
+  </div>
+
+  <div style="margin-top:1.4rem" id="compResultsWrap" style="display:none">
+    <div class="comp-section-title" data-t="compResultsTitle">📊 Resultados de Comparación</div>
+    <div class="comp-results" id="compResults"></div>
+  </div>
+</div>
+</div>
+
 <script>
 // ============================================================
 // TRANSLATIONS
@@ -376,6 +541,30 @@ const LANG = {
     openSeaDesc:"Mar Abierto · Solo agua salada · Zonas especiales",
     openSeaOnly:"⚠️ Las zonas especiales (Midas Rift, etc.) solo aparecen en Open Sea",
     questReq:"Requiere completar la quest",
+    tabRanking:"🏆 Rankings",
+    rankGoal:"🎯 Objetivo de Juego", rankBudget:"💵 Presupuesto Máximo",
+    goalMoney:"Máximo Dinero", goalSpeed:"Pescar Rápido", goalBig:"Peces Grandes",
+    goalRare:"Peces Raros", goalEasy:"Minijuego Fácil", goalBalance:"Balance General",
+    budgetAny:"Sin límite", budgetAll:"Todo",
+    budgetNote:"Los combos fuera del presupuesto se muestran atenuados",
+    rankScoreLbl:"Puntaje",
+    descMoney:"<strong>Objetivo: Máximo Dinero.</strong> Prioriza <strong>Luck</strong> (peces más raros = más valor) y <strong>Big Catch Rate</strong> (peces más pesados = más monedas). Los mejores combos tienen suerte alta combinada con BCR para maximizar el valor de cada pesca.",
+    descSpeed:"<strong>Objetivo: Pescar Rápido.</strong> Prioriza <strong>Attraction</strong> (los peces muerden más rápido), <strong>Expertise</strong> (barra blanca más grande = más fácil de completar) y <strong>Strength</strong> (el pez tiembla menos). Ideal para farmear volumen.",
+    descBig:"<strong>Objetivo: Peces Más Grandes.</strong> Prioriza <strong>Max Weight</strong> (desbloquea la tabla de loot de peces pesados) y <strong>Big Catch Rate</strong> (favorece los pesos más altos dentro de esa tabla).",
+    descRare:"<strong>Objetivo: Peces Más Raros.</strong> Prioriza <strong>Luck</strong> puro — aumenta directamente la rareza de los peces que aparecen. Más suerte = más probabilidad de Mythic y Exotic.",
+    descEasy:"<strong>Objetivo: Minijuego Fácil.</strong> Prioriza <strong>Expertise</strong> (barra blanca más ancha) y <strong>Strength</strong> (el pez tiembla menos). Ideal para jugadores nuevos o para pescar peces difíciles sin perderlos.",
+    descBalance:"<strong>Objetivo: Balance General.</strong> Combos equilibrados en todos los stats. Buen rendimiento sin importar qué tipo de pez o situación enfrentes.",
+    rankTopLabel:"🏆 Top 10 —",
+    overBudget:"Fuera de presupuesto",
+    totalCost:"Costo total",
+    compTitle:"⚔️ Comparador Manual de Combos",
+    compDesc:"Arma hasta 4 combos personalizados y compáralos lado a lado en todos los objetivos.",
+    compAdd:"Agregar combo",
+    compSlotLabel:"Combo",
+    compResultsTitle:"📊 Resultados de Comparación",
+    compGoalLabels:{money:"💰 Dinero",speed:"⚡ Velocidad",big:"🐋 Tamaño",rare:"🎯 Rareza",easy:"😌 Facilidad",balance:"⚖️ Balance"},
+    compBest:"🥇 Mejor en este objetivo",
+    compTotalPrice:"Costo total",
     diff:{Abundant:"Muy Fácil",Common:"Fácil",Curious:"Moderado",Elusive:"Difícil",Fabled:"Muy Difícil",Mythic:"Extremo",Exotic:"Legendario"},
   },
   en: {
@@ -406,6 +595,30 @@ const LANG = {
     openSeaDesc:"Open Sea · Saltwater only · Special zones here",
     openSeaOnly:"⚠️ Special zones (Midas Rift, etc.) only appear in Open Sea",
     questReq:"Requires quest completion",
+    tabRanking:"🏆 Rankings",
+    rankGoal:"🎯 Playstyle Goal", rankBudget:"💵 Maximum Budget",
+    goalMoney:"Max Money", goalSpeed:"Fish Fast", goalBig:"Big Fish",
+    goalRare:"Rarest Fish", goalEasy:"Easy Minigame", goalBalance:"Balanced",
+    budgetAny:"No limit", budgetAll:"All",
+    budgetNote:"Combos over budget are shown dimmed",
+    rankScoreLbl:"Score",
+    descMoney:"<strong>Goal: Maximum Money.</strong> Prioritizes <strong>Luck</strong> (rarer fish = more value) and <strong>Big Catch Rate</strong> (heavier fish = more coins). Best combos pair high luck with BCR to maximize value per catch.",
+    descSpeed:"<strong>Goal: Fish Fast.</strong> Prioritizes <strong>Attraction</strong> (fish bite faster), <strong>Expertise</strong> (wider white bar = easier to complete) and <strong>Strength</strong> (fish shakes less). Great for farming volume.",
+    descBig:"<strong>Goal: Biggest Fish.</strong> Prioritizes <strong>Max Weight</strong> (unlocks heavier fish from the loot table) and <strong>Big Catch Rate</strong> (favors higher weights within that table).",
+    descRare:"<strong>Goal: Rarest Fish.</strong> Prioritizes pure <strong>Luck</strong> — directly increases the rarity of fish that appear. More luck = higher chance of Mythic and Exotic.",
+    descEasy:"<strong>Goal: Easy Minigame.</strong> Prioritizes <strong>Expertise</strong> (wider white bar) and <strong>Strength</strong> (fish shakes less). Great for beginners or when targeting hard fish.",
+    descBalance:"<strong>Goal: Balanced.</strong> Well-rounded combos across all stats. Performs well regardless of what fish or situation you face.",
+    rankTopLabel:"🏆 Top 10 —",
+    overBudget:"Over budget",
+    totalCost:"Total cost",
+    compTitle:"⚔️ Manual Combo Comparator",
+    compDesc:"Build up to 4 custom combos and compare them side by side across all goals.",
+    compAdd:"Add combo",
+    compSlotLabel:"Combo",
+    compResultsTitle:"📊 Comparison Results",
+    compGoalLabels:{money:"💰 Money",speed:"⚡ Speed",big:"🐋 Size",rare:"🎯 Rarity",easy:"😌 Ease",balance:"⚖️ Balance"},
+    compBest:"🥇 Best for this goal",
+    compTotalPrice:"Total cost",
     diff:{Abundant:"Very Easy",Common:"Easy",Curious:"Moderate",Elusive:"Hard",Fabled:"Very Hard",Mythic:"Extreme",Exotic:"Legendary"},
   }
 };
@@ -428,6 +641,9 @@ function toggleLang(){
   const rk=document.getElementById('rodSelect').value;
   if(rk) analyze();
   filterFish();
+  renderRanking();
+  renderCompSlots();
+  renderCompResults();
 }
 
 // ============================================================
@@ -683,11 +899,12 @@ const activeFilters={rarity:'All',island:'All',water:'All'};
 // ============================================================
 function switchTab(tab){
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['advisor','fishsearch'][i]===tab);
+    b.classList.toggle('active',['advisor','fishsearch','ranking'][i]===tab);
   });
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   if(tab==='fishsearch') filterFish();
+  if(tab==='ranking') renderRanking();
 }
 
 // ============================================================
@@ -952,6 +1169,340 @@ function renderFishCards(fish){
 }
 
 // ============================================================
+// RANKING TAB
+// ============================================================
+let currentGoal = 'money';
+let currentBudget = 999999999;
+
+// Line names for display
+const LINE_NAMES={basic:"Basic Line",aquamarine:"Aquamarine Line",carbon:"Carbon Line",heavyduty:"Heavy Duty Line",flavored:"Flavored Line",lucky:"Lucky Line",diamond:"Diamond Line",cerberus:"Fur of Cerberus"};
+const LINE_PRICES={basic:0,aquamarine:100,carbon:1000,heavyduty:4000,flavored:10000,lucky:10000,diamond:25000,cerberus:35000};
+const BOBBER_NAMES={basic:"Basic Bobber",paulie:"Paulie's Bobber",blue:"Blue Bobber",dud:"Dud Bobber",feline:"Feline Bobber",ornamental:"Ornamental Bobber",luckybobber:"Lucky Bobber",slime:"Rainbow Slime Bobber"};
+const BOBBER_PRICES={basic:0,paulie:100,blue:100,dud:1000,feline:2000,ornamental:10000,luckybobber:10000,slime:35000};
+
+// Scoring weights per goal
+const GOAL_WEIGHTS={
+  money:  {luck:0.50, str:0.05, exp:0.05, attr:0.10, bcr:0.25, mw:0.05},
+  speed:  {luck:0.05, str:0.25, exp:0.35, attr:0.30, bcr:0.00, mw:0.05},
+  big:    {luck:0.10, str:0.05, exp:0.05, attr:0.05, bcr:0.35, mw:0.40},
+  rare:   {luck:0.75, str:0.05, exp:0.05, attr:0.05, bcr:0.05, mw:0.05},
+  easy:   {luck:0.05, str:0.35, exp:0.45, attr:0.10, bcr:0.00, mw:0.05},
+  balance:{luck:0.20, str:0.15, exp:0.15, attr:0.20, bcr:0.15, mw:0.15},
+};
+
+// Normalization max values for scoring
+const STAT_MAX={luck:300, str:100, exp:100, attr:150, bcr:100, mw:Math.log(500000000+1)};
+
+function scoreCombo(rod, line, bob, goal){
+  const w=GOAL_WEIGHTS[goal];
+  const luck=Math.max(-100,rod.luck+line.luck+bob.luck);
+  const str=rod.str+line.str+bob.str;
+  const exp=rod.exp+line.exp+bob.exp;
+  const attr=rod.attr+line.attr+bob.attr;
+  const bcr=rod.bcr+line.bcr+bob.bcr;
+  const mw=rod.mw;
+  // Normalize each stat 0-100, penalize negatives
+  const n=(v,max)=>Math.max(0,Math.min(100,(v/max)*100));
+  const nMw=Math.max(0,Math.min(100,(Math.log(mw+1)/STAT_MAX.mw)*100));
+  const score=(
+    n(luck,STAT_MAX.luck)*w.luck+
+    n(str,STAT_MAX.str)*w.str+
+    n(exp,STAT_MAX.exp)*w.exp+
+    n(attr,STAT_MAX.attr)*w.attr+
+    n(bcr,STAT_MAX.bcr)*w.bcr+
+    nMw*w.mw
+  );
+  return{luck,str,exp,attr,bcr,mw,score:Math.round(score*10)/10};
+}
+
+function whyText(rodK, lineK, bobK, goal, stats){
+  const es=curLang==='es';
+  const rod=RODS[rodK], line=LINES[lineK], bob=BOBBERS[bobK];
+  const highlights=[];
+  if(goal==='money'||goal==='rare'){
+    if(stats.luck>0) highlights.push(es?`Luck total: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=200?'excepcional':stats.luck>=100?'excelente':stats.luck>=50?'bueno':'moderado'}`:`Total Luck: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=200?'exceptional':stats.luck>=100?'excellent':stats.luck>=50?'good':'moderate'}`);
+    if(goal==='money'&&stats.bcr>0) highlights.push(es?`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`:`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`);
+  }
+  if(goal==='speed'){
+    if(stats.attr>0) highlights.push(es?`Atracción: <strong>+${Math.round(stats.attr)}</strong> — los peces muerden ${stats.attr>=60?'muy rápido':'más rápido'}`:`Attraction: <strong>+${Math.round(stats.attr)}</strong> — fish bite ${stats.attr>=60?'very fast':'faster'}`);
+    if(stats.exp>0) highlights.push(es?`Experticia: <strong>+${Math.round(stats.exp)}</strong> — barra más grande`:`Expertise: <strong>+${Math.round(stats.exp)}</strong> — wider bar`);
+  }
+  if(goal==='big'){
+    highlights.push(es?`Max Weight: <strong>${fmtMw(stats.mw)}</strong>` : `Max Weight: <strong>${fmtMw(stats.mw)}</strong>`);
+    if(stats.bcr>0) highlights.push(es?`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`:`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`);
+  }
+  if(goal==='easy'){
+    if(stats.exp>0) highlights.push(es?`Experticia: <strong>+${Math.round(stats.exp)}</strong>`:`Expertise: <strong>+${Math.round(stats.exp)}</strong>`);
+    if(stats.str>0) highlights.push(es?`Fuerza: <strong>+${Math.round(stats.str)}</strong> — el pez tiembla menos`:`Strength: <strong>+${Math.round(stats.str)}</strong> — fish shakes less`);
+  }
+  if(goal==='balance'){
+    highlights.push(es?`Stats equilibrados en todos los aspectos`:`Balanced stats across all aspects`);
+  }
+  return highlights.join(' · ') || (es?'Buen combo general':'Good general combo');
+}
+
+function setGoal(goal, btn){
+  currentGoal=goal;
+  document.querySelectorAll('.goal-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRanking();
+  renderCompResults();
+}
+
+function setBudget(val, chip){
+  currentBudget=val;
+  document.querySelectorAll('.bchip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  document.getElementById('budgetCustom').value='';
+  renderRanking();
+}
+
+function setCustomBudget(){
+  const v=parseInt(document.getElementById('budgetCustom').value)||999999999;
+  currentBudget=v;
+  document.querySelectorAll('.bchip').forEach(c=>c.classList.remove('active'));
+  renderRanking();
+}
+
+function renderRanking(){
+  // Build all combos
+  const rodKeys=Object.keys(RODS);
+  const lineKeys=Object.keys(LINES);
+  const bobKeys=Object.keys(BOBBERS);
+  const combos=[];
+  rodKeys.forEach(rk=>{
+    lineKeys.forEach(lk=>{
+      bobKeys.forEach(bk=>{
+        const rod=RODS[rk], line=LINES[lk], bob=BOBBERS[bk];
+        const totalPrice=rod.price+LINE_PRICES[lk]+BOBBER_PRICES[bk];
+        const stats=scoreCombo(rod,line,bob,currentGoal);
+        combos.push({rk,lk,bk,rod,line,bob,totalPrice,stats,score:stats.score});
+      });
+    });
+  });
+  // Sort by score desc, deduplicate by rod (keep best line+bob per rod for variety + overall top)
+  combos.sort((a,b)=>b.score-a.score);
+  // Take top 10 unique rod combos + allow repeats if needed
+  const seen=new Set();
+  const top=[];
+  for(const c of combos){
+    if(top.length>=10) break;
+    const key=`${c.rk}-${c.lk}-${c.bk}`;
+    if(!seen.has(key)){seen.add(key);top.push(c);}
+  }
+
+  // Update goal description
+  const descKey='desc'+currentGoal.charAt(0).toUpperCase()+currentGoal.slice(1);
+  document.getElementById('goalDescBox').innerHTML=t(descKey)||'';
+
+  // Update title
+  const goalNames={money:t('goalMoney'),speed:t('goalSpeed'),big:t('goalBig'),rare:t('goalRare'),easy:t('goalEasy'),balance:t('goalBalance')};
+  document.getElementById('rankTitle').innerHTML=`${t('rankTopLabel')} ${goalNames[currentGoal]}`;
+
+  // Render cards
+  const list=document.getElementById('rankList');
+  list.innerHTML='';
+  top.forEach((c,i)=>{
+    const overBudget=c.totalPrice>currentBudget&&currentBudget<999999999;
+    const rankClass=i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'';
+    const numClass=i===0?'n1':i===1?'n2':i===2?'n3':'nN';
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':`#${i+1}`;
+    const why=whyText(c.rk,c.lk,c.bk,currentGoal,c.stats);
+    const priceStr=c.totalPrice===0?(curLang==='es'?'Gratis':'Free'):`$${c.totalPrice.toLocaleString()}`;
+    const rodPriceStr=c.rod.price===0?(curLang==='es'?'Gratis':'Free'):`$${c.rod.price.toLocaleString()}`;
+    const linePriceStr=LINE_PRICES[c.lk]===0?(curLang==='es'?'Gratis':'Free'):`$${LINE_PRICES[c.lk].toLocaleString()}`;
+    const bobPriceStr=BOBBER_PRICES[c.bk]===0?(curLang==='es'?'Gratis':'Free'):`$${BOBBER_PRICES[c.bk].toLocaleString()}`;
+    const es=curLang==='es';
+    // Build mini stats
+    const miniStats=[
+      {l:es?'Suerte':'Luck',    v:Math.round(c.stats.luck),  neg:c.stats.luck<0},
+      {l:es?'Fuerza':'Str',     v:Math.round(c.stats.str),   neg:c.stats.str<0},
+      {l:es?'Expert.':'Exp.',   v:Math.round(c.stats.exp),   neg:c.stats.exp<0},
+      {l:es?'Atrac.':'Attr.',   v:Math.round(c.stats.attr),  neg:c.stats.attr<0},
+      {l:'BCR',                  v:Math.round(c.stats.bcr)+'%',neg:false},
+      {l:'MaxW',                 v:fmtMw(c.stats.mw),         neg:false},
+    ].map(s=>`<div class="mini-stat">${s.l}: <span style="${s.neg?'color:var(--coral)':''}">${s.v}</span></div>`).join('');
+
+    const card=document.createElement('div');
+    card.className=`rank-card ${rankClass} ${overBudget?'over-budget':''}`;
+    card.style.animationDelay=`${i*.06}s`;
+    card.innerHTML=`
+      <div class="rank-inner">
+        <div class="rank-num ${numClass}">${medal}</div>
+        <div class="rank-info">
+          <div class="rank-combo">${c.rod.name}</div>
+          <div class="rank-pieces">
+            <span class="piece-tag piece-rod">🎣 ${c.rod.name} · ${rodPriceStr}</span>
+            <span class="piece-tag piece-line">🧵 ${LINE_NAMES[c.lk]} · ${linePriceStr}</span>
+            <span class="piece-tag piece-bob">🔵 ${BOBBER_NAMES[c.bk]} · ${bobPriceStr}</span>
+          </div>
+          <div class="rank-why">${why}</div>
+          <div class="price-total">${es?'Costo total':'Total cost'}: <strong>${priceStr}</strong>${overBudget?' — ⚠️ '+t('overBudget'):''}</div>
+        </div>
+        <div class="rank-score-col">
+          <div class="rank-score-val">${c.score}</div>
+          <div class="rank-score-lbl">${t('rankScoreLbl')}</div>
+        </div>
+      </div>
+      <div class="rank-stats-row">${miniStats}</div>`;
+    list.appendChild(card);
+  });
+}
+
+// ============================================================
+// COMPARATOR
+// ============================================================
+let compSlots=[];
+let compSlotId=0;
+
+function buildSelectHTML(id,type,selectedVal){
+  const options={
+    rod: Object.entries(RODS).map(([k,v])=>`<option value="${k}" ${selectedVal===k?'selected':''}>${v.name} ($${v.price.toLocaleString()})</option>`).join(''),
+    line: [
+      ['basic','Basic Line','0'],['aquamarine','Aquamarine Line','100'],['carbon','Carbon Line','1,000'],
+      ['heavyduty','Heavy Duty Line','4,000'],['flavored','Flavored Line','10,000'],
+      ['lucky','Lucky Line','10,000'],['diamond','Diamond Line','25,000'],['cerberus','Fur of Cerberus','35,000']
+    ].map(([k,n,p])=>`<option value="${k}" ${selectedVal===k?'selected':''}>${n} ($${p})</option>`).join(''),
+    bob: [
+      ['basic','Basic Bobber','0'],['paulie',"Paulie's Bobber",'100'],['blue','Blue Bobber','100'],
+      ['dud','Dud Bobber','1,000'],['feline','Feline Bobber','2,000'],['ornamental','Ornamental Bobber','10,000'],
+      ['luckybobber','Lucky Bobber','10,000'],['slime','Rainbow Slime Bobber','35,000']
+    ].map(([k,n,p])=>`<option value="${k}" ${selectedVal===k?'selected':''}>${n} ($${p})</option>`).join(''),
+  };
+  return `<select id="cmp_${type}_${id}" onchange="renderCompResults()">${options[type]}</select>`;
+}
+
+function addCompSlot(){
+  if(compSlots.length>=4) return;
+  const id=++compSlotId;
+  compSlots.push(id);
+  renderCompSlots();
+  renderCompResults();
+}
+
+function removeCompSlot(id){
+  compSlots=compSlots.filter(s=>s!==id);
+  renderCompSlots();
+  renderCompResults();
+}
+
+function renderCompSlots(){
+  const container=document.getElementById('compSlots');
+  const es=curLang==='es';
+  container.innerHTML='';
+  compSlots.forEach((id,i)=>{
+    const slot=document.createElement('div');
+    slot.className='comp-slot';
+    slot.innerHTML=`
+      <div class="comp-slot-num">${LANG[curLang].compSlotLabel} ${i+1}</div>
+      ${compSlots.length>1?`<span class="comp-remove" onclick="removeCompSlot(${id})">✕</span>`:''}
+      <label style="font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-family:Space Mono,monospace;display:block;margin-bottom:.3rem">🎣 ${es?'Caña':'Rod'}</label>
+      ${buildSelectHTML(id,'rod','slim')}
+      <label style="font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-family:Space Mono,monospace;display:block;margin-bottom:.3rem">🧵 ${es?'Sedal':'Line'}</label>
+      ${buildSelectHTML(id,'line','basic')}
+      <label style="font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-family:Space Mono,monospace;display:block;margin-bottom:.3rem">🔵 ${es?'Flotador':'Bobber'}</label>
+      ${buildSelectHTML(id,'bob','basic')}`;
+    container.appendChild(slot);
+  });
+  // Show/hide add button
+  document.getElementById('compAddBtn').style.display=compSlots.length>=4?'none':'flex';
+}
+
+function renderCompResults(){
+  const wrap=document.getElementById('compResultsWrap');
+  if(compSlots.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  const goals=['money','speed','big','rare','easy','balance'];
+  const goalLabels=LANG[curLang].compGoalLabels;
+  const goalColors={money:'#f0b429',speed:'#00c9b1',big:'#60efff',rare:'#c080ff',easy:'#6ddc88',balance:'#ffb850'};
+  const barColors={luck:'#00c9b1',str:'#ff6060',exp:'#c080ff',attr:'#f0b429',bcr:'#6ddc88'};
+
+  // Compute stats for each slot
+  const slotData=compSlots.map(id=>{
+    const rk=document.getElementById(`cmp_rod_${id}`)?.value||'slim';
+    const lk=document.getElementById(`cmp_line_${id}`)?.value||'basic';
+    const bk=document.getElementById(`cmp_bob_${id}`)?.value||'basic';
+    const rod=RODS[rk], line=LINES[lk], bob=BOBBERS[bk];
+    const totalPrice=rod.price+LINE_PRICES[lk]+BOBBER_PRICES[bk];
+    const allGoalScores={};
+    goals.forEach(g=>{allGoalScores[g]=scoreCombo(rod,line,bob,g).score;});
+    const stats=scoreCombo(rod,line,bob,currentGoal);
+    return{id,rk,lk,bk,rod,line,bob,totalPrice,stats,allGoalScores};
+  });
+
+  // Find best per goal
+  const bestPerGoal={};
+  goals.forEach(g=>{
+    bestPerGoal[g]=Math.max(...slotData.map(s=>s.allGoalScores[g]));
+  });
+
+  const STAT_DISPLAY_MAX={luck:300,str:120,exp:120,attr:160,bcr:100};
+
+  const grid=document.getElementById('compResults');
+  grid.innerHTML='';
+
+  // Sort by current goal score
+  const sorted=[...slotData].sort((a,b)=>b.allGoalScores[currentGoal]-a.allGoalScores[currentGoal]);
+
+  sorted.forEach((s,rank)=>{
+    const isBest=rank===0;
+    const cardClass=rank===0?'comp-best':rank===1?'comp-second':rank===2?'comp-third':'';
+    const card=document.createElement('div');
+    card.className=`comp-result-card ${cardClass}`;
+    card.style.animationDelay=`${rank*.08}s`;
+    const priceStr=s.totalPrice===0?(curLang==='es'?'Gratis':'Free'):`$${s.totalPrice.toLocaleString()}`;
+
+    // Stat bars
+    const statRows=[
+      {key:'luck',label:curLang==='es'?'Suerte':'Luck',val:s.stats.luck,color:barColors.luck},
+      {key:'str', label:curLang==='es'?'Fuerza':'Strength',val:s.stats.str,color:barColors.str},
+      {key:'exp', label:curLang==='es'?'Experticia':'Expertise',val:s.stats.exp,color:barColors.exp},
+      {key:'attr',label:curLang==='es'?'Atracción':'Attraction',val:s.stats.attr,color:barColors.attr},
+      {key:'bcr', label:'Big Catch',val:s.stats.bcr,color:barColors.bcr},
+    ].map(r=>{
+      const pct=Math.min(100,Math.max(0,(r.val/STAT_DISPLAY_MAX[r.key])*100)).toFixed(1);
+      const neg=r.val<0;
+      return `<div class="comp-bar-row">
+        <span class="comp-bar-name">${r.label}</span>
+        <div class="comp-bar-track"><div class="comp-bar-fill" style="width:${pct}%;background:${r.color}88"></div></div>
+        <span class="comp-bar-val${neg?' neg':''}">${Math.round(r.val)}${r.key==='bcr'?'%':''}</span>
+      </div>`;
+    }).join('');
+
+    // Per-goal scores
+    const goalRows=goals.map(g=>{
+      const isBestGoal=s.allGoalScores[g]===bestPerGoal[g]&&slotData.length>1;
+      return `<div class="comp-goal-row">
+        <span class="comp-goal-label">${goalLabels[g]}</span>
+        <span class="comp-goal-val${isBestGoal?' best-goal':''}">${s.allGoalScores[g]}${isBestGoal?' ★':''}</span>
+      </div>`;
+    }).join('');
+
+    const slotIdx=compSlots.indexOf(s.id)+1;
+    card.innerHTML=`
+      <div class="comp-result-header">
+        <div>
+          <div class="comp-result-name">${curLang==='es'?'Combo':'Combo'} ${slotIdx}: ${s.rod.name}</div>
+          <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;font-family:Space Mono,monospace">
+            ${LINE_NAMES[s.lk]} · ${BOBBER_NAMES[s.bk]}
+          </div>
+        </div>
+        <div style="text-align:right">
+          ${isBest&&slotData.length>1?`<div class="comp-winner-badge">🥇 #1</div>`:''}
+          <div class="comp-result-score">${s.allGoalScores[currentGoal]}</div>
+          <div style="font-size:.52rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;font-family:Space Mono,monospace">${LANG[curLang].compGoalLabels[currentGoal]}</div>
+        </div>
+      </div>
+      <div class="comp-stat-bars">${statRows}
+        <div style="margin-top:.4rem;font-family:Space Mono,monospace;font-size:.6rem;color:var(--text-dim)">MaxW: <span style="color:var(--teal)">${fmtMw(s.stats.mw)}</span></div>
+      </div>
+      <div class="comp-goal-scores">${goalRows}</div>
+      <div class="comp-total-price">💵 ${LANG[curLang].compTotalPrice}: <strong>${priceStr}</strong></div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ============================================================
 // BUBBLES
 // ============================================================
 function createBubbles(){
@@ -967,6 +1518,10 @@ function createBubbles(){
 buildEnchantList();
 createBubbles();
 filterFish();
+renderRanking();
+// Start comparator with 2 default slots
+addCompSlot();
+addCompSlot();
 </script>
 </body>
 </html>
