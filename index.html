@@ -219,6 +219,11 @@ select option{background:#0a1f3a;color:var(--text);}
 .price-total{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gold);margin-top:.2rem;}
 .over-budget .rank-inner{opacity:.45;}
 .over-budget{border-color:rgba(255,255,255,.05)!important;}
+/* Level toggle */
+.lv-toggle-wrap{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid var(--glass-border);position:relative;cursor:pointer;transition:background .2s,border-color .2s;flex-shrink:0;}
+.lv-toggle-wrap.on{background:rgba(0,201,177,.3);border-color:var(--teal);}
+.lv-toggle-knob{width:14px;height:14px;border-radius:50%;background:var(--text-dim);position:absolute;top:2px;left:2px;transition:transform .2s,background .2s;}
+.lv-toggle-wrap.on .lv-toggle-knob{transform:translateX(16px);background:var(--teal);}
 /* ===== COMPARATOR ===== */
 .comp-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,201,177,.3),transparent);margin:2.5rem 0;}
 .comp-section-title{font-family:'Cinzel Decorative',serif;font-size:.8rem;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
@@ -415,7 +420,7 @@ select option{background:#0a1f3a;color:var(--text);}
     <span class="filter-label" data-t="filterIsland">Isla:</span>
     <button class="fchip active" onclick="toggleFilter(this,'island','All')" data-t="all">Todas</button>
     <button class="fchip" onclick="toggleFilter(this,'island','coconut')">🌴 Coconut Bay</button>
-    <button class="fchip" onclick="toggleFilter(this,'island','crescent')">🌊 Crescent Isle</button>
+    <button class="fchip" onclick="toggleFilter(this,'island','crescent')">🏠 Crescent Isle</button>
     <button class="fchip" onclick="toggleFilter(this,'island','luxian')">🏜️ Luxian Dunes</button>
     <button class="fchip" onclick="toggleFilter(this,'island','tanglewood')">🌿 Tanglewood</button>
     <button class="fchip" onclick="toggleFilter(this,'island','volcanic')">🌋 Volcanic Depths</button>
@@ -480,6 +485,18 @@ select option{background:#0a1f3a;color:var(--text);}
       </div>
       <div style="margin-top:.8rem;font-size:.68rem;color:var(--text-dim)" data-t="budgetNote">
         Los combos fuera del presupuesto se muestran atenuados
+      </div>
+      <!-- Level 500 toggle -->
+      <div style="margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--glass-border)">
+        <label style="display:flex;align-items:center;gap:.6rem;cursor:pointer;user-select:none">
+          <div class="lv-toggle-wrap" id="lv500wrap" onclick="toggleLv500()">
+            <div class="lv-toggle-knob" id="lv500knob"></div>
+          </div>
+          <div>
+            <div style="font-size:.72rem;color:var(--text);font-weight:600" data-t="lv500label">¿Nivel 500+? (Rod of Perpetuity)</div>
+            <div style="font-size:.6rem;color:var(--text-dim);margin-top:.1rem" data-t="lv500desc">Actívalo para incluir la Rod of Perpetuity en el ranking</div>
+          </div>
+        </label>
       </div>
     </div>
   </div>
@@ -565,6 +582,8 @@ const LANG = {
     compGoalLabels:{money:"💰 Dinero",speed:"⚡ Velocidad",big:"🐋 Tamaño",rare:"🎯 Rareza",easy:"😌 Facilidad",balance:"⚖️ Balance"},
     compBest:"🥇 Mejor en este objetivo",
     compTotalPrice:"Costo total",
+    lv500label:"¿Nivel 500+? (Rod of Perpetuity)",
+    lv500desc:"Actívalo para incluir la Rod of Perpetuity en el ranking",
     diff:{Abundant:"Muy Fácil",Common:"Fácil",Curious:"Moderado",Elusive:"Difícil",Fabled:"Muy Difícil",Mythic:"Extremo",Exotic:"Legendario"},
   },
   en: {
@@ -619,6 +638,8 @@ const LANG = {
     compGoalLabels:{money:"💰 Money",speed:"⚡ Speed",big:"🐋 Size",rare:"🎯 Rarity",easy:"😌 Ease",balance:"⚖️ Balance"},
     compBest:"🥇 Best for this goal",
     compTotalPrice:"Total cost",
+    lv500label:"Level 500+? (Rod of Perpetuity)",
+    lv500desc:"Enable to include Rod of Perpetuity in the ranking",
     diff:{Abundant:"Very Easy",Common:"Easy",Curious:"Moderate",Elusive:"Hard",Fabled:"Very Hard",Mythic:"Extreme",Exotic:"Legendary"},
   }
 };
@@ -761,7 +782,7 @@ const ISLANDS=[
      {name:"Spineback Ray",rarity:"Exotic",water:"Saltwater",weather:"Any",time:"Any"},
      {name:"Dragonfly Fish",rarity:"Exotic",water:"Freshwater",weather:"Any",time:"Any"},
    ]},
-  {id:"crescent",name:"Crescent Isle",icon:"🌊",
+  {id:"crescent",name:"Crescent Isle",icon:"🏠",
    descEs:"Isla Salada · Solo agua de mar",descEn:"Salt Island · Saltwater only",
    waterTypes:["Saltwater"],specialZones:[],hasOpenSeaZones:false,
    rodShop:["speedy","fortunate"],
@@ -1175,6 +1196,13 @@ function renderFishCards(fish){
 // ============================================================
 let currentGoal = 'money';
 let currentBudget = 999999999;
+let isLv500 = false;
+
+function toggleLv500(){
+  isLv500=!isLv500;
+  document.getElementById('lv500wrap').classList.toggle('on', isLv500);
+  renderRanking();
+}
 
 // Line names for display
 const LINE_NAMES={basic:"Basic Line",aquamarine:"Aquamarine Line",carbon:"Carbon Line",heavyduty:"Heavy Duty Line",flavored:"Flavored Line",lucky:"Lucky Line",diamond:"Diamond Line",cerberus:"Fur of Cerberus"};
@@ -1279,6 +1307,8 @@ function renderRanking(){
         const totalPrice=rod.price+LINE_PRICES[lk]+BOBBER_PRICES[bk];
         // Hard filter: skip combos over budget (unless budget is "All")
         if(currentBudget<999999999 && totalPrice>currentBudget) return;
+        // Skip Rod of Perpetuity if player is not level 500+
+        if(rk==='perpetuity' && !isLv500) return;
         const stats=scoreCombo(rod,line,bob,currentGoal);
         combos.push({rk,lk,bk,rod,line,bob,totalPrice,stats,score:stats.score});
       });
