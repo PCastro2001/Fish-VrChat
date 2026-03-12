@@ -1006,14 +1006,16 @@ function getBestFish(island,stats){
 function getUpgrades(rodKey,price){
   const T=curLang==='es';
   const arr=[];
-  if(price<10000) arr.push({i:'🎣',txt:T?'Siguiente caña: <strong>Slim Rod</strong> — +20 suerte, +25 atracción ($10,000)':'Next rod: <strong>Slim Rod</strong> — +20 luck, +25 attraction ($10,000)'});
-  else if(price<25000) arr.push({i:'🎣',txt:T?'<strong>Darkwood Rod</strong> +30 suerte, +30 atracción ($25,000)':'<strong>Darkwood Rod</strong> +30 luck, +30 attraction ($25,000)'});
-  else if(price<75000) arr.push({i:'🎣',txt:T?'<strong>Fortunate Rod</strong> +100 suerte, +65 Big Catch ($75,000)':'<strong>Fortunate Rod</strong> +100 luck, +65 Big Catch ($75,000)'});
-  else if(price<200000) arr.push({i:'🛸',txt:T?'<strong>Alien Rod</strong>: Max Weight enorme + buena suerte ($200,000)':'<strong>Alien Rod</strong>: huge Max Weight + good luck ($200,000)'});
-  else if(price<700000) arr.push({i:'⚔️',txt:T?'<strong>Runesteel</strong> o <strong>Rod of the Pharaoh</strong> para peces récord':'<strong>Runesteel</strong> or <strong>Rod of the Pharaoh</strong> for record fish'});
-  arr.push({i:'🎯',txt:T?'<strong>Lucky Line</strong> +30 suerte o <strong>Diamond Line</strong> +25 suerte':'<strong>Lucky Line</strong> +30 luck or <strong>Diamond Line</strong> +25 luck'});
-  arr.push({i:'🔵',txt:T?'<strong>Lucky Bobber</strong> +40 suerte — mejor relación precio/suerte ($10,000)':'<strong>Lucky Bobber</strong> +40 luck — best price/luck ratio ($10,000)'});
-  arr.push({i:'✨',txt:T?'Encantamiento <strong>God\'s Own Luck</strong> (+250 suerte)':'<strong>God\'s Own Luck</strong> enchant (+250 luck)'});
+  if(price<10000)       arr.push({i:'🎣',txt:T?'Siguiente caña: <strong>Slim Rod</strong> — +20 suerte, +25 atracción ($10,000) · <em>🌴 Coconut Bay</em>':'Next rod: <strong>Slim Rod</strong> — +20 luck, +25 attraction ($10,000) · <em>🌴 Coconut Bay</em>'});
+  else if(price<25000)  arr.push({i:'🎣',txt:T?'<strong>Darkwood Rod</strong> +30 suerte, +30 atracción ($25,000) · <em>🌿 Tanglewood Creek</em>':'<strong>Darkwood Rod</strong> +30 luck, +30 attraction ($25,000) · <em>🌿 Tanglewood Creek</em>'});
+  else if(price<55000)  arr.push({i:'🎣',txt:T?'<strong>Speedy Rod</strong> +60 atracción, pescar muy rápido ($55,000) · <em>🌊 Crescent Isle</em>':'<strong>Speedy Rod</strong> +60 attraction, fish very fast ($55,000) · <em>🌊 Crescent Isle</em>'});
+  else if(price<75000)  arr.push({i:'🎣',txt:T?'<strong>Fortunate Rod</strong> +100 suerte, +65 Big Catch ($75,000) · <em>🌊 Crescent Isle</em>':'<strong>Fortunate Rod</strong> +100 luck, +65 Big Catch ($75,000) · <em>🌊 Crescent Isle</em>'});
+  else if(price<200000) arr.push({i:'🛸',txt:T?'<strong>Alien Rod</strong>: Max Weight enorme + buena suerte ($200,000) · <em>🛒 Tienda general</em>':'<strong>Alien Rod</strong>: huge Max Weight + good luck ($200,000) · <em>🛒 General shop</em>'});
+  else if(price<250000) arr.push({i:'⚔️',txt:T?'<strong>Rustfang Rod</strong> +70 suerte, +35 Max Weight ($250,000) · <em>🏜️ Luxian Dunes</em>':'<strong>Rustfang Rod</strong> +70 luck, +35 BCR ($250,000) · <em>🏜️ Luxian Dunes</em>'});
+  else if(price<750000) arr.push({i:'👑',txt:T?'<strong>Rod of the Pharaoh</strong> +222 suerte — el mayor Luck del juego ($750,000) · <em>🏜️ Luxian Dunes</em>':'<strong>Rod of the Pharaoh</strong> +222 luck — highest Luck in game ($750,000) · <em>🏜️ Luxian Dunes</em>'});
+  arr.push({i:'🧵',txt:T?'<strong>Lucky Line</strong> +30 suerte ($10,000) o <strong>Diamond Line</strong> +25 suerte ($25,000) · <em>🛒 Tienda general</em>':'<strong>Lucky Line</strong> +30 luck ($10,000) or <strong>Diamond Line</strong> +25 luck ($25,000) · <em>🛒 General shop</em>'});
+  arr.push({i:'🔵',txt:T?'<strong>Lucky Bobber</strong> +40 suerte ($10,000) — mejor relación precio/suerte · <em>🛒 Tienda general</em>':'<strong>Lucky Bobber</strong> +40 luck ($10,000) — best price/luck ratio · <em>🛒 General shop</em>'});
+  arr.push({i:'✨',txt:T?'Encantamiento <strong>God\'s Own Luck</strong> (+250 suerte) — drop aleatorio':'<strong>God\'s Own Luck</strong> enchant (+250 luck) — random drop'});
   return arr.slice(0,4);
 }
 
@@ -1275,14 +1277,15 @@ function renderRanking(){
       bobKeys.forEach(bk=>{
         const rod=RODS[rk], line=LINES[lk], bob=BOBBERS[bk];
         const totalPrice=rod.price+LINE_PRICES[lk]+BOBBER_PRICES[bk];
+        // Hard filter: skip combos over budget (unless budget is "All")
+        if(currentBudget<999999999 && totalPrice>currentBudget) return;
         const stats=scoreCombo(rod,line,bob,currentGoal);
         combos.push({rk,lk,bk,rod,line,bob,totalPrice,stats,score:stats.score});
       });
     });
   });
-  // Sort by score desc, deduplicate by rod (keep best line+bob per rod for variety + overall top)
+  // Sort by score desc, take top 10 unique combos
   combos.sort((a,b)=>b.score-a.score);
-  // Take top 10 unique rod combos + allow repeats if needed
   const seen=new Set();
   const top=[];
   for(const c of combos){
@@ -1297,13 +1300,57 @@ function renderRanking(){
 
   // Update title
   const goalNames={money:t('goalMoney'),speed:t('goalSpeed'),big:t('goalBig'),rare:t('goalRare'),easy:t('goalEasy'),balance:t('goalBalance')};
-  document.getElementById('rankTitle').innerHTML=`${t('rankTopLabel')} ${goalNames[currentGoal]}`;
+  const budgetLabel=currentBudget<999999999?` — ${curLang==='es'?'Presupuesto':'Budget'}: $${currentBudget.toLocaleString()}`:'';
+  document.getElementById('rankTitle').innerHTML=`${t('rankTopLabel')} ${goalNames[currentGoal]}${budgetLabel}`;
 
   // Render cards
   const list=document.getElementById('rankList');
   list.innerHTML='';
+
+  if(top.length===0){
+    list.innerHTML=`<div class="rank-empty"><span style="font-size:3rem;display:block;margin-bottom:.7rem;opacity:.3">💸</span><p style="font-size:.85rem">${curLang==='es'?'Ningún combo cabe en ese presupuesto. Intenta aumentarlo.':'No combos fit that budget. Try increasing it.'}</p></div>`;
+    return;
+  }
+
+  // Where to buy each rod
+  const ROD_ISLAND={
+    stick:'—', sunleaf:curLang==='es'?'🌴 Coconut Bay (tienda de venta)':'🌴 Coconut Bay (sell shop)',
+    toy:curLang==='es'?'🌴 Coconut Bay':'🌴 Coconut Bay',
+    sturdy:curLang==='es'?'🌴 Coconut Bay':'🌴 Coconut Bay',
+    slim:curLang==='es'?'🌴 Coconut Bay':'🌴 Coconut Bay',
+    telescopic:curLang==='es'?'🌴 Coconut Bay':'🌴 Coconut Bay',
+    metallic:curLang==='es'?'🌴 Coconut Bay':'🌴 Coconut Bay',
+    darkwood:curLang==='es'?'🌿 Tanglewood Creek':'🌿 Tanglewood Creek',
+    speedy:curLang==='es'?'🌊 Crescent Isle':'🌊 Crescent Isle',
+    fortunate:curLang==='es'?'🌊 Crescent Isle':'🌊 Crescent Isle',
+    alien:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    rustfang:curLang==='es'?'🏜️ Luxian Dunes':'🏜️ Luxian Dunes',
+    runesteel:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    pharaoh:curLang==='es'?'🏜️ Luxian Dunes':'🏜️ Luxian Dunes',
+    perpetuity:curLang==='es'?'🏆 Nivel 500':'🏆 Level 500',
+  };
+  const LINE_ISLAND={
+    basic:curLang==='es'?'🌴 Coconut Bay (inicio)':'🌴 Coconut Bay (start)',
+    aquamarine:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    carbon:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    heavyduty:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    flavored:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    lucky:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    diamond:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    cerberus:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+  };
+  const BOB_ISLAND={
+    basic:curLang==='es'?'🌴 Coconut Bay (inicio)':'🌴 Coconut Bay (start)',
+    paulie:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    blue:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    dud:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    feline:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    ornamental:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    luckybobber:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+    slime:curLang==='es'?'🛒 Tienda general':'🛒 General shop',
+  };
+
   top.forEach((c,i)=>{
-    const overBudget=c.totalPrice>currentBudget&&currentBudget<999999999;
     const rankClass=i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'';
     const numClass=i===0?'n1':i===1?'n2':i===2?'n3':'nN';
     const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':`#${i+1}`;
@@ -1313,18 +1360,17 @@ function renderRanking(){
     const linePriceStr=LINE_PRICES[c.lk]===0?(curLang==='es'?'Gratis':'Free'):`$${LINE_PRICES[c.lk].toLocaleString()}`;
     const bobPriceStr=BOBBER_PRICES[c.bk]===0?(curLang==='es'?'Gratis':'Free'):`$${BOBBER_PRICES[c.bk].toLocaleString()}`;
     const es=curLang==='es';
-    // Build mini stats
     const miniStats=[
-      {l:es?'Suerte':'Luck',    v:Math.round(c.stats.luck),  neg:c.stats.luck<0},
-      {l:es?'Fuerza':'Str',     v:Math.round(c.stats.str),   neg:c.stats.str<0},
-      {l:es?'Expert.':'Exp.',   v:Math.round(c.stats.exp),   neg:c.stats.exp<0},
-      {l:es?'Atrac.':'Attr.',   v:Math.round(c.stats.attr),  neg:c.stats.attr<0},
-      {l:'BCR',                  v:Math.round(c.stats.bcr)+'%',neg:false},
-      {l:'MaxW',                 v:fmtMw(c.stats.mw),         neg:false},
+      {l:es?'Suerte':'Luck',  v:Math.round(c.stats.luck), neg:c.stats.luck<0},
+      {l:es?'Fuerza':'Str',   v:Math.round(c.stats.str),  neg:c.stats.str<0},
+      {l:es?'Expert.':'Exp.', v:Math.round(c.stats.exp),  neg:c.stats.exp<0},
+      {l:es?'Atrac.':'Attr.', v:Math.round(c.stats.attr), neg:c.stats.attr<0},
+      {l:'BCR',                v:Math.round(c.stats.bcr)+'%',neg:false},
+      {l:'MaxW',               v:fmtMw(c.stats.mw),        neg:false},
     ].map(s=>`<div class="mini-stat">${s.l}: <span style="${s.neg?'color:var(--coral)':''}">${s.v}</span></div>`).join('');
 
     const card=document.createElement('div');
-    card.className=`rank-card ${rankClass} ${overBudget?'over-budget':''}`;
+    card.className=`rank-card ${rankClass}`;
     card.style.animationDelay=`${i*.06}s`;
     card.innerHTML=`
       <div class="rank-inner">
@@ -1332,12 +1378,23 @@ function renderRanking(){
         <div class="rank-info">
           <div class="rank-combo">${c.rod.name}</div>
           <div class="rank-pieces">
-            <span class="piece-tag piece-rod">🎣 ${c.rod.name} · ${rodPriceStr}</span>
-            <span class="piece-tag piece-line">🧵 ${LINE_NAMES[c.lk]} · ${linePriceStr}</span>
-            <span class="piece-tag piece-bob">🔵 ${BOBBER_NAMES[c.bk]} · ${bobPriceStr}</span>
+            <div style="display:flex;flex-direction:column;gap:.28rem;margin-bottom:.35rem">
+              <div style="display:flex;align-items:center;gap:.35rem;flex-wrap:wrap">
+                <span class="piece-tag piece-rod">🎣 ${c.rod.name} · ${rodPriceStr}</span>
+                <span style="font-size:.58rem;color:var(--text-dim);font-family:Space Mono,monospace">${ROD_ISLAND[c.rk]||''}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.35rem;flex-wrap:wrap">
+                <span class="piece-tag piece-line">🧵 ${LINE_NAMES[c.lk]} · ${linePriceStr}</span>
+                <span style="font-size:.58rem;color:var(--text-dim);font-family:Space Mono,monospace">${LINE_ISLAND[c.lk]||''}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.35rem;flex-wrap:wrap">
+                <span class="piece-tag piece-bob">🔵 ${BOBBER_NAMES[c.bk]} · ${bobPriceStr}</span>
+                <span style="font-size:.58rem;color:var(--text-dim);font-family:Space Mono,monospace">${BOB_ISLAND[c.bk]||''}</span>
+              </div>
+            </div>
           </div>
           <div class="rank-why">${why}</div>
-          <div class="price-total">${es?'Costo total':'Total cost'}: <strong>${priceStr}</strong>${overBudget?' — ⚠️ '+t('overBudget'):''}</div>
+          <div class="price-total">${es?'Costo total':'Total cost'}: <strong>${priceStr}</strong></div>
         </div>
         <div class="rank-score-col">
           <div class="rank-score-val">${c.score}</div>
