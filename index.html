@@ -267,6 +267,58 @@ select option{background:#0a1f3a;color:var(--text);}
 <body>
 <div class="bubbles" id="bubbles"></div>
 
+<!-- ===== CREATOR BANNER ===== -->
+<div style="
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem .9rem;
+  background: rgba(0,201,177,.06);
+  border-bottom: 1px solid rgba(0,201,177,.15);
+  position: relative;
+  z-index: 2;
+">
+  <!-- 👇 Reemplaza 'TU_FOTO.jpg' con el nombre de tu imagen (debe estar en la misma carpeta) -->
+  <img
+    src="TU_FOTO.jpg"
+    alt="Jeffrey Fox"
+    style="
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0,201,177,.6);
+      box-shadow: 0 0 14px rgba(0,201,177,.3);
+      flex-shrink: 0;
+    "
+    onerror="this.style.display='none'"
+  >
+  <div style="line-height:1.4">
+    <div style="font-size:.56rem;font-family:'Space Mono',monospace;color:var(--text-dim);text-transform:uppercase;letter-spacing:.14em;" data-t="createdBy">Creado por</div>
+    <a
+      href="https://vrchat.com/home/user/usr_5d6434f0-0b0e-400b-a92e-3f713ff634ec"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        font-family:'Cinzel Decorative',cursive;
+        font-size:.95rem;
+        font-weight:700;
+        color: var(--teal);
+        text-decoration: none;
+        letter-spacing:.04em;
+        text-shadow: 0 0 14px rgba(0,201,177,.4);
+        transition: color .2s, text-shadow .2s;
+        display:inline-block;
+      "
+      onmouseover="this.style.color='#60efff';this.style.textShadow='0 0 22px rgba(96,239,255,.6)'"
+      onmouseout="this.style.color='var(--teal)';this.style.textShadow='0 0 14px rgba(0,201,177,.4)'"
+    >Jeffrey Fox
+      <span style="font-family:'Space Mono',monospace;font-size:.55rem;color:var(--text-dim);font-weight:400;letter-spacing:.06em;margin-left:.5rem;vertical-align:middle" data-t="vrProfileLink">🌐 VRChat</span>
+    </a>
+  </div>
+</div>
+
 <header>
   <div class="header-top">
     <span class="fish-icon">🎣</span>
@@ -593,6 +645,8 @@ const LANG = {
     sortBy:"Ordenar por:",
     sortAvg:"Promedio", sortGoal:"Objetivo activo",
     sortLuck:"Suerte", sortStr:"Fuerza", sortExp:"Experticia", sortAttr:"Atracción", sortBcr:"Big Catch", sortMw:"Max Weight",
+    createdBy:"Creado por",
+    vrProfileLink:"🌐 Ver perfil en VRChat",
     diff:{Abundant:"Muy Fácil",Common:"Fácil",Curious:"Moderado",Elusive:"Difícil",Fabled:"Muy Difícil",Mythic:"Extremo",Exotic:"Legendario"},
   },
   en: {
@@ -652,6 +706,8 @@ const LANG = {
     sortBy:"Sort by:",
     sortAvg:"Average", sortGoal:"Active goal",
     sortLuck:"Luck", sortStr:"Strength", sortExp:"Expertise", sortAttr:"Attraction", sortBcr:"Big Catch", sortMw:"Max Weight",
+    createdBy:"Created by",
+    vrProfileLink:"🌐 View VRChat profile",
     diff:{Abundant:"Very Easy",Common:"Easy",Curious:"Moderate",Elusive:"Hard",Fabled:"Very Hard",Mythic:"Extreme",Exotic:"Legendary"},
   }
 };
@@ -1681,5 +1737,6 @@ renderRanking();
 addCompSlot();
 addCompSlot();
 </script>
+
 </body>
 </html>
