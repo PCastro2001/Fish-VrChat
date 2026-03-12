@@ -1462,7 +1462,7 @@ function buildSelectHTML(id,type,selectedVal){
 }
 
 function addCompSlot(){
-  if(compSlots.length>=4) return;
+  if(compSlots.length>=10) return;
   const id=++compSlotId;
   compSlots.push(id);
   renderCompSlots();
@@ -1494,7 +1494,7 @@ function renderCompSlots(){
     container.appendChild(slot);
   });
   // Show/hide add button
-  document.getElementById('compAddBtn').style.display=compSlots.length>=4?'none':'flex';
+  document.getElementById('compAddBtn').style.display=compSlots.length>=10?'none':'flex';
 }
 
 function renderCompResults(){
@@ -1503,8 +1503,9 @@ function renderCompResults(){
   wrap.style.display='block';
   const goals=['money','speed','big','rare','easy','balance'];
   const goalLabels=LANG[curLang].compGoalLabels;
-  const goalColors={money:'#f0b429',speed:'#00c9b1',big:'#60efff',rare:'#c080ff',easy:'#6ddc88',balance:'#ffb850'};
+  const goalIcon={money:'💰',speed:'⚡',big:'🐋',rare:'🎯',easy:'😌',balance:'⚖️'};
   const barColors={luck:'#00c9b1',str:'#ff6060',exp:'#c080ff',attr:'#f0b429',bcr:'#6ddc88'};
+  const es=curLang==='es';
 
   // Compute stats for each slot
   const slotData=compSlots.map(id=>{
@@ -1515,39 +1516,41 @@ function renderCompResults(){
     const totalPrice=rod.price+LINE_PRICES[lk]+BOBBER_PRICES[bk];
     const allGoalScores={};
     goals.forEach(g=>{allGoalScores[g]=scoreCombo(rod,line,bob,g).score;});
+    // Average across all 6 goals
+    const avg=Math.round((goals.reduce((sum,g)=>sum+allGoalScores[g],0)/goals.length)*10)/10;
     const stats=scoreCombo(rod,line,bob,currentGoal);
-    return{id,rk,lk,bk,rod,line,bob,totalPrice,stats,allGoalScores};
+    return{id,rk,lk,bk,rod,line,bob,totalPrice,stats,allGoalScores,avg};
   });
 
-  // Find best per goal
+  // Find best per goal and best average (for ★ markers)
   const bestPerGoal={};
-  goals.forEach(g=>{
-    bestPerGoal[g]=Math.max(...slotData.map(s=>s.allGoalScores[g]));
-  });
+  goals.forEach(g=>{ bestPerGoal[g]=Math.max(...slotData.map(s=>s.allGoalScores[g])); });
+  const bestAvg=Math.max(...slotData.map(s=>s.avg));
 
   const STAT_DISPLAY_MAX={luck:300,str:120,exp:120,attr:160,bcr:100};
-
   const grid=document.getElementById('compResults');
   grid.innerHTML='';
 
-  // Sort by current goal score
+  // Sort by the ACTIVE GOAL — this determines winner
   const sorted=[...slotData].sort((a,b)=>b.allGoalScores[currentGoal]-a.allGoalScores[currentGoal]);
+  const activeGoalLabel=`${goalIcon[currentGoal]} ${goalLabels[currentGoal]}`;
 
   sorted.forEach((s,rank)=>{
-    const isBest=rank===0;
     const cardClass=rank===0?'comp-best':rank===1?'comp-second':rank===2?'comp-third':'';
+    const medal=rank===0?'🥇':rank===1?'🥈':rank===2?'🥉':`#${rank+1}`;
+    const isBestAvg=slotData.length>1&&s.avg===bestAvg;
     const card=document.createElement('div');
     card.className=`comp-result-card ${cardClass}`;
-    card.style.animationDelay=`${rank*.08}s`;
-    const priceStr=s.totalPrice===0?(curLang==='es'?'Gratis':'Free'):`$${s.totalPrice.toLocaleString()}`;
+    card.style.animationDelay=`${rank*.05}s`;
+    const priceStr=s.totalPrice===0?(es?'Gratis':'Free'):`$${s.totalPrice.toLocaleString()}`;
 
     // Stat bars
     const statRows=[
-      {key:'luck',label:curLang==='es'?'Suerte':'Luck',val:s.stats.luck,color:barColors.luck},
-      {key:'str', label:curLang==='es'?'Fuerza':'Strength',val:s.stats.str,color:barColors.str},
-      {key:'exp', label:curLang==='es'?'Experticia':'Expertise',val:s.stats.exp,color:barColors.exp},
-      {key:'attr',label:curLang==='es'?'Atracción':'Attraction',val:s.stats.attr,color:barColors.attr},
-      {key:'bcr', label:'Big Catch',val:s.stats.bcr,color:barColors.bcr},
+      {key:'luck', label:es?'Suerte':'Luck',      val:s.stats.luck, color:barColors.luck},
+      {key:'str',  label:es?'Fuerza':'Strength',   val:s.stats.str,  color:barColors.str},
+      {key:'exp',  label:es?'Expert.':'Expertise', val:s.stats.exp,  color:barColors.exp},
+      {key:'attr', label:es?'Atrac.':'Attraction', val:s.stats.attr, color:barColors.attr},
+      {key:'bcr',  label:'Big Catch',              val:s.stats.bcr,  color:barColors.bcr},
     ].map(r=>{
       const pct=Math.min(100,Math.max(0,(r.val/STAT_DISPLAY_MAX[r.key])*100)).toFixed(1);
       const neg=r.val<0;
@@ -1558,34 +1561,46 @@ function renderCompResults(){
       </div>`;
     }).join('');
 
-    // Per-goal scores
+    // Per-goal score rows — highlight active goal and individual goal winners
     const goalRows=goals.map(g=>{
-      const isBestGoal=s.allGoalScores[g]===bestPerGoal[g]&&slotData.length>1;
-      return `<div class="comp-goal-row">
-        <span class="comp-goal-label">${goalLabels[g]}</span>
+      const isBestGoal=slotData.length>1&&s.allGoalScores[g]===bestPerGoal[g];
+      const isActive=g===currentGoal;
+      return `<div class="comp-goal-row" style="${isActive?'background:rgba(0,201,177,.08);border-radius:5px;padding:0 .3rem;margin:0 -.3rem':''}">
+        <span class="comp-goal-label" style="${isActive?'color:var(--teal);font-weight:600':''}">
+          ${goalIcon[g]} ${goalLabels[g]}
+        </span>
         <span class="comp-goal-val${isBestGoal?' best-goal':''}">${s.allGoalScores[g]}${isBestGoal?' ★':''}</span>
       </div>`;
     }).join('');
+
+    // Average row at the bottom
+    const avgRow=`<div class="comp-goal-row" style="border-top:1px solid var(--glass-border);margin-top:.35rem;padding-top:.35rem">
+      <span class="comp-goal-label" style="color:var(--text);font-weight:600">📊 ${es?'Promedio Total':'Total Average'}</span>
+      <span class="comp-goal-val${isBestAvg?' best-goal':''}" style="font-size:.72rem;font-weight:700">${s.avg}${isBestAvg&&slotData.length>1?' ★':''}</span>
+    </div>`;
 
     const slotIdx=compSlots.indexOf(s.id)+1;
     card.innerHTML=`
       <div class="comp-result-header">
         <div>
-          <div class="comp-result-name">${curLang==='es'?'Combo':'Combo'} ${slotIdx}: ${s.rod.name}</div>
-          <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;font-family:Space Mono,monospace">
+          <div style="font-size:.6rem;font-family:Space Mono,monospace;color:var(--text-dim);margin-bottom:.2rem">${medal} ${es?'Combo':'Combo'} ${slotIdx}</div>
+          <div class="comp-result-name">${s.rod.name}</div>
+          <div style="font-size:.58rem;color:var(--text-dim);margin-top:.2rem;font-family:Space Mono,monospace">
             ${LINE_NAMES[s.lk]} · ${BOBBER_NAMES[s.bk]}
           </div>
         </div>
         <div style="text-align:right">
-          ${isBest&&slotData.length>1?`<div class="comp-winner-badge">🥇 #1</div>`:''}
           <div class="comp-result-score">${s.allGoalScores[currentGoal]}</div>
-          <div style="font-size:.52rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;font-family:Space Mono,monospace">${LANG[curLang].compGoalLabels[currentGoal]}</div>
+          <div style="font-size:.52rem;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;font-family:Space Mono,monospace">${activeGoalLabel}</div>
+          <div style="font-size:.6rem;font-family:Space Mono,monospace;color:var(--text-dim);margin-top:.3rem">
+            ${es?'Prom.':'Avg.'}: <strong style="color:${isBestAvg&&slotData.length>1?'var(--gold)':'var(--text)'}">${s.avg}</strong>${isBestAvg&&slotData.length>1?' 🏆':''}
+          </div>
         </div>
       </div>
       <div class="comp-stat-bars">${statRows}
         <div style="margin-top:.4rem;font-family:Space Mono,monospace;font-size:.6rem;color:var(--text-dim)">MaxW: <span style="color:var(--teal)">${fmtMw(s.stats.mw)}</span></div>
       </div>
-      <div class="comp-goal-scores">${goalRows}</div>
+      <div class="comp-goal-scores">${goalRows}${avgRow}</div>
       <div class="comp-total-price">💵 ${LANG[curLang].compTotalPrice}: <strong>${priceStr}</strong></div>`;
     grid.appendChild(card);
   });
