@@ -395,16 +395,16 @@ select option{background:#0a1f3a;color:var(--text);}
         <div class="sbox" id="sboxLuck"><div class="sval" id="svLuck">0</div><div class="slbl" data-t="stLuck">Suerte</div></div>
         <div class="sbox" id="sboxStr"><div class="sval" id="svStr">0</div><div class="slbl" data-t="stStr">Fuerza</div></div>
         <div class="sbox" id="sboxExp"><div class="sval" id="svExp">0</div><div class="slbl" data-t="stExp">Experticia</div></div>
-        <div class="sbox" id="sboxAttr"><div class="sval" id="svAttr">0</div><div class="slbl" data-t="stAttr">Atracción</div></div>
-        <div class="sbox" id="sboxBcr"><div class="sval" id="svBcr">0%</div><div class="slbl">Big Catch</div></div>
+        <div class="sbox" id="sboxAttr"><div class="sval" id="svAttr">0%</div><div class="slbl" data-t="stAttr">Atracción</div></div>
+        <div class="sbox" id="sboxBcr"><div class="sval" id="svBcr">0</div><div class="slbl">Big Catch</div></div>
         <div class="sbox"><div class="sval" id="svMw">0</div><div class="slbl">Max Weight</div></div>
       </div>
       <div class="sbars">
         <div class="sbar-row"><span class="sbar-name" data-t="stLuck">Suerte</span><div class="sbar-track"><div class="sbar-fill" id="barLuck" style="background:linear-gradient(90deg,#00c9b1,#60efff)"></div></div><span class="sbar-v" id="barLuckV">0</span></div>
         <div class="sbar-row"><span class="sbar-name" data-t="stStr">Fuerza</span><div class="sbar-track"><div class="sbar-fill" id="barStr" style="background:linear-gradient(90deg,#ff6b6b,#ff9090)"></div></div><span class="sbar-v" id="barStrV">0</span></div>
         <div class="sbar-row"><span class="sbar-name" data-t="stExp">Experticia</span><div class="sbar-track"><div class="sbar-fill" id="barExp" style="background:linear-gradient(90deg,#a78bfa,#d080ff)"></div></div><span class="sbar-v" id="barExpV">0</span></div>
-        <div class="sbar-row"><span class="sbar-name" data-t="stAttr">Atracción</span><div class="sbar-track"><div class="sbar-fill" id="barAttr" style="background:linear-gradient(90deg,#f0b429,#ffd96e)"></div></div><span class="sbar-v" id="barAttrV">0</span></div>
-        <div class="sbar-row"><span class="sbar-name">Big Catch</span><div class="sbar-track"><div class="sbar-fill" id="barBcr" style="background:linear-gradient(90deg,#56c45e,#aada9e)"></div></div><span class="sbar-v" id="barBcrV">0%</span></div>
+        <div class="sbar-row"><span class="sbar-name" data-t="stAttr">Atracción</span><div class="sbar-track"><div class="sbar-fill" id="barAttr" style="background:linear-gradient(90deg,#f0b429,#ffd96e)"></div></div><span class="sbar-v" id="barAttrV">0%</span></div>
+        <div class="sbar-row"><span class="sbar-name">Big Catch</span><div class="sbar-track"><div class="sbar-fill" id="barBcr" style="background:linear-gradient(90deg,#56c45e,#aada9e)"></div></div><span class="sbar-v" id="barBcrV">0</span></div>
       </div>
       <div class="mw-box"><div class="mw-lbl">Max Weight</div><div class="mw-val" id="mwDisplay">0 kg</div></div>
     </div>
@@ -738,7 +738,7 @@ const BOBBERS={
 };
 const ENCHANTMENTS=[
   // Common
-  {id:"trashwrangler",name:"Trash Wrangler",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:20, mwB:0,         special:null},
+  {id:"trashwrangler",name:"Trash Wrangler",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:20, bcr:0,  mwB:0,         special:null},
   {id:"lazy",         name:"Lazy",                rarity:"Common",   luck:0,   str:10, exp:10,  attr:-75,bcr:10, mwB:0,         special:null},
   {id:"bigcatch",     name:"Big Catch Boost",     rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null},
   {id:"expert",       name:"Expert",              rarity:"Common",   luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:null},
@@ -755,7 +755,7 @@ const ENCHANTMENTS=[
   {id:"daywalker",    name:"Day Walker",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"day"},
   {id:"fogdweller",   name:"Fog Dweller",         rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"fog"},
   {id:"rainlover",    name:"Rain Lover",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"rain"},
-  {id:"impatient",    name:"Impatient",           rarity:"Uncommon", luck:0,   str:0,  exp:-30, attr:0,  bcr:30, mwB:0,         special:null},
+  {id:"impatient",    name:"Impatient",           rarity:"Uncommon", luck:0,   str:0,  exp:-30, attr:30, bcr:0,  mwB:0,         special:null},
   {id:"unstable",     name:"Unstable",            rarity:"Uncommon", luck:10,  str:0,  exp:-10, attr:0,  bcr:0,  mwB:0,         special:"unstable"},
   {id:"nightstalker", name:"Night Stalker",       rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:35, bcr:0,  mwB:0,         special:"night"},
   {id:"powergrip",    name:"Power Grip",          rarity:"Uncommon", luck:0,   str:15, exp:15,  attr:0,  bcr:0,  mwB:0,         special:null},
@@ -767,7 +767,7 @@ const ENCHANTMENTS=[
   {id:"notorious",    name:"Notoriously Big",     rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:50000000,  special:null},
   {id:"patient",      name:"Patient",             rarity:"Rare",     luck:100, str:0,  exp:0,   attr:-40,bcr:0,  mwB:0,         special:null},
   {id:"lightspeed",   name:"Light-Speed Reels",   rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:40, bcr:0,  mwB:0,         special:null},
-  {id:"lucksac",      name:"Luck Sacrifice",      rarity:"Rare",     luck:-60, str:0,  exp:0,   attr:0,  bcr:60, mwB:0,         special:null},
+  {id:"lucksac",      name:"Luck Sacrifice",      rarity:"Rare",     luck:-60, str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:null},
   {id:"mouthwater",   name:"Mouth-Watering",      rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:25, bcr:30, mwB:0,         special:null},
   {id:"nightwatch",   name:"The Night Watcher",   rarity:"Rare",     luck:30,  str:10, exp:10,  attr:30, bcr:30, mwB:25000000,  special:"night"},
   // Epic
@@ -777,7 +777,7 @@ const ENCHANTMENTS=[
   {id:"speedemon",    name:"Speed Demon",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:"speedemon"},
   {id:"balance",      name:"Master of Balance",   rarity:"Epic",     luck:20,  str:20, exp:20,  attr:20, bcr:20, mwB:400000,    special:null},
   {id:"sonkript",     name:"Son of Kriptan",      rarity:"Epic",     luck:50,  str:10, exp:10,  attr:50, bcr:50, mwB:50000000,  special:"day"},
-  {id:"moneymaker",   name:"Money Maker",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:0,  bcr:20, mwB:0,         special:"moneymaker"},
+  {id:"moneymaker",   name:"Money Maker",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:20, bcr:0,  mwB:0,         special:"moneymaker"},
   {id:"mutator",      name:"Mutator",             rarity:"Epic",     luck:30,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"mutator"},
   {id:"shinyhunt",    name:"Shiny Hunter",        rarity:"Epic",     luck:80,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"shinyhunt"},
   // Legendary
@@ -1054,8 +1054,10 @@ function updateStats(){
   const s=calcStats();
   document.getElementById('statsPanel').style.display='block';
   const sv=(id,v)=>{const el=document.getElementById(id);el.textContent=Math.round(v);el.className='sval'+(v<0?' neg':'');};
-  sv('svLuck',s.luck); sv('svStr',s.str); sv('svExp',s.exp); sv('svAttr',s.attr);
-  document.getElementById('svBcr').textContent=Math.round(s.bcr)+'%';
+  sv('svLuck',s.luck); sv('svStr',s.str); sv('svExp',s.exp);
+  document.getElementById('svAttr').textContent=Math.round(s.attr)+'%';
+  const elAttr=document.getElementById('svAttr'); elAttr.className='sval'+(s.attr<0?' neg':'');
+  document.getElementById('svBcr').textContent=Math.round(s.bcr);
   document.getElementById('svMw').textContent=fmtMw(s.mw);
   document.getElementById('mwDisplay').textContent=fmtMw(s.mw);
   const bar=(bi,vi,v,max,sfx='')=>{
@@ -1064,8 +1066,8 @@ function updateStats(){
     el.className='sbar-v'+(v<0?' neg':'');
   };
   bar('barLuck','barLuckV',s.luck,350); bar('barStr','barStrV',s.str,100);
-  bar('barExp','barExpV',s.exp,100); bar('barAttr','barAttrV',s.attr,150);
-  bar('barBcr','barBcrV',s.bcr,100,'%');
+  bar('barExp','barExpV',s.exp,100); bar('barAttr','barAttrV',s.attr,100,'%');
+  bar('barBcr','barBcrV',s.bcr,100);
 }
 
 // ============================================================
@@ -1495,8 +1497,8 @@ function renderRanking(){
       {l:es?'Suerte':'Luck',  v:Math.round(c.stats.luck), neg:c.stats.luck<0},
       {l:es?'Fuerza':'Str',   v:Math.round(c.stats.str),  neg:c.stats.str<0},
       {l:es?'Expert.':'Exp.', v:Math.round(c.stats.exp),  neg:c.stats.exp<0},
-      {l:es?'Atrac.':'Attr.', v:Math.round(c.stats.attr), neg:c.stats.attr<0},
-      {l:'BCR',                v:Math.round(c.stats.bcr)+'%',neg:false},
+      {l:es?'Atrac.':'Attr.', v:Math.round(c.stats.attr)+'%', neg:c.stats.attr<0},
+      {l:'BCR',                v:Math.round(c.stats.bcr),       neg:false},
       {l:'MaxW',               v:fmtMw(c.stats.mw),        neg:false},
     ].map(s=>`<div class="mini-stat">${s.l}: <span style="${s.neg?'color:var(--coral)':''}">${s.v}</span></div>`).join('');
 
@@ -1511,8 +1513,8 @@ function renderRanking(){
       if(e.luck !==0 && w.luck >0.05) parts.push(`${e.luck>0?'+':''}${e.luck} ${es?'Suerte':'Luck'}`);
       if(e.str  !==0 && w.str  >0.05) parts.push(`${e.str>0?'+':''}${e.str} ${es?'Fza':'Str'}`);
       if(e.exp  !==0 && w.exp  >0.05) parts.push(`${e.exp>0?'+':''}${e.exp} ${es?'Exp':'Exp'}`);
-      if(e.attr !==0 && w.attr >0.05) parts.push(`${e.attr>0?'+':''}${e.attr} ${es?'Atr':'Attr'}`);
-      if(e.bcr  !==0 && w.bcr  >0.05) parts.push(`${e.bcr>0?'+':''}${e.bcr}% BCR`);
+      if(e.attr !==0 && w.attr >0.05) parts.push(`${e.attr>0?'+':''}${e.attr}% ${es?'Atr':'Attr'}`);
+      if(e.bcr  !==0 && w.bcr  >0.05) parts.push(`${e.bcr>0?'+':''}${e.bcr} BCR`);
       if(e.mwB  > 0  && w.mw   >0.05) parts.push(`+${fmtMw(e.mwB)} MW`);
       return parts.slice(0,3).join(' · ');
     };
@@ -1712,7 +1714,8 @@ function renderCompResults(){
     if(compSortBy==='avg')  return s.avg;
     if(compSortBy==='goal') return s.allGoalScores[currentGoal];
     if(compSortBy==='mw')   return fmtMw(s.stats.mw);
-    if(compSortBy==='bcr')  return Math.round(s.stats.bcr)+'%';
+    if(compSortBy==='attr') return Math.round(s.stats.attr)+'%';
+    if(compSortBy==='bcr')  return Math.round(s.stats.bcr);
     return Math.round(s.stats[compSortBy]||0);
   };
   const sortLabel={
@@ -1742,10 +1745,11 @@ function renderCompResults(){
       const pct=Math.min(100,Math.max(0,(r.val/STAT_DISPLAY_MAX[r.key])*100)).toFixed(1);
       const neg=r.val<0;
       const isActiveSort=r.key===compSortBy;
+      const displayVal = r.key==='attr' ? Math.round(r.val)+'%' : Math.round(r.val);
       return `<div class="comp-bar-row" style="${isActiveSort?'background:rgba(0,201,177,.05);border-radius:4px;padding:0 .2rem;margin:0 -.2rem':''}">
         <span class="comp-bar-name" style="${isActiveSort?'color:var(--teal);font-weight:600':''}">${r.label}</span>
         <div class="comp-bar-track"><div class="comp-bar-fill" style="width:${pct}%;background:${isActiveSort?r.color:r.color+'66'}"></div></div>
-        <span class="comp-bar-val${neg?' neg':''}" style="${isActiveSort?'color:var(--teal);font-weight:700':''}">${Math.round(r.val)}${r.key==='bcr'?'%':''}</span>
+        <span class="comp-bar-val${neg?' neg':''}" style="${isActiveSort?'color:var(--teal);font-weight:700':''}">${displayVal}</span>
       </div>`;
     }).join('');
 
