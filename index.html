@@ -383,8 +383,8 @@ select option{background:#0a1f3a;color:var(--text);}
     </div>
 
     <div class="form-group">
-      <label class="field-label" data-t="lEnchants">✨ Encantamientos Activos</label>
-      <div class="enchant-area" id="enchantList"></div>
+      <label class="field-label" data-t="lEnchants">✨ Encantamiento (solo 1)</label>
+      <div id="enchantList"></div>
     </div>
 
     <button class="btn" onclick="analyze()" data-t="btnAnalyze">🔍 Analizar Mejores Zonas</button>
@@ -562,7 +562,7 @@ const LANG = {
     tabAdvisor:"⚙️ Asesor de Zonas", tabSearch:"🔍 Buscador de Peces",
     panelConfig:"⚙️ Tu Configuración", panelStats:"📊 Tus Estadísticas",
     lRod:"🎣 Caña de Pescar", lLine:"🧵 Sedal (Line)", lBobber:"🔵 Flotador (Bobber)",
-    lTime:"⏰ Hora del Día", lWeather:"🌦️ Clima Actual", lEnchants:"✨ Encantamientos Activos",
+    lTime:"⏰ Hora del Día", lWeather:"🌦️ Clima Actual", lEnchants:"✨ Encantamiento (solo 1)",
     btnAnalyze:"🔍 Analizar Mejores Zonas",
     selectRod:"— Selecciona tu caña —", free:"Gratis",
     any:"Cualquiera", morning:"Mañana (Morning)", day:"Día (Day)", evening:"Tarde (Evening)", night:"Noche (Night)",
@@ -623,7 +623,7 @@ const LANG = {
     tabAdvisor:"⚙️ Zone Advisor", tabSearch:"🔍 Fish Search",
     panelConfig:"⚙️ Your Setup", panelStats:"📊 Your Stats",
     lRod:"🎣 Fishing Rod", lLine:"🧵 Line", lBobber:"🔵 Bobber",
-    lTime:"⏰ Time of Day", lWeather:"🌦️ Current Weather", lEnchants:"✨ Active Enchantments",
+    lTime:"⏰ Time of Day", lWeather:"🌦️ Current Weather", lEnchants:"✨ Enchantment (1 only)",
     btnAnalyze:"🔍 Analyze Best Zones",
     selectRod:"— Select your rod —", free:"Free",
     any:"Any", morning:"Morning", day:"Day", evening:"Evening", night:"Night",
@@ -727,7 +727,7 @@ const RODS={
 const LINES={
   basic:{luck:0,str:0,exp:0,attr:0,bcr:0}, aquamarine:{luck:0,str:0,exp:0,attr:5,bcr:0},
   carbon:{luck:0,str:7,exp:7,attr:0,bcr:0}, heavyduty:{luck:0,str:10,exp:10,attr:0,bcr:10},
-  flavored:{luck:0,str:0,exp:0,attr:30,bcr:0}, lucky:{luck:30,str:0,exp:0,attr:0,bcr:0},
+  flavored:{luck:0,str:0,exp:0,attr:0,bcr:30}, lucky:{luck:30,str:0,exp:0,attr:0,bcr:0},
   diamond:{luck:25,str:15,exp:15,attr:10,bcr:0}, cerberus:{luck:25,str:-5,exp:-15,attr:20,bcr:10},
 };
 const BOBBERS={
@@ -737,33 +737,53 @@ const BOBBERS={
   luckybobber:{luck:40,str:0,exp:0,attr:0,bcr:0}, slime:{luck:30,str:10,exp:0,attr:10,bcr:10},
 };
 const ENCHANTMENTS=[
-  {id:"lazy",      name:"Lazy",               rarity:"Common",   luck:10,  str:10, exp:75,  attr:-75,bcr:10,mwB:0,        special:null},
-  {id:"lucky",     name:"Lucky",              rarity:"Common",   luck:15,  str:0,  exp:0,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"expert",    name:"Expert",             rarity:"Common",   luck:0,   str:0,  exp:10,  attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"powerful",  name:"Powerful",           rarity:"Common",   luck:0,   str:10, exp:0,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"speedy",    name:"Speedy",             rarity:"Common",   luck:0,   str:0,  exp:0,   attr:10, bcr:0, mwB:0,        special:null},
-  {id:"bigcatch",  name:"Big Catch Boost",    rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:10,mwB:0,        special:null},
-  {id:"reinforced",name:"Reinforced",         rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0, mwB:400000,   special:null},
-  {id:"curious2",  name:"Curious",            rarity:"Common",   luck:0,   str:0,  exp:5,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"undecided", name:"Undecided",          rarity:"Uncommon", luck:5,   str:5,  exp:5,   attr:5,  bcr:5, mwB:5000,     special:null},
-  {id:"allround",  name:"All-Rounder",        rarity:"Rare",     luck:10,  str:10, exp:10,  attr:10, bcr:10,mwB:100000,   special:null},
-  {id:"patient",   name:"Patient",            rarity:"Rare",     luck:100, str:0,  exp:0,   attr:-40,bcr:0, mwB:0,        special:null},
-  {id:"lightspeed",name:"Light-Speed Reels",  rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:40, bcr:0, mwB:0,        special:null},
-  {id:"lucksac",   name:"Luck Sacrifice",     rarity:"Rare",     luck:-60, str:0,  exp:0,   attr:0,  bcr:60,mwB:0,        special:null},
-  {id:"nightwatch",name:"Night Watcher",      rarity:"Rare",     luck:30,  str:10, exp:10,  attr:30, bcr:30,mwB:25000000, special:"night"},
-  {id:"notorious", name:"Notoriously Big",    rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:0,  bcr:10,mwB:50000000, special:null},
-  {id:"mouthwater",name:"Mouth-Watering",     rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:25, bcr:30,mwB:0,        special:null},
-  {id:"bigboys",   name:"BIG BOYS ONLY",      rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:0,  bcr:65,mwB:100000000,special:null},
-  {id:"doubleup",  name:"Double Up!!",        rarity:"Epic",     luck:20,  str:0,  exp:0,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"luckchosen",name:"Luck of the Chosen", rarity:"Epic",     luck:100, str:0,  exp:0,   attr:0,  bcr:10,mwB:0,        special:null},
-  {id:"balance",   name:"Master of Balance",  rarity:"Epic",     luck:20,  str:20, exp:20,  attr:20, bcr:20,mwB:400000,   special:null},
-  {id:"mutator",   name:"Mutator",            rarity:"Epic",     luck:30,  str:0,  exp:0,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"shinyhunt", name:"Shiny Hunter",       rarity:"Epic",     luck:80,  str:0,  exp:0,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"speedemon", name:"Speed Demon",        rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:60, bcr:0, mwB:0,        special:null},
-  {id:"sonkript",  name:"Son of Kriptan",     rarity:"Epic",     luck:50,  str:10, exp:10,  attr:50, bcr:50,mwB:50000000, special:"day"},
-  {id:"godsluck",  name:"God's Own Luck",     rarity:"Legendary",luck:250, str:0,  exp:0,   attr:0,  bcr:0, mwB:0,        special:null},
-  {id:"messenger", name:"Messenger of Heavens",rarity:"Legendary",luck:0,  str:0,  exp:0,   attr:100,bcr:0, mwB:0,        special:null},
-  {id:"strongest", name:"Strongest Angler",   rarity:"Legendary",luck:20,  str:85, exp:85,  attr:10, bcr:20,mwB:1000000000,special:null},
+  // Common
+  {id:"trashwrangler",name:"Trash Wrangler",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:20, mwB:0,         special:null},
+  {id:"lazy",         name:"Lazy",                rarity:"Common",   luck:0,   str:10, exp:10,  attr:-75,bcr:10, mwB:0,         special:null},
+  {id:"bigcatch",     name:"Big Catch Boost",     rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null},
+  {id:"expert",       name:"Expert",              rarity:"Common",   luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:null},
+  {id:"lucky",        name:"Lucky",               rarity:"Common",   luck:15,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:null},
+  {id:"pocketwatch",  name:"Pocket Watcher",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"pocketwatch"},
+  {id:"powerful",     name:"Powerful",            rarity:"Common",   luck:0,   str:10, exp:0,   attr:0,  bcr:0,  mwB:0,         special:null},
+  {id:"speedy",       name:"Speedy",              rarity:"Common",   luck:0,   str:0,  exp:0,   attr:10, bcr:0,  mwB:0,         special:null},
+  {id:"reinforced",   name:"Reinforced",          rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0,  mwB:400000,    special:null},
+  {id:"curious2",     name:"Curious",             rarity:"Common",   luck:0,   str:0,  exp:5,   attr:0,  bcr:0,  mwB:0,         special:"curious_xp"},
+  // Uncommon
+  {id:"tubbychaser",  name:"Tubby Chaser",        rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:0,  bcr:5,  mwB:1000000,   special:null},
+  {id:"undecided",    name:"Undecided",           rarity:"Uncommon", luck:5,   str:5,  exp:5,   attr:5,  bcr:5,  mwB:5000,      special:null},
+  {id:"student",      name:"Student",             rarity:"Uncommon", luck:0,   str:0,  exp:5,   attr:0,  bcr:0,  mwB:0,         special:"student_xp"},
+  {id:"daywalker",    name:"Day Walker",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"day"},
+  {id:"fogdweller",   name:"Fog Dweller",         rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"fog"},
+  {id:"rainlover",    name:"Rain Lover",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"rain"},
+  {id:"impatient",    name:"Impatient",           rarity:"Uncommon", luck:0,   str:0,  exp:-30, attr:0,  bcr:30, mwB:0,         special:null},
+  {id:"unstable",     name:"Unstable",            rarity:"Uncommon", luck:10,  str:0,  exp:-10, attr:0,  bcr:0,  mwB:0,         special:"unstable"},
+  {id:"nightstalker", name:"Night Stalker",       rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:35, bcr:0,  mwB:0,         special:"night"},
+  {id:"powergrip",    name:"Power Grip",          rarity:"Uncommon", luck:0,   str:15, exp:15,  attr:0,  bcr:0,  mwB:0,         special:null},
+  // Rare
+  {id:"allround",     name:"All-Rounder",         rarity:"Rare",     luck:10,  str:10, exp:10,  attr:10, bcr:10, mwB:100000,    special:null},
+  {id:"demonhunter",  name:"Demon Hunter",        rarity:"Rare",     luck:0,   str:10, exp:0,   attr:0,  bcr:0,  mwB:0,         special:"demonhunter"},
+  {id:"dimline",      name:"Dimensional Line",    rarity:"Rare",     luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:"dimline"},
+  {id:"enlightened",  name:"Enlightened",         rarity:"Rare",     luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:"enlightened_xp"},
+  {id:"notorious",    name:"Notoriously Big",     rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:50000000,  special:null},
+  {id:"patient",      name:"Patient",             rarity:"Rare",     luck:100, str:0,  exp:0,   attr:-40,bcr:0,  mwB:0,         special:null},
+  {id:"lightspeed",   name:"Light-Speed Reels",   rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:40, bcr:0,  mwB:0,         special:null},
+  {id:"lucksac",      name:"Luck Sacrifice",      rarity:"Rare",     luck:-60, str:0,  exp:0,   attr:0,  bcr:60, mwB:0,         special:null},
+  {id:"mouthwater",   name:"Mouth-Watering",      rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:25, bcr:30, mwB:0,         special:null},
+  {id:"nightwatch",   name:"The Night Watcher",   rarity:"Rare",     luck:30,  str:10, exp:10,  attr:30, bcr:30, mwB:25000000,  special:"night"},
+  // Epic
+  {id:"bigboys",      name:"BIG BOYS ONLY",       rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:0,  bcr:65, mwB:100000000, special:null},
+  {id:"doubleup",     name:"Double Up!!",         rarity:"Epic",     luck:20,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"doubleup"},
+  {id:"luckchosen",   name:"Luck of the Chosen",  rarity:"Epic",     luck:100, str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null},
+  {id:"speedemon",    name:"Speed Demon",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:"speedemon"},
+  {id:"balance",      name:"Master of Balance",   rarity:"Epic",     luck:20,  str:20, exp:20,  attr:20, bcr:20, mwB:400000,    special:null},
+  {id:"sonkript",     name:"Son of Kriptan",      rarity:"Epic",     luck:50,  str:10, exp:10,  attr:50, bcr:50, mwB:50000000,  special:"day"},
+  {id:"moneymaker",   name:"Money Maker",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:0,  bcr:20, mwB:0,         special:"moneymaker"},
+  {id:"mutator",      name:"Mutator",             rarity:"Epic",     luck:30,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"mutator"},
+  {id:"shinyhunt",    name:"Shiny Hunter",        rarity:"Epic",     luck:80,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"shinyhunt"},
+  // Legendary
+  {id:"godsluck",     name:"God's Own Luck",      rarity:"Legendary",luck:250, str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:null},
+  {id:"messenger",    name:"Messenger of the Heavens",rarity:"Legendary",luck:0,str:0, exp:0,   attr:100,bcr:0,  mwB:0,         special:null},
+  {id:"strongest",    name:"Strongest Angler",    rarity:"Legendary",luck:20,  str:85, exp:85,  attr:10, bcr:20, mwB:1000000000,special:null},
 ];
 
 // OPEN SEA has ALL special zones (they only spawn there)
@@ -970,12 +990,25 @@ function switchTab(tab){
 // ============================================================
 function buildEnchantList(){
   const el=document.getElementById('enchantList');
-  ENCHANTMENTS.forEach(e=>{
-    const lbl=document.createElement('label');
-    lbl.className='enchant-opt';
-    lbl.innerHTML=`<input type="checkbox" id="ench_${e.id}" onchange="updateStats()"><span class="enchant-name">${e.name}</span><span class="rb r-${e.rarity.toLowerCase()}">${e.rarity}</span>`;
-    el.appendChild(lbl);
+  el.innerHTML='';
+  // Single enchant — build a <select>
+  const sel=document.createElement('select');
+  sel.id='enchantSelect';
+  sel.style.cssText='width:100%;margin-top:.2rem;border-color:rgba(0,201,177,.3)';
+  sel.onchange=updateStats;
+  const noneOpt=document.createElement('option');
+  noneOpt.value='none';
+  noneOpt.textContent=curLang==='es'?'— Sin encantamiento —':'— No enchantment —';
+  sel.appendChild(noneOpt);
+  const rarityOrder={Common:0,Uncommon:1,Rare:2,Epic:3,Legendary:4};
+  const rarityLabel={Common:'[C]',Uncommon:'[U]',Rare:'[R]',Epic:'[E]',Legendary:'[L]'};
+  [...ENCHANTMENTS].sort((a,b)=>rarityOrder[a.rarity]-rarityOrder[b.rarity]).forEach(e=>{
+    const opt=document.createElement('option');
+    opt.value=e.id;
+    opt.textContent=`${rarityLabel[e.rarity]} ${e.name}`;
+    sel.appendChild(opt);
   });
+  el.appendChild(sel);
 }
 
 // ============================================================
@@ -990,7 +1023,9 @@ function calcStats(){
   const rod=RODS[rk]||{luck:0,str:0,exp:0,attr:0,bcr:0,mw:0,price:0};
   const line=LINES[lk]||{luck:0,str:0,exp:0,attr:0,bcr:0};
   const bob=BOBBERS[bk]||{luck:0,str:0,exp:0,attr:0,bcr:0};
-  const enchs=ENCHANTMENTS.filter(e=>document.getElementById('ench_'+e.id)?.checked);
+  const ek=document.getElementById('enchantSelect')?.value||'none';
+  const enchObj=ek!=='none'?ENCHANTMENTS.find(e=>e.id===ek)||null:null;
+  const enchs=enchObj?[enchObj]:[];
   let luck=rod.luck+line.luck+bob.luck, str=rod.str+line.str+bob.str;
   let exp=rod.exp+line.exp+bob.exp, attr=rod.attr+line.attr+bob.attr;
   let bcr=rod.bcr+line.bcr+bob.bcr, mw=rod.mw;
@@ -998,6 +1033,8 @@ function calcStats(){
     let ok=true;
     if(e.special==='night'&&time!=='Night') ok=false;
     if(e.special==='day'&&time!=='Day') ok=false;
+    if(e.special==='fog'&&weather!=='Foggy') ok=false;
+    if(e.special==='rain'&&weather!=='Rainy'&&weather!=='Stormy') ok=false;
     if(ok){luck+=e.luck;str+=e.str;exp+=e.exp;attr+=e.attr;bcr+=e.bcr;mw+=e.mwB;}
   });
   if(weather==='Moonrain') luck*=2;
@@ -1070,7 +1107,7 @@ function getUpgrades(rodKey,price){
   else if(price<75000)  arr.push({i:'🎣',txt:T?'<strong>Fortunate Rod</strong> +100 suerte, +65 Big Catch ($75,000) · <em>🏠 Crescent Isle</em>':'<strong>Fortunate Rod</strong> +100 luck, +65 Big Catch ($75,000) · <em>🏠 Crescent Isle</em>'});
   else if(price<200000) arr.push({i:'🛸',txt:T?'<strong>Alien Rod</strong>: Max Weight enorme + buena suerte ($200,000) · <em>🛸 Alien Quest</em>':'<strong>Alien Rod</strong>: huge Max Weight + good luck ($200,000) · <em>🛸 Alien Quest</em>'});
   else if(price<250000) arr.push({i:'⚔️',txt:T?'<strong>Rustfang Rod</strong> +70 suerte, +35 BCR ($250,000) · <em>🏜️ Luxian Dunes</em>':'<strong>Rustfang Rod</strong> +70 luck, +35 BCR ($250,000) · <em>🏜️ Luxian Dunes</em>'});
-  else if(price<700000) arr.push({i:'👑',txt:T?'<strong>Runesteel Rod</strong> +90 suerte, +40 BCR ($700,000) · <em>👤 Vlad (NPC)</em>':'<strong>Runesteel Rod</strong> +90 luck, +40 BCR ($700,000) · <em>👤 Vlad (NPC)</em>'});
+  else if(price<700000) arr.push({i:'👑',txt:T?'<strong>Runesteel Rod</strong> +90 suerte, +40 BCR ($700,000) · <em>👤 Vlad (Islander)</em>':'<strong>Runesteel Rod</strong> +90 luck, +40 BCR ($700,000) · <em>👤 Vlad (Islander)</em>'});
   else if(price<750000) arr.push({i:'👑',txt:T?'<strong>Rod of the Pharaoh</strong> +222 suerte — el mayor Luck del juego ($750,000) · <em>🏜️ Luxian Dunes</em>':'<strong>Rod of the Pharaoh</strong> +222 luck — highest Luck in game ($750,000) · <em>🏜️ Luxian Dunes</em>'});
   arr.push({i:'🧵',txt:T?'<strong>Lucky Line</strong> +30 suerte ($10,000) · <em>🏠 Crescent Isle</em> &nbsp;|&nbsp; <strong>Diamond Line</strong> +25 suerte ($25,000) · <em>🏜️ Luxian Dunes</em>':'<strong>Lucky Line</strong> +30 luck ($10,000) · <em>🏠 Crescent Isle</em> &nbsp;|&nbsp; <strong>Diamond Line</strong> +25 luck ($25,000) · <em>🏜️ Luxian Dunes</em>'});
   arr.push({i:'🔵',txt:T?'<strong>Lucky Bobber</strong> +40 suerte ($10,000) — mejor relación precio/suerte · <em>🏜️ Luxian Dunes</em>':'<strong>Lucky Bobber</strong> +40 luck ($10,000) — best price/luck ratio · <em>🏜️ Luxian Dunes</em>'});
@@ -1252,24 +1289,25 @@ const BOBBER_PRICES={basic:0,paulie:100,blue:100,dud:1000,feline:2000,ornamental
 // Scoring weights per goal
 const GOAL_WEIGHTS={
   money:  {luck:0.50, str:0.05, exp:0.05, attr:0.10, bcr:0.25, mw:0.05},
-  speed:  {luck:0.05, str:0.25, exp:0.35, attr:0.30, bcr:0.00, mw:0.05},
+  speed:  {luck:0.02, str:0.10, exp:0.15, attr:0.65, bcr:0.00, mw:0.08},
   big:    {luck:0.10, str:0.05, exp:0.05, attr:0.05, bcr:0.35, mw:0.40},
   rare:   {luck:0.75, str:0.05, exp:0.05, attr:0.05, bcr:0.05, mw:0.05},
   easy:   {luck:0.05, str:0.35, exp:0.45, attr:0.10, bcr:0.00, mw:0.05},
   balance:{luck:0.20, str:0.15, exp:0.15, attr:0.20, bcr:0.15, mw:0.15},
 };
 
-// Normalization max values for scoring
-const STAT_MAX={luck:300, str:100, exp:100, attr:150, bcr:100, mw:Math.log(500000000+1)};
+// Normalization max values — attr max is 100 since 100+ = instant bite
+const STAT_MAX={luck:300, str:100, exp:100, attr:100, bcr:100, mw:Math.log(500000000+1)};
 
-function scoreCombo(rod, line, bob, goal){
+function scoreCombo(rod, line, bob, goal, ench=null){
   const w=GOAL_WEIGHTS[goal];
-  const luck=Math.max(-100,rod.luck+line.luck+bob.luck);
-  const str=rod.str+line.str+bob.str;
-  const exp=rod.exp+line.exp+bob.exp;
-  const attr=rod.attr+line.attr+bob.attr;
-  const bcr=rod.bcr+line.bcr+bob.bcr;
-  const mw=rod.mw;
+  const e=ench||{luck:0,str:0,exp:0,attr:0,bcr:0,mwB:0};
+  const luck=Math.max(-100,rod.luck+line.luck+bob.luck+e.luck);
+  const str=rod.str+line.str+bob.str+e.str;
+  const exp=rod.exp+line.exp+bob.exp+e.exp;
+  const attr=rod.attr+line.attr+bob.attr+e.attr;
+  const bcr=rod.bcr+line.bcr+bob.bcr+e.bcr;
+  const mw=rod.mw+(e.mwB||0);
   // Normalize each stat 0-100, penalize negatives
   const n=(v,max)=>Math.max(0,Math.min(100,(v/max)*100));
   const nMw=Math.max(0,Math.min(100,(Math.log(mw+1)/STAT_MAX.mw)*100));
@@ -1331,6 +1369,29 @@ function setCustomBudget(){
   currentBudget=v;
   document.querySelectorAll('.bchip').forEach(c=>c.classList.remove('active'));
   renderRanking();
+}
+
+// ============================================================
+// ENCHANTMENT RECOMMENDER FOR RANKING CARDS
+// ============================================================
+function getBestEnchants(goal){
+  const rarityPenalty={Common:0, Uncommon:0.05, Rare:0.12, Epic:0.22, Legendary:0.35};
+  const w=GOAL_WEIGHTS[goal];
+  return ENCHANTMENTS.map(e=>{
+    const rawScore=(
+      Math.max(0,e.luck)  * w.luck  +
+      Math.max(0,e.str)   * w.str   +
+      Math.max(0,e.exp)   * w.exp   +
+      Math.max(0,e.attr)  * w.attr  +
+      Math.max(0,e.bcr)   * w.bcr   +
+      (e.mwB>0 ? Math.log(e.mwB+1)/Math.log(1000000000) * w.mw * 100 : 0)
+    );
+    const adjusted=rawScore*(1-rarityPenalty[e.rarity]);
+    return{...e,rawScore,adjusted};
+  })
+  .filter(e=>e.rawScore>0)
+  .sort((a,b)=>b.adjusted-a.adjusted)
+  .slice(0,5);
 }
 
 function renderRanking(){
@@ -1396,7 +1457,7 @@ function renderRanking(){
     fortunate:   es?'🏠 Crescent Isle':'🏠 Crescent Isle',
     alien:       es?'🛸 Alien Quest':'🛸 Alien Quest',
     rustfang:    es?'🏜️ Luxian Dunes':'🏜️ Luxian Dunes',
-    runesteel:   es?'👤 Vlad (NPC)':'👤 Vlad (NPC)',
+    runesteel:   es?'👤 Vlad (Islander)':'👤 Vlad (Islander)',
     pharaoh:     es?'🏜️ Luxian Dunes':'🏜️ Luxian Dunes',
     perpetuity:  es?'🏆 Nivel 500':'🏆 Level 500',
   };
@@ -1439,6 +1500,37 @@ function renderRanking(){
       {l:'MaxW',               v:fmtMw(c.stats.mw),        neg:false},
     ].map(s=>`<div class="mini-stat">${s.l}: <span style="${s.neg?'color:var(--coral)':''}">${s.v}</span></div>`).join('');
 
+    const rarityColor={Common:'#6ddc88',Uncommon:'#70b8ff',Rare:'#c080ff',Epic:'#ff9f43',Legendary:'#ffe84a'};
+    const rarityLabel={Common:'C',Uncommon:'U',Rare:'R',Epic:'E',Legendary:'L'};
+    const bestEnchs=getBestEnchants(currentGoal);
+
+    // Stat hints per enchant for the current goal
+    const enchStatHint=(e)=>{
+      const w=GOAL_WEIGHTS[currentGoal];
+      const parts=[];
+      if(e.luck !==0 && w.luck >0.05) parts.push(`${e.luck>0?'+':''}${e.luck} ${es?'Suerte':'Luck'}`);
+      if(e.str  !==0 && w.str  >0.05) parts.push(`${e.str>0?'+':''}${e.str} ${es?'Fza':'Str'}`);
+      if(e.exp  !==0 && w.exp  >0.05) parts.push(`${e.exp>0?'+':''}${e.exp} ${es?'Exp':'Exp'}`);
+      if(e.attr !==0 && w.attr >0.05) parts.push(`${e.attr>0?'+':''}${e.attr} ${es?'Atr':'Attr'}`);
+      if(e.bcr  !==0 && w.bcr  >0.05) parts.push(`${e.bcr>0?'+':''}${e.bcr}% BCR`);
+      if(e.mwB  > 0  && w.mw   >0.05) parts.push(`+${fmtMw(e.mwB)} MW`);
+      return parts.slice(0,3).join(' · ');
+    };
+
+    const enchHTML=bestEnchs.map((e,ei)=>`
+      <div style="display:flex;align-items:center;gap:.4rem;padding:.22rem .3rem;border-radius:5px;background:${ei===0?'rgba(255,255,255,.04)':'transparent'}">
+        <span style="width:14px;height:14px;border-radius:50%;background:${rarityColor[e.rarity]}22;border:1px solid ${rarityColor[e.rarity]}88;display:flex;align-items:center;justify-content:center;font-size:.45rem;font-family:Space Mono,monospace;color:${rarityColor[e.rarity]};flex-shrink:0">${rarityLabel[e.rarity]}</span>
+        <span style="font-size:.65rem;color:var(--text);font-weight:${ei===0?'600':'400'}">${e.name}</span>
+        <span style="font-size:.56rem;color:var(--text-dim);font-family:Space Mono,monospace;margin-left:auto">${enchStatHint(e)}</span>
+      </div>`).join('');
+
+    const attrTotal=c.stats.attr;
+    const attrNote=attrTotal>=100
+      ? `<span style="color:#6ddc88;font-size:.6rem;font-family:Space Mono,monospace">⚡ ${es?'¡Mordida instantánea!':'Instant bite!'}</span>`
+      : attrTotal>0
+        ? `<span style="color:var(--text-dim);font-size:.6rem;font-family:Space Mono,monospace">${es?`Atracción ${Math.round(attrTotal)} — faltan ${Math.max(0,100-Math.round(attrTotal))} para mordida instantánea`:`Attraction ${Math.round(attrTotal)} — ${Math.max(0,100-Math.round(attrTotal))} away from instant bite`}</span>`
+        : '';
+
     const card=document.createElement('div');
     card.className=`rank-card ${rankClass}`;
     card.style.animationDelay=`${i*.06}s`;
@@ -1464,7 +1556,12 @@ function renderRanking(){
             </div>
           </div>
           <div class="rank-why">${why}</div>
-          <div class="price-total">${es?'Costo total':'Total cost'}: <strong>${priceStr}</strong></div>
+          ${attrNote?`<div style="margin-top:.3rem">${attrNote}</div>`:''}
+          <div style="margin-top:.7rem;border-top:1px solid var(--glass-border);padding-top:.55rem">
+            <div style="font-size:.58rem;font-family:Space Mono,monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--text-dim);margin-bottom:.35rem">✨ ${es?'Encantamientos recomendados':'Recommended enchantments'}</div>
+            ${enchHTML}
+          </div>
+          <div class="price-total" style="margin-top:.6rem">${es?'Costo total':'Total cost'}: <strong>${priceStr}</strong></div>
         </div>
         <div class="rank-score-col">
           <div class="rank-score-val">${c.score}</div>
@@ -1516,6 +1613,11 @@ function removeCompSlot(id){
 function renderCompSlots(){
   const container=document.getElementById('compSlots');
   const es=curLang==='es';
+  // Build enchant options once
+  const rarityOrder={Common:0,Uncommon:1,Rare:2,Epic:3,Legendary:4};
+  const enchOpts=`<option value="none">${es?'— Sin encantamiento —':'— No enchantment —'}</option>`+
+    [...ENCHANTMENTS].sort((a,b)=>rarityOrder[a.rarity]-rarityOrder[b.rarity])
+    .map(e=>`<option value="${e.id}">[${e.rarity}] ${e.name}</option>`).join('');
   container.innerHTML='';
   compSlots.forEach((id,i)=>{
     const slot=document.createElement('div');
@@ -1528,10 +1630,13 @@ function renderCompSlots(){
       <label style="font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-family:Space Mono,monospace;display:block;margin-bottom:.3rem">🧵 ${es?'Sedal':'Line'}</label>
       ${buildSelectHTML(id,'line','basic')}
       <label style="font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;font-family:Space Mono,monospace;display:block;margin-bottom:.3rem">🔵 ${es?'Flotador':'Bobber'}</label>
-      ${buildSelectHTML(id,'bob','basic')}`;
+      ${buildSelectHTML(id,'bob','basic')}
+      <label style="font-size:.6rem;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;font-family:Space Mono,monospace;display:block;margin-bottom:.3rem;margin-top:.5rem">✨ ${es?'Encantamiento':'Enchantment'}</label>
+      <select id="cmp_ench_${id}" onchange="renderCompResults()" style="border-color:rgba(0,201,177,.3)">
+        ${enchOpts}
+      </select>`;
     container.appendChild(slot);
   });
-  // Show/hide add button
   document.getElementById('compAddBtn').style.display=compSlots.length>=10?'none':'flex';
 }
 
@@ -1572,13 +1677,15 @@ function renderCompResults(){
     const rk=document.getElementById(`cmp_rod_${id}`)?.value||'slim';
     const lk=document.getElementById(`cmp_line_${id}`)?.value||'basic';
     const bk=document.getElementById(`cmp_bob_${id}`)?.value||'basic';
+    const ek=document.getElementById(`cmp_ench_${id}`)?.value||'none';
     const rod=RODS[rk], line=LINES[lk], bob=BOBBERS[bk];
+    const ench=ek!=='none'?ENCHANTMENTS.find(e=>e.id===ek)||null:null;
     const totalPrice=rod.price+LINE_PRICES[lk]+BOBBER_PRICES[bk];
     const allGoalScores={};
-    goals.forEach(g=>{allGoalScores[g]=scoreCombo(rod,line,bob,g).score;});
+    goals.forEach(g=>{allGoalScores[g]=scoreCombo(rod,line,bob,g,ench).score;});
     const avg=Math.round((goals.reduce((sum,g)=>sum+allGoalScores[g],0)/goals.length)*10)/10;
-    const stats=scoreCombo(rod,line,bob,currentGoal);
-    return{id,rk,lk,bk,rod,line,bob,totalPrice,stats,allGoalScores,avg};
+    const stats=scoreCombo(rod,line,bob,currentGoal,ench);
+    return{id,rk,lk,bk,ek,rod,line,bob,ench,totalPrice,stats,allGoalScores,avg};
   });
 
   // Find best per goal and best average
@@ -1658,6 +1765,10 @@ function renderCompResults(){
       <span class="comp-goal-val${isBestAvg?' best-goal':''}" style="font-size:.72rem;font-weight:700;${compSortBy==='avg'?'color:var(--teal)':''}">${s.avg}${isBestAvg&&slotData.length>1?' ★':''}</span>
     </div>`;
 
+    const rarityColor={Common:'#6ddc88',Uncommon:'#70b8ff',Rare:'#c080ff',Epic:'#ff9f43',Legendary:'#ffe84a'};
+    const enchBadge=s.ench
+      ? `<span style="display:inline-block;margin-top:.25rem;font-size:.58rem;font-family:'Space Mono',monospace;background:rgba(255,255,255,.06);border:1px solid ${rarityColor[s.ench.rarity]||'#aaa'}44;border-radius:10px;padding:.1rem .45rem;color:${rarityColor[s.ench.rarity]||'#aaa'}">✨ ${s.ench.name}</span>`
+      : `<span style="display:inline-block;margin-top:.25rem;font-size:.55rem;font-family:'Space Mono',monospace;color:rgba(255,255,255,.2)">✨ ${es?'Sin encantamiento':'No enchantment'}</span>`;
     const slotIdx=compSlots.indexOf(s.id)+1;
     card.innerHTML=`
       <div class="comp-result-header">
@@ -1667,6 +1778,7 @@ function renderCompResults(){
           <div style="font-size:.58rem;color:var(--text-dim);margin-top:.2rem;font-family:Space Mono,monospace">
             ${LINE_NAMES[s.lk]} · ${BOBBER_NAMES[s.bk]}
           </div>
+          ${enchBadge}
         </div>
         <div style="text-align:right">
           <div class="comp-result-score">${getPrimaryScore(s)}</div>
