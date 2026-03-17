@@ -738,52 +738,52 @@ const BOBBERS={
 };
 const ENCHANTMENTS=[
   // Common
-  {id:"trashwrangler",name:"Trash Wrangler",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:20, bcr:0,  mwB:0,         special:null},
-  {id:"lazy",         name:"Lazy",                rarity:"Common",   luck:0,   str:10, exp:10,  attr:-75,bcr:10, mwB:0,         special:null},
-  {id:"bigcatch",     name:"Big Catch Boost",     rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null},
-  {id:"expert",       name:"Expert",              rarity:"Common",   luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:null},
-  {id:"lucky",        name:"Lucky",               rarity:"Common",   luck:15,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:null},
-  {id:"pocketwatch",  name:"Pocket Watcher",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"pocketwatch"},
-  {id:"powerful",     name:"Powerful",            rarity:"Common",   luck:0,   str:10, exp:0,   attr:0,  bcr:0,  mwB:0,         special:null},
-  {id:"speedy",       name:"Speedy",              rarity:"Common",   luck:0,   str:0,  exp:0,   attr:10, bcr:0,  mwB:0,         special:null},
-  {id:"reinforced",   name:"Reinforced",          rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0,  mwB:400000,    special:null},
-  {id:"curious2",     name:"Curious",             rarity:"Common",   luck:0,   str:0,  exp:5,   attr:0,  bcr:0,  mwB:0,         special:"curious_xp"},
+  {id:"trashwrangler",name:"Trash Wrangler",      rarity:"Common",   luck:-100,str:0,  exp:0,   attr:20, bcr:0,  mwB:0,         special:null,       noteEs:"⚠️ Resta 100 de Suerte a cambio del +20% Atracción",                         noteEn:"⚠️ Removes 100 Luck in exchange for +20% Attraction"},
+  {id:"lazy",         name:"Lazy",                rarity:"Common",   luck:0,   str:10, exp:10,  attr:-75,bcr:10, mwB:0,         special:null,       noteEs:"⚠️ Reduce la Atracción un 75% — el pez tarda mucho más en morder",            noteEn:"⚠️ Reduces Attraction by 75% — fish take much longer to bite"},
+  {id:"bigcatch",     name:"Big Catch Boost",     rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"expert",       name:"Expert",              rarity:"Common",   luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"lucky",        name:"Lucky",               rarity:"Common",   luck:15,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"pocketwatch",  name:"Pocket Watcher",      rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"pocketwatch",noteEs:"💰 Ganas el 5% del valor del pez al capturarlo (bonus de oro)",              noteEn:"💰 Earn 5% of the fish's value as bonus gold on catch"},
+  {id:"powerful",     name:"Powerful",            rarity:"Common",   luck:0,   str:10, exp:0,   attr:0,  bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"speedy",       name:"Speedy",              rarity:"Common",   luck:0,   str:0,  exp:0,   attr:10, bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"reinforced",   name:"Reinforced",          rarity:"Common",   luck:0,   str:0,  exp:0,   attr:0,  bcr:0,  mwB:400000,    special:null,       noteEs:null, noteEn:null},
+  {id:"curious2",     name:"Curious",             rarity:"Common",   luck:0,   str:0,  exp:5,   attr:0,  bcr:0,  mwB:0,         special:"curious_xp",noteEs:"⭐ +5% de XP extra por cada pez capturado",                                 noteEn:"⭐ +5% bonus XP for every fish caught"},
   // Uncommon
-  {id:"tubbychaser",  name:"Tubby Chaser",        rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:0,  bcr:5,  mwB:1000000,   special:null},
-  {id:"undecided",    name:"Undecided",           rarity:"Uncommon", luck:5,   str:5,  exp:5,   attr:5,  bcr:5,  mwB:5000,      special:null},
-  {id:"student",      name:"Student",             rarity:"Uncommon", luck:0,   str:0,  exp:5,   attr:0,  bcr:0,  mwB:0,         special:"student_xp"},
-  {id:"daywalker",    name:"Day Walker",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"day"},
-  {id:"fogdweller",   name:"Fog Dweller",         rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"fog"},
-  {id:"rainlover",    name:"Rain Lover",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"rain"},
-  {id:"impatient",    name:"Impatient",           rarity:"Uncommon", luck:0,   str:0,  exp:-30, attr:30, bcr:0,  mwB:0,         special:null},
-  {id:"unstable",     name:"Unstable",            rarity:"Uncommon", luck:10,  str:0,  exp:-10, attr:0,  bcr:0,  mwB:0,         special:"unstable"},
-  {id:"nightstalker", name:"Night Stalker",       rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:35, bcr:0,  mwB:0,         special:"night"},
-  {id:"powergrip",    name:"Power Grip",          rarity:"Uncommon", luck:0,   str:15, exp:15,  attr:0,  bcr:0,  mwB:0,         special:null},
+  {id:"tubbychaser",  name:"Tubby Chaser",        rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:0,  bcr:5,  mwB:1000000,   special:null,       noteEs:null, noteEn:null},
+  {id:"undecided",    name:"Undecided",           rarity:"Uncommon", luck:5,   str:5,  exp:5,   attr:5,  bcr:5,  mwB:5000,      special:null,       noteEs:null, noteEn:null},
+  {id:"student",      name:"Student",             rarity:"Uncommon", luck:0,   str:0,  exp:5,   attr:0,  bcr:0,  mwB:0,         special:"student_xp",noteEs:"⭐ +12% de XP extra por cada pez capturado",                                noteEn:"⭐ +12% bonus XP for every fish caught"},
+  {id:"daywalker",    name:"Day Walker",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"day",      noteEs:"☀️ Solo activo de día — +50 Suerte exclusivamente durante el día",            noteEn:"☀️ Day only — +50 Luck active exclusively during daytime"},
+  {id:"fogdweller",   name:"Fog Dweller",         rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"fog",      noteEs:"🌫️ Solo activo con niebla — +50 Suerte en clima Foggy",                      noteEn:"🌫️ Fog only — +50 Luck active during Foggy weather"},
+  {id:"rainlover",    name:"Rain Lover",          rarity:"Uncommon", luck:50,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"rain",     noteEs:"🌧️ Solo activo con lluvia/tormenta — +50 Suerte en Rainy o Stormy",          noteEn:"🌧️ Rain/Storm only — +50 Luck during Rainy or Stormy weather"},
+  {id:"impatient",    name:"Impatient",           rarity:"Uncommon", luck:0,   str:0,  exp:-30, attr:30, bcr:0,  mwB:0,         special:null,       noteEs:"⚠️ Tradeoff: pierde -30 Experticia a cambio de +30% Atracción",              noteEn:"⚠️ Tradeoff: lose -30 Expertise in exchange for +30% Attraction"},
+  {id:"unstable",     name:"Unstable",            rarity:"Uncommon", luck:10,  str:0,  exp:-10, attr:0,  bcr:0,  mwB:0,         special:"unstable", noteEs:"🎲 Tasa de mutaciones x1.5 — más probabilidad de obtener mutaciones raras",  noteEn:"🎲 Mutation rate x1.5 — higher chance of rare mutations on catch"},
+  {id:"nightstalker", name:"Night Stalker",       rarity:"Uncommon", luck:0,   str:0,  exp:0,   attr:35, bcr:0,  mwB:0,         special:"night",    noteEs:"🌙 Solo activo de noche — +35% Atracción exclusivamente en la noche",        noteEn:"🌙 Night only — +35% Attraction active exclusively at night"},
+  {id:"powergrip",    name:"Power Grip",          rarity:"Uncommon", luck:0,   str:15, exp:15,  attr:0,  bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
   // Rare
-  {id:"allround",     name:"All-Rounder",         rarity:"Rare",     luck:10,  str:10, exp:10,  attr:10, bcr:10, mwB:100000,    special:null},
-  {id:"demonhunter",  name:"Demon Hunter",        rarity:"Rare",     luck:0,   str:10, exp:0,   attr:0,  bcr:0,  mwB:0,         special:"demonhunter"},
-  {id:"dimline",      name:"Dimensional Line",    rarity:"Rare",     luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:"dimline"},
-  {id:"enlightened",  name:"Enlightened",         rarity:"Rare",     luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:"enlightened_xp"},
-  {id:"notorious",    name:"Notoriously Big",     rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:50000000,  special:null},
-  {id:"patient",      name:"Patient",             rarity:"Rare",     luck:100, str:0,  exp:0,   attr:-40,bcr:0,  mwB:0,         special:null},
-  {id:"lightspeed",   name:"Light-Speed Reels",   rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:40, bcr:0,  mwB:0,         special:null},
-  {id:"lucksac",      name:"Luck Sacrifice",      rarity:"Rare",     luck:-60, str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:null},
-  {id:"mouthwater",   name:"Mouth-Watering",      rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:25, bcr:30, mwB:0,         special:null},
-  {id:"nightwatch",   name:"The Night Watcher",   rarity:"Rare",     luck:30,  str:10, exp:10,  attr:30, bcr:30, mwB:25000000,  special:"night"},
+  {id:"allround",     name:"All-Rounder",         rarity:"Rare",     luck:10,  str:10, exp:10,  attr:10, bcr:10, mwB:100000,    special:null,       noteEs:null, noteEn:null},
+  {id:"demonhunter",  name:"Demon Hunter",        rarity:"Rare",     luck:0,   str:10, exp:0,   attr:0,  bcr:0,  mwB:0,         special:"demonhunter",noteEs:"💀 15% de probabilidad de convertir el pez capturado a la mutación Cursed",  noteEn:"💀 15% chance to convert caught fish to the Cursed mutation"},
+  {id:"dimline",      name:"Dimensional Line",    rarity:"Rare",     luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:"dimline",  noteEs:"🌀 30% de probabilidad de pescar un pez de cualquier bioma",                 noteEn:"🌀 30% chance to catch a fish from any biome"},
+  {id:"enlightened",  name:"Enlightened",         rarity:"Rare",     luck:0,   str:0,  exp:10,  attr:0,  bcr:0,  mwB:0,         special:"enlightened_xp",noteEs:"⭐ +35% de XP extra por cada pez capturado",                              noteEn:"⭐ +35% bonus XP for every fish caught"},
+  {id:"notorious",    name:"Notoriously Big",     rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:0,  bcr:10, mwB:50000000,  special:null,       noteEs:null, noteEn:null},
+  {id:"patient",      name:"Patient",             rarity:"Rare",     luck:100, str:0,  exp:0,   attr:-40,bcr:0,  mwB:0,         special:null,       noteEs:"⚠️ Tradeoff: -40% Atracción (esperas más) a cambio de +100 Suerte",         noteEn:"⚠️ Tradeoff: -40% Attraction (longer wait) in exchange for +100 Luck"},
+  {id:"lightspeed",   name:"Light-Speed Reels",   rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:40, bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"lucksac",      name:"Luck Sacrifice",      rarity:"Rare",     luck:-60, str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:null,       noteEs:"⚠️ Tradeoff: pierde -60 Suerte a cambio de +60% Atracción (mordida rápida)", noteEn:"⚠️ Tradeoff: lose -60 Luck in exchange for +60% Attraction (fast bite)"},
+  {id:"mouthwater",   name:"Mouth-Watering",      rarity:"Rare",     luck:0,   str:0,  exp:0,   attr:25, bcr:30, mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"nightwatch",   name:"The Night Watcher",   rarity:"Rare",     luck:30,  str:10, exp:10,  attr:30, bcr:30, mwB:25000000,  special:"night",    noteEs:"🌙 Solo activo de noche — todos los bonuses se aplican únicamente en la noche",noteEn:"🌙 Night only — all stat bonuses apply exclusively at night"},
   // Epic
-  {id:"bigboys",      name:"BIG BOYS ONLY",       rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:0,  bcr:65, mwB:100000000, special:null},
-  {id:"doubleup",     name:"Double Up!!",         rarity:"Epic",     luck:20,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"doubleup"},
-  {id:"luckchosen",   name:"Luck of the Chosen",  rarity:"Epic",     luck:100, str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null},
-  {id:"speedemon",    name:"Speed Demon",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:"speedemon"},
-  {id:"balance",      name:"Master of Balance",   rarity:"Epic",     luck:20,  str:20, exp:20,  attr:20, bcr:20, mwB:400000,    special:null},
-  {id:"sonkript",     name:"Son of Kriptan",      rarity:"Epic",     luck:50,  str:10, exp:10,  attr:50, bcr:50, mwB:50000000,  special:"day"},
-  {id:"moneymaker",   name:"Money Maker",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:20, bcr:0,  mwB:0,         special:"moneymaker"},
-  {id:"mutator",      name:"Mutator",             rarity:"Epic",     luck:30,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"mutator"},
-  {id:"shinyhunt",    name:"Shiny Hunter",        rarity:"Epic",     luck:80,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"shinyhunt"},
+  {id:"bigboys",      name:"BIG BOYS ONLY",       rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:0,  bcr:65, mwB:100000000, special:null,       noteEs:null, noteEn:null},
+  {id:"doubleup",     name:"Double Up!!",         rarity:"Epic",     luck:20,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"doubleup", noteEs:"🎣 25% de probabilidad de atrapar 2 peces a la vez",                         noteEn:"🎣 25% chance to catch 2 fish at once"},
+  {id:"luckchosen",   name:"Luck of the Chosen",  rarity:"Epic",     luck:100, str:0,  exp:0,   attr:0,  bcr:10, mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"speedemon",    name:"Speed Demon",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:60, bcr:0,  mwB:0,         special:"speedemon",noteEs:"💀 5% de probabilidad de convertir el pez capturado a la mutación Cursed",   noteEn:"💀 5% chance to convert caught fish to the Cursed mutation"},
+  {id:"balance",      name:"Master of Balance",   rarity:"Epic",     luck:20,  str:20, exp:20,  attr:20, bcr:20, mwB:400000,    special:null,       noteEs:null, noteEn:null},
+  {id:"sonkript",     name:"Son of Kriptan",      rarity:"Epic",     luck:50,  str:10, exp:10,  attr:50, bcr:50, mwB:50000000,  special:"day",      noteEs:"☀️ Solo activo de día — todos los bonuses se aplican únicamente durante el día",noteEn:"☀️ Day only — all stat bonuses apply exclusively during daytime"},
+  {id:"moneymaker",   name:"Money Maker",         rarity:"Epic",     luck:0,   str:0,  exp:0,   attr:20, bcr:0,  mwB:0,         special:"moneymaker",noteEs:"💰 Ganas un 20% extra del valor del pez al capturarlo",                     noteEn:"💰 Earn an extra 20% of the fish's value on catch"},
+  {id:"mutator",      name:"Mutator",             rarity:"Epic",     luck:30,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"mutator",  noteEs:"🎲 Tasa de mutaciones x2 — el doble de probabilidad de mutaciones en cada pez",noteEn:"🎲 Mutation rate x2 — double the chance of mutations on every catch"},
+  {id:"shinyhunt",    name:"Shiny Hunter",        rarity:"Epic",     luck:80,  str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:"shinyhunt",noteEs:"✨ 20% de probabilidad de convertir el pez capturado a la mutación Shiny",   noteEn:"✨ 20% chance to convert caught fish to the Shiny mutation"},
   // Legendary
-  {id:"godsluck",     name:"God's Own Luck",      rarity:"Legendary",luck:250, str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:null},
-  {id:"messenger",    name:"Messenger of the Heavens",rarity:"Legendary",luck:0,str:0, exp:0,   attr:100,bcr:0,  mwB:0,         special:null},
-  {id:"strongest",    name:"Strongest Angler",    rarity:"Legendary",luck:20,  str:85, exp:85,  attr:10, bcr:20, mwB:1000000000,special:null},
+  {id:"godsluck",     name:"God's Own Luck",      rarity:"Legendary",luck:250, str:0,  exp:0,   attr:0,  bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"messenger",    name:"Messenger of the Heavens",rarity:"Legendary",luck:0,str:0, exp:0,   attr:100,bcr:0,  mwB:0,         special:null,       noteEs:null, noteEn:null},
+  {id:"strongest",    name:"Strongest Angler",    rarity:"Legendary",luck:20,  str:85, exp:85,  attr:10, bcr:20, mwB:1000000000,special:null,       noteEs:null, noteEn:null},
 ];
 
 // OPEN SEA has ALL special zones (they only spawn there)
@@ -991,11 +991,10 @@ function switchTab(tab){
 function buildEnchantList(){
   const el=document.getElementById('enchantList');
   el.innerHTML='';
-  // Single enchant — build a <select>
   const sel=document.createElement('select');
   sel.id='enchantSelect';
   sel.style.cssText='width:100%;margin-top:.2rem;border-color:rgba(0,201,177,.3)';
-  sel.onchange=updateStats;
+  sel.onchange=()=>{updateStats(); showEnchantNote();};
   const noneOpt=document.createElement('option');
   noneOpt.value='none';
   noneOpt.textContent=curLang==='es'?'— Sin encantamiento —':'— No enchantment —';
@@ -1009,6 +1008,22 @@ function buildEnchantList(){
     sel.appendChild(opt);
   });
   el.appendChild(sel);
+  // Note display div
+  const noteDiv=document.createElement('div');
+  noteDiv.id='enchantNote';
+  noteDiv.style.cssText='margin-top:.45rem;font-size:.65rem;line-height:1.5;color:var(--text-dim);display:none;background:rgba(255,255,255,.04);border-radius:6px;padding:.4rem .6rem;border-left:2px solid rgba(0,201,177,.3)';
+  el.appendChild(noteDiv);
+}
+
+function showEnchantNote(){
+  const ek=document.getElementById('enchantSelect')?.value||'none';
+  const noteDiv=document.getElementById('enchantNote');
+  if(!noteDiv) return;
+  if(ek==='none'){noteDiv.style.display='none';return;}
+  const e=ENCHANTMENTS.find(x=>x.id===ek);
+  const note=e?(curLang==='es'?e.noteEs:e.noteEn):null;
+  if(note){noteDiv.textContent=note;noteDiv.style.display='block';}
+  else{noteDiv.style.display='none';}
 }
 
 // ============================================================
@@ -1519,12 +1534,17 @@ function renderRanking(){
       return parts.slice(0,3).join(' · ');
     };
 
-    const enchHTML=bestEnchs.map((e,ei)=>`
-      <div style="display:flex;align-items:center;gap:.4rem;padding:.22rem .3rem;border-radius:5px;background:${ei===0?'rgba(255,255,255,.04)':'transparent'}">
-        <span style="width:14px;height:14px;border-radius:50%;background:${rarityColor[e.rarity]}22;border:1px solid ${rarityColor[e.rarity]}88;display:flex;align-items:center;justify-content:center;font-size:.45rem;font-family:Space Mono,monospace;color:${rarityColor[e.rarity]};flex-shrink:0">${rarityLabel[e.rarity]}</span>
-        <span style="font-size:.65rem;color:var(--text);font-weight:${ei===0?'600':'400'}">${e.name}</span>
-        <span style="font-size:.56rem;color:var(--text-dim);font-family:Space Mono,monospace;margin-left:auto">${enchStatHint(e)}</span>
-      </div>`).join('');
+    const enchHTML=bestEnchs.map((e,ei)=>{
+      const note=es?e.noteEs:e.noteEn;
+      return`<div style="padding:.25rem .3rem;border-radius:5px;background:${ei===0?'rgba(255,255,255,.04)':'transparent'}">
+        <div style="display:flex;align-items:center;gap:.4rem">
+          <span style="width:14px;height:14px;border-radius:50%;background:${rarityColor[e.rarity]}22;border:1px solid ${rarityColor[e.rarity]}88;display:flex;align-items:center;justify-content:center;font-size:.45rem;font-family:Space Mono,monospace;color:${rarityColor[e.rarity]};flex-shrink:0">${rarityLabel[e.rarity]}</span>
+          <span style="font-size:.65rem;color:var(--text);font-weight:${ei===0?'600':'400'}">${e.name}</span>
+          <span style="font-size:.56rem;color:var(--text-dim);font-family:Space Mono,monospace;margin-left:auto">${enchStatHint(e)}</span>
+        </div>
+        ${note?`<div style="font-size:.58rem;color:var(--text-dim);margin-top:.15rem;padding-left:1.2rem;line-height:1.4">${note}</div>`:''}
+      </div>`;
+    }).join('');
 
     const attrTotal=c.stats.attr;
     const attrNote=attrTotal>=100
@@ -1770,8 +1790,12 @@ function renderCompResults(){
     </div>`;
 
     const rarityColor={Common:'#6ddc88',Uncommon:'#70b8ff',Rare:'#c080ff',Epic:'#ff9f43',Legendary:'#ffe84a'};
+    const enchNote=s.ench?(es?s.ench.noteEs:s.ench.noteEn):null;
     const enchBadge=s.ench
-      ? `<span style="display:inline-block;margin-top:.25rem;font-size:.58rem;font-family:'Space Mono',monospace;background:rgba(255,255,255,.06);border:1px solid ${rarityColor[s.ench.rarity]||'#aaa'}44;border-radius:10px;padding:.1rem .45rem;color:${rarityColor[s.ench.rarity]||'#aaa'}">✨ ${s.ench.name}</span>`
+      ? `<div style="margin-top:.28rem">
+           <span style="display:inline-block;font-size:.58rem;font-family:'Space Mono',monospace;background:rgba(255,255,255,.06);border:1px solid ${rarityColor[s.ench.rarity]||'#aaa'}44;border-radius:10px;padding:.1rem .45rem;color:${rarityColor[s.ench.rarity]||'#aaa'}">✨ ${s.ench.name}</span>
+           ${enchNote?`<div style="font-size:.58rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">${enchNote}</div>`:''}
+         </div>`
       : `<span style="display:inline-block;margin-top:.25rem;font-size:.55rem;font-family:'Space Mono',monospace;color:rgba(255,255,255,.2)">✨ ${es?'Sin encantamiento':'No enchantment'}</span>`;
     const slotIdx=compSlots.indexOf(s.id)+1;
     card.innerHTML=`
