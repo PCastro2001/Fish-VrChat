@@ -1305,12 +1305,29 @@ const BOBBER_PRICES={basic:0,paulie:100,blue:100,dud:1000,feline:2000,ornamental
 
 // Scoring weights per goal
 const GOAL_WEIGHTS={
-  money:  {luck:0.50, str:0.05, exp:0.05, attr:0.10, bcr:0.25, mw:0.05},
-  speed:  {luck:0.02, str:0.10, exp:0.15, attr:0.65, bcr:0.00, mw:0.08},
+  // ⚡ Pescar Rápido — Atracción es dominante (100%+ = instantáneo)
+  // Str/Exp ayudan a no perder el pez una vez que muerde
+  speed:  {luck:0.02, str:0.10, exp:0.13, attr:0.65, bcr:0.00, mw:0.10},
+
+  // 🐋 Peces Grandes — Max Weight + Big Catch son el núcleo
+  // Algo de Luck para que aparezcan los peces pesados
   big:    {luck:0.10, str:0.05, exp:0.05, attr:0.05, bcr:0.35, mw:0.40},
-  rare:   {luck:0.75, str:0.05, exp:0.05, attr:0.05, bcr:0.05, mw:0.05},
+
+  // 🎯 Peces Raros — Suerte domina, PERO Fuerza+Experticia son necesarios
+  // para no perder los raros que cuestan tanto de conseguir
+  // (calculado con penalización por desequilibrio en scoreCombo)
+  rare:   {luck:0.65, str:0.12, exp:0.12, attr:0.03, bcr:0.05, mw:0.03},
+
+  // 💰 Máximo Dinero — Equilibrio inteligente:
+  // Suerte trae raros, Fuerza+Exp los retiene, BCR aumenta el peso, Attr aumenta ritmo
+  // (calculado con penalización por desequilibrio en scoreCombo)
+  money:  {luck:0.35, str:0.15, exp:0.15, attr:0.10, bcr:0.15, mw:0.10},
+
+  // 😌 Minijuego Fácil — Experticia y Fuerza son lo único que importa
   easy:   {luck:0.05, str:0.35, exp:0.45, attr:0.10, bcr:0.00, mw:0.05},
-  balance:{luck:0.20, str:0.15, exp:0.15, attr:0.20, bcr:0.15, mw:0.15},
+
+  // ⚖️ Balance General — distribuido equitativamente
+  balance:{luck:0.20, str:0.15, exp:0.15, attr:0.17, bcr:0.18, mw:0.15},
 };
 
 // Normalization max values — attr max is 100 since 100+ = instant bite
@@ -1325,38 +1342,65 @@ function scoreCombo(rod, line, bob, goal, ench=null){
   const attr=rod.attr+line.attr+bob.attr+e.attr;
   const bcr=rod.bcr+line.bcr+bob.bcr+e.bcr;
   const mw=rod.mw+(e.mwB||0);
-  // Normalize each stat 0-100, penalize negatives
+
   const n=(v,max)=>Math.max(0,Math.min(100,(v/max)*100));
-  const nMw=Math.max(0,Math.min(100,(Math.log(mw+1)/STAT_MAX.mw)*100));
-  const score=(
-    n(luck,STAT_MAX.luck)*w.luck+
-    n(str,STAT_MAX.str)*w.str+
-    n(exp,STAT_MAX.exp)*w.exp+
-    n(attr,STAT_MAX.attr)*w.attr+
-    n(bcr,STAT_MAX.bcr)*w.bcr+
-    nMw*w.mw
-  );
+  const nLuck=n(luck,STAT_MAX.luck);
+  const nStr =n(str, STAT_MAX.str);
+  const nExp =n(exp, STAT_MAX.exp);
+  const nAttr=n(attr,STAT_MAX.attr);
+  const nBcr =n(bcr, STAT_MAX.bcr);
+  const nMw  =Math.max(0,Math.min(100,(Math.log(mw+1)/STAT_MAX.mw)*100));
+
+  let score=nLuck*w.luck + nStr*w.str + nExp*w.exp + nAttr*w.attr + nBcr*w.bcr + nMw*w.mw;
+
+  // --- Penalización por desequilibrio para 'money' y 'rare' ---
+  // Si tienes mucha Suerte pero poca Fuerza/Exp, los peces raros se escapan
+  // El factor de retención = promedio de Str y Exp normalizado
+  if(goal==='money' || goal==='rare'){
+    const retention=(nStr+nExp)/2;           // 0-100: qué tan bien retienes los peces
+    const luckFactor=nLuck;                  // 0-100: qué tan raros son los peces que llegan
+    // Si luckFactor >> retention, estás desperdiciando suerte (penaliza)
+    // Si retention >> luckFactor, tienes capacidad sin aprovechar (penaliza menos)
+    const imbalance=Math.max(0, luckFactor - retention) / 100; // 0-1
+    const penalty=imbalance * imbalance * 25; // penalización cuadrática máx ~25pts
+    score=Math.max(0, score - penalty);
+  }
+
   return{luck,str,exp,attr,bcr,mw,score:Math.round(score*10)/10};
 }
 
 function whyText(rodK, lineK, bobK, goal, stats){
   const es=curLang==='es';
-  const rod=RODS[rodK], line=LINES[lineK], bob=BOBBERS[bobK];
   const highlights=[];
-  if(goal==='money'||goal==='rare'){
-    if(stats.luck>0) highlights.push(es?`Luck total: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=200?'excepcional':stats.luck>=100?'excelente':stats.luck>=50?'bueno':'moderado'}`:`Total Luck: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=200?'exceptional':stats.luck>=100?'excellent':stats.luck>=50?'good':'moderate'}`);
-    if(goal==='money'&&stats.bcr>0) highlights.push(es?`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`:`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`);
+  const retention=Math.round((stats.str+stats.exp)/2);
+  if(goal==='money'){
+    if(stats.luck>0) highlights.push(es?`Suerte: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=150?'peces muy raros':'peces raros frecuentes'}`:`Luck: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=150?'very rare fish':'frequent rare fish'}`);
+    if(retention>0) highlights.push(es?`Retención: <strong>${retention}</strong> — ${retention>=50?'retiene bien los raros':'algo de retención'}`:`Retention: <strong>${retention}</strong> — ${retention>=50?'holds rare fish well':'some retention'}`);
+    if(stats.bcr>0) highlights.push(es?`Big Catch: <strong>+${Math.round(stats.bcr)}</strong> — más peso = más dinero`:`Big Catch: <strong>+${Math.round(stats.bcr)}</strong> — more weight = more money`);
+    if(stats.attr>=50) highlights.push(es?`Atracción: <strong>${Math.round(stats.attr)}%</strong>${stats.attr>=100?' ⚡ ¡Instantáneo!':''}`:`Attraction: <strong>${Math.round(stats.attr)}%</strong>${stats.attr>=100?' ⚡ Instant!':''}`);
+    // Warn about imbalance
+    const nLuck=Math.min(100,(stats.luck/300)*100);
+    const nRet=Math.min(100,(retention/100)*100);
+    if(nLuck-nRet>30) highlights.push(es?`⚠️ Mucha suerte pero poca retención — los raros se pueden escapar`:`⚠️ High luck but low retention — rare fish may escape`);
+  }
+  if(goal==='rare'){
+    if(stats.luck>0) highlights.push(es?`Suerte: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=200?'excepcional':stats.luck>=100?'excelente':stats.luck>=50?'buena':'moderada'}`:`Luck: <strong>${Math.round(stats.luck)}</strong> — ${stats.luck>=200?'exceptional':stats.luck>=100?'excellent':stats.luck>=50?'good':'moderate'}`);
+    if(retention>0) highlights.push(es?`Retención Str+Exp: <strong>${retention}</strong> — ${retention>=50?'no pierde los raros':'algo de agarre'}`:`Str+Exp Retention: <strong>${retention}</strong> — ${retention>=50?'won\'t lose rare fish':'some grip'}`);
+    const nLuck=Math.min(100,(stats.luck/300)*100);
+    const nRet=Math.min(100,(retention/100)*100);
+    if(nLuck-nRet>30) highlights.push(es?`⚠️ Suerte alta pero retención baja — riesgo de perder peces raros`:`⚠️ High luck but low retention — risk of losing rare fish`);
   }
   if(goal==='speed'){
-    if(stats.attr>0) highlights.push(es?`Atracción: <strong>+${Math.round(stats.attr)}</strong> — los peces muerden ${stats.attr>=60?'muy rápido':'más rápido'}`:`Attraction: <strong>+${Math.round(stats.attr)}</strong> — fish bite ${stats.attr>=60?'very fast':'faster'}`);
-    if(stats.exp>0) highlights.push(es?`Experticia: <strong>+${Math.round(stats.exp)}</strong> — barra más grande`:`Expertise: <strong>+${Math.round(stats.exp)}</strong> — wider bar`);
+    if(stats.attr>=100) highlights.push(es?`⚡ <strong>${Math.round(stats.attr)}%</strong> Atracción — ¡Mordida instantánea!`:`⚡ <strong>${Math.round(stats.attr)}%</strong> Attraction — Instant bite!`);
+    else if(stats.attr>0) highlights.push(es?`Atracción: <strong>${Math.round(stats.attr)}%</strong> — faltan ${Math.max(0,100-Math.round(stats.attr))}% para instantáneo`:`Attraction: <strong>${Math.round(stats.attr)}%</strong> — ${Math.max(0,100-Math.round(stats.attr))}% away from instant`);
+    if(stats.exp>0) highlights.push(es?`Experticia: <strong>+${Math.round(stats.exp)}</strong> — barra más grande, menos fallos`:`Expertise: <strong>+${Math.round(stats.exp)}</strong> — wider bar, fewer misses`);
   }
   if(goal==='big'){
-    highlights.push(es?`Max Weight: <strong>${fmtMw(stats.mw)}</strong>` : `Max Weight: <strong>${fmtMw(stats.mw)}</strong>`);
-    if(stats.bcr>0) highlights.push(es?`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`:`Big Catch Rate: <strong>+${Math.round(stats.bcr)}%</strong>`);
+    highlights.push(es?`Max Weight: <strong>${fmtMw(stats.mw)}</strong>`:`Max Weight: <strong>${fmtMw(stats.mw)}</strong>`);
+    if(stats.bcr>0) highlights.push(es?`Big Catch: <strong>+${Math.round(stats.bcr)}</strong> — más probabilidad de peces pesados`:`Big Catch: <strong>+${Math.round(stats.bcr)}</strong> — more heavy fish`);
   }
   if(goal==='easy'){
-    if(stats.exp>0) highlights.push(es?`Experticia: <strong>+${Math.round(stats.exp)}</strong>`:`Expertise: <strong>+${Math.round(stats.exp)}</strong>`);
+    if(stats.exp>0) highlights.push(es?`Experticia: <strong>+${Math.round(stats.exp)}</strong> — barra más grande`:`Expertise: <strong>+${Math.round(stats.exp)}</strong> — wider bar`);
     if(stats.str>0) highlights.push(es?`Fuerza: <strong>+${Math.round(stats.str)}</strong> — el pez tiembla menos`:`Strength: <strong>+${Math.round(stats.str)}</strong> — fish shakes less`);
   }
   if(goal==='balance'){
