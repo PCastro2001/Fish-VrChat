@@ -17,7 +17,7 @@ function progress(
     unlockedLocationIds: new Set(["coconut-bay"]),
     availableVendorIds: new Set(),
     ownedEquipmentIds: new Set(),
-    ownedEnchantmentIds: new Set(),
+    rodEnchantments: new Map(),
     inventory: new Map(),
     ...overrides,
   };
