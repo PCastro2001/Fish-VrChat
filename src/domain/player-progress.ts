@@ -7,7 +7,8 @@ export interface PlayerProgress {
   unlockedLocationIds: ReadonlySet<string>;
   availableVendorIds: ReadonlySet<string>;
   ownedEquipmentIds: ReadonlySet<string>;
-  ownedEnchantmentIds: ReadonlySet<string>;
+  /** One random enchantment at most, permanently attached to each owned rod. */
+  rodEnchantments: ReadonlyMap<string, string>;
   inventory: ReadonlyMap<string, number>;
 }
 
