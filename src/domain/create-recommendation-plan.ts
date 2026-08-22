@@ -33,6 +33,8 @@ export interface FutureBuildRecommendation {
   scoreGain: number;
   upgradeCost: number;
   blockers: readonly string[];
+  /** Lower values represent a more realistic short-term target. */
+  effort: number;
 }
 
 export interface RecommendationPlan {
@@ -126,6 +128,52 @@ function replaceEquipment(
   };
 }
 
+function equipmentCost(
+  equipment: Equipment,
+  progress: PlayerProgress,
+): number {
+  const rule = ACQUISITION_BY_EQUIPMENT_ID.get(equipment.id);
+  if (
+    !rule ||
+    rule.method === "DEFAULT" ||
+    progress.ownedEquipmentIds.has(equipment.id)
+  ) {
+    return 0;
+  }
+  return rule.price;
+}
+
+function selectionCost(
+  selection: BuildSelection,
+  progress: PlayerProgress,
+): number {
+  return (
+    equipmentCost(selection.rod, progress) +
+    equipmentCost(selection.line, progress) +
+    equipmentCost(selection.bobber, progress)
+  );
+}
+
+function blockerEffort(blocker: UnmetRequirement): number {
+  const { requirement } = blocker;
+
+  switch (requirement.type) {
+    case "MONEY":
+      return (blocker.missing ?? 0) / Math.max(1, requirement.amount);
+    case "LEVEL":
+      return (blocker.missing ?? 0) / Math.max(1, requirement.minimum);
+    case "FISH_SOLD":
+      return (blocker.missing ?? 0) / Math.max(1, requirement.minimum);
+    case "MATERIAL":
+      return (blocker.missing ?? 0) / Math.max(1, requirement.quantity);
+    case "QUEST":
+    case "LOCATION":
+    case "VENDOR":
+    case "EQUIPMENT":
+      return 1.5;
+  }
+}
+
 function futureUpgrade(
   progress: PlayerProgress,
   goal: RecommendationGoal,
@@ -140,15 +188,34 @@ function futureUpgrade(
         return [];
       }
 
-      const evaluation = evaluateAcquisition(rule, progress);
+      const selection = replaceEquipment(best.selection, item);
       if (
-        evaluation.availability === "OWNED" ||
-        evaluation.availability === "AVAILABLE"
+        selection.rod.id === best.selection.rod.id &&
+        selection.line.id === best.selection.line.id &&
+        selection.bobber.id === best.selection.bobber.id
       ) {
         return [];
       }
 
-      const selection = replaceEquipment(best.selection, item);
+      const evaluation = evaluateAcquisition(rule, progress);
+      const totalCost = selectionCost(selection, progress);
+      const nonMoneyBlockers = evaluation.unmetRequirements.filter(
+        ({ requirement }) => requirement.type !== "MONEY",
+      );
+      const moneyBlocker: UnmetRequirement[] =
+        totalCost > progress.money
+          ? [{
+              requirement: { type: "MONEY", amount: totalCost },
+              current: progress.money,
+              missing: totalCost - progress.money,
+            }]
+          : [];
+      const unmetRequirements = [...nonMoneyBlockers, ...moneyBlocker];
+
+      if (unmetRequirements.length === 0) {
+        return [];
+      }
+
       const stats = calculateBuildStats(selection);
       const score = scoreBuild(stats, goal);
       const scoreGain = score - best.score;
@@ -156,17 +223,26 @@ function futureUpgrade(
         return [];
       }
 
+      const effort =
+        unmetRequirements.reduce(
+          (total, blocker) => total + blockerEffort(blocker),
+          0,
+        ) +
+        Math.max(0, unmetRequirements.length - 1) * 0.25;
+
       return [{
         selection,
         stats,
         score,
         scoreGain,
-        upgradeCost: rule.price,
-        blockers: evaluation.unmetRequirements.map(describeBlocker),
+        upgradeCost: totalCost,
+        blockers: unmetRequirements.map(describeBlocker),
+        effort,
       }];
     })
     .sort(
       (a, b) =>
+        a.effort - b.effort ||
         b.scoreGain - a.scoreGain ||
         a.upgradeCost - b.upgradeCost,
     )[0];
