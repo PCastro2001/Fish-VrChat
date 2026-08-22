@@ -14,7 +14,7 @@ function progress(
     unlockedLocationIds: new Set(["coconut-bay"]),
     availableVendorIds: new Set(),
     ownedEquipmentIds: new Set(),
-    ownedEnchantmentIds: new Set(),
+    rodEnchantments: new Map(),
     inventory: new Map(),
     ...overrides,
   };
@@ -116,7 +116,7 @@ describe("build recommendations", () => {
   it("uses only enchantments the player owns", () => {
     const [recommendation] = recommendBuilds(
       progress({
-        ownedEnchantmentIds: new Set(["gods-own-luck"]),
+        rodEnchantments: new Map([["stick-and-string", "gods-own-luck"]]),
       }),
       "RARE_FISH",
       1,
@@ -140,7 +140,7 @@ describe("build recommendations", () => {
 
   it("applies conditional enchantments only in the matching context", () => {
     const player = progress({
-      ownedEnchantmentIds: new Set(["day-walker"]),
+      rodEnchantments: new Map([["stick-and-string", "day-walker"]]),
     });
 
     const [withoutDay] = recommendBuilds(player, "RARE_FISH", 1);
@@ -151,8 +151,29 @@ describe("build recommendations", () => {
       { timeOfDay: "DAY" },
     );
 
-    expect(withoutDay?.selection.enchantment).toBeUndefined();
+    expect(withoutDay?.selection.enchantment?.id).toBe("day-walker");
+    expect(withoutDay?.stats.luck).toBe(-50);
     expect(duringDay?.selection.enchantment?.id).toBe("day-walker");
+    expect(duringDay?.stats.luck).toBe(0);
+  });
+
+  it("never transfers a rod enchantment to another rod", () => {
+    const recommendations = recommendBuilds(
+      progress({
+        ownedEquipmentIds: new Set(["slim-rod"]),
+        rodEnchantments: new Map([
+          ["stick-and-string", "gods-own-luck"],
+        ]),
+      }),
+      "RARE_FISH",
+      20,
+    );
+
+    const slimBuild = recommendations.find(
+      ({ selection }) => selection.rod.id === "slim-rod",
+    );
+
+    expect(slimBuild?.selection.enchantment).toBeUndefined();
   });
 
 });
