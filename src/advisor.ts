@@ -17,15 +17,20 @@ import type {
 import type { BuildSelection, BuildStats } from "./domain/equipment.js";
 import type { PlayerProgress } from "./domain/player-progress.js";
 
-const form = document.querySelector<HTMLFormElement>("#advisorForm");
-const equipmentContainer = document.querySelector<HTMLDivElement>("#ownedEquipment");
-const enchantmentContainer =
-  document.querySelector<HTMLDivElement>("#ownedEnchantments");
-const results = document.querySelector<HTMLElement>("#recommendations");
-
-if (!form || !equipmentContainer || !enchantmentContainer || !results) {
-  throw new Error("Advisor UI could not be initialized.");
+function requireElement<T extends Element>(selector: string): T {
+  const element = document.querySelector<T>(selector);
+  if (!element) {
+    throw new Error(`Required UI element not found: ${selector}`);
+  }
+  return element;
 }
+
+const form = requireElement<HTMLFormElement>("#advisorForm");
+const equipmentContainer =
+  requireElement<HTMLDivElement>("#ownedEquipment");
+const enchantmentContainer =
+  requireElement<HTMLDivElement>("#ownedEnchantments");
+const results = requireElement<HTMLElement>("#recommendations");
 
 const STARTER_IDS = new Set([
   "stick-and-string",
