@@ -113,4 +113,46 @@ describe("build recommendations", () => {
     expect(fastest?.selection.rod.id).toBe("speedy-rod");
     expect(rarest?.selection.rod.id).toBe("fortunate-rod");
   });
+  it("uses only enchantments the player owns", () => {
+    const [recommendation] = recommendBuilds(
+      progress({
+        ownedEnchantmentIds: new Set(["gods-own-luck"]),
+      }),
+      "RARE_FISH",
+      1,
+    );
+
+    expect(recommendation?.selection.enchantment?.id).toBe("gods-own-luck");
+    expect(recommendation?.stats.luck).toBe(200);
+  });
+
+  it("never recommends an unowned enchantment", () => {
+    const recommendations = recommendBuilds(
+      progress(),
+      "RARE_FISH",
+      20,
+    );
+
+    expect(
+      recommendations.every(({ selection }) => !selection.enchantment),
+    ).toBe(true);
+  });
+
+  it("applies conditional enchantments only in the matching context", () => {
+    const player = progress({
+      ownedEnchantmentIds: new Set(["day-walker"]),
+    });
+
+    const [withoutDay] = recommendBuilds(player, "RARE_FISH", 1);
+    const [duringDay] = recommendBuilds(
+      player,
+      "RARE_FISH",
+      1,
+      { timeOfDay: "DAY" },
+    );
+
+    expect(withoutDay?.selection.enchantment).toBeUndefined();
+    expect(duringDay?.selection.enchantment?.id).toBe("day-walker");
+  });
+
 });
