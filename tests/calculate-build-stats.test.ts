@@ -31,10 +31,10 @@ const baseSelection = (): BuildSelection => ({
 });
 
 describe("calculateBuildStats", () => {
-  it("adds 15 luck per completed index location with a maximum of eight", () => {
+  it("adds 15 luck per completed regional index with a maximum of seven", () => {
     const selection = baseSelection();
     selection.completedIndexLocations = 20;
-    expect(calculateBuildStats(selection).luck).toBe(120);
+    expect(calculateBuildStats(selection).luck).toBe(105);
   });
 
   it("caps expertise at 100", () => {
