@@ -52,6 +52,54 @@ function escapeHtml(value: string): string {
   );
 }
 
+function selectedRodEnchantments(): ReadonlyMap<string, string> {
+  return new Map(
+    [...document.querySelectorAll<HTMLSelectElement>(
+      "[data-rod-enchantment]",
+    )]
+      .filter(({ value }) => value.length > 0)
+      .map((select): [string, string] => [
+        select.dataset.rodEnchantment ?? "",
+        select.value,
+      ])
+      .filter(([rodId]) => rodId.length > 0),
+  );
+}
+
+function renderRodEnchantments(): void {
+  const previous = selectedRodEnchantments();
+  const ownedIds = checkedValues("ownedEquipment");
+  const ownedRods = RODS.filter(
+    ({ id }) => id === "stick-and-string" || ownedIds.has(id),
+  );
+  const options = [
+    `<option value="">Sin encantamiento</option>`,
+    ...ENCHANTMENTS.map(
+      ({ id, name, rarity }) =>
+        `<option value="${escapeHtml(id)}">[${rarity}] ${escapeHtml(name)}</option>`,
+    ),
+  ].join("");
+
+  enchantmentContainer.innerHTML = ownedRods
+    .map(({ id, name }) => {
+      const selected = previous.get(id) ?? "";
+      return `
+        <div class="rod-enchantment-row">
+          <span>🎣 ${escapeHtml(name)}</span>
+          <select data-rod-enchantment="${escapeHtml(id)}">
+            ${options}
+          </select>
+        </div>`;
+    })
+    .join("");
+
+  for (const select of document.querySelectorAll<HTMLSelectElement>(
+    "[data-rod-enchantment]",
+  )) {
+    select.value = previous.get(select.dataset.rodEnchantment ?? "") ?? "";
+  }
+}
+
 function renderOwnedOptions(): void {
   const equipment = [...RODS, ...LINES, ...BOBBERS].filter(
     ({ id }) => !STARTER_IDS.has(id),
@@ -64,10 +112,8 @@ function renderOwnedOptions(): void {
     )
     .join("");
 
-  enchantmentContainer.innerHTML = ENCHANTMENTS.map(
-    ({ id, name, rarity }) =>
-      `<label><input name="ownedEnchantments" type="checkbox" value="${escapeHtml(id)}"> ${escapeHtml(name)} <small>${rarity}</small></label>`,
-  ).join("");
+  equipmentContainer.addEventListener("change", renderRodEnchantments);
+  renderRodEnchantments();
 }
 
 function checkedValues(name: string): ReadonlySet<string> {
@@ -107,7 +153,7 @@ function collectProgress(): PlayerProgress {
     unlockedLocationIds: checkedValues("locations"),
     availableVendorIds: checkedValues("vendors"),
     ownedEquipmentIds: checkedValues("ownedEquipment"),
-    ownedEnchantmentIds: checkedValues("ownedEnchantments"),
+    rodEnchantments: selectedRodEnchantments(),
     inventory: collectInventory(),
   };
 }
