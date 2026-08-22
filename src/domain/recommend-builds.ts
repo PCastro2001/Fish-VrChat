@@ -178,18 +178,12 @@ function enchantmentApplies(
   return true;
 }
 
-function availableEnchantments(
+function enchantmentForRod(
+  rod: Equipment,
   progress: PlayerProgress,
-  context: FishingContext,
-): readonly (Enchantment | undefined)[] {
-  return [
-    undefined,
-    ...ENCHANTMENTS.filter(
-      (enchantment) =>
-        progress.ownedEnchantmentIds.has(enchantment.id) &&
-        enchantmentApplies(enchantment, context),
-    ),
-  ];
+): Enchantment | undefined {
+  const enchantmentId = progress.rodEnchantments.get(rod.id);
+  return ENCHANTMENTS.find(({ id }) => id === enchantmentId);
 }
 
 function explain(
@@ -236,7 +230,6 @@ export function recommendBuilds(
   const rods = availableEquipment(RODS, progress);
   const lines = availableEquipment(LINES, progress);
   const bobbers = availableEquipment(BOBBERS, progress);
-  const enchantments = availableEnchantments(progress, context);
   const candidates: BuildRecommendation[] = [];
 
   for (const rod of rods) {
@@ -247,26 +240,37 @@ export function recommendBuilds(
           continue;
         }
 
-        for (const enchantment of enchantments) {
-          const baseSelection = {
-            rod: rod.item,
-            line: line.item,
-            bobber: bobber.item,
-            completedIndexLocations: progress.completedIndexLocations,
-          };
-          const selection: BuildSelection = enchantment
-            ? { ...baseSelection, enchantment }
-            : baseSelection;
-          const stats = calculateBuildStats(selection);
+        const enchantment = enchantmentForRod(rod.item, progress);
+        const enchantmentActive =
+          enchantment !== undefined &&
+          enchantmentApplies(enchantment, context);
+        const baseSelection = {
+          rod: rod.item,
+          line: line.item,
+          bobber: bobber.item,
+          completedIndexLocations: progress.completedIndexLocations,
+        };
+        const selection: BuildSelection = enchantment
+          ? { ...baseSelection, enchantment }
+          : baseSelection;
+        const effectiveSelection: BuildSelection = enchantmentActive
+          ? selection
+          : baseSelection;
+        const stats = calculateBuildStats(effectiveSelection);
+        const reasons = enchantment && !enchantmentActive
+          ? [
+              ...explain(goal, stats),
+              `${enchantment.name} está ligado a esta caña, pero no se activa con las condiciones seleccionadas.`,
+            ]
+          : explain(goal, stats, enchantment);
 
-          candidates.push({
-            selection,
-            stats,
-            purchaseCost,
-            score: scoreBuild(stats, goal),
-            reasons: explain(goal, stats, enchantment),
-          });
-        }
+        candidates.push({
+          selection,
+          stats,
+          purchaseCost,
+          score: scoreBuild(stats, goal),
+          reasons,
+        });
       }
     }
   }
