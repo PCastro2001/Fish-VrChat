@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Recomendador de equipamiento para FISH! basado en progreso, presupuesto y objetivos.">
+  <title>FISH! Build Advisor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/advisor.css">
+</head>
+<body>
+  <header class="hero">
+    <nav>
+      <a class="brand" href="/advisor.html">FISH! <span>Build Advisor</span></a>
+      <a class="legacy-link" href="/index.html">Abrir guía clásica</a>
+    </nav>
+    <div class="hero-copy">
+      <p class="eyebrow">DECISION ENGINE · VRCHAT</p>
+      <h1>Tu próxima caña,<br><span>sin adivinar.</span></h1>
+      <p>Compara todas las combinaciones que realmente puedes obtener según tu progreso, presupuesto, misiones y equipamiento.</p>
+    </div>
+  </header>
+
+  <main>
+    <form id="advisorForm" class="advisor-layout">
+      <section class="control-panel">
+        <div class="section-heading">
+          <span>01</span>
+          <div><h2>Progreso</h2><p>Cuéntanos dónde estás en el juego.</p></div>
+        </div>
+
+        <div class="field-grid">
+          <label>Nivel<input id="level" type="number" min="1" value="1" required></label>
+          <label>Dinero<input id="money" type="number" min="0" value="0" required></label>
+          <label>Peces vendidos<input id="fishSold" type="number" min="0" value="0" required></label>
+          <label>Índices completos<input id="indexLocations" type="number" min="0" max="8" value="0" required></label>
+        </div>
+
+        <fieldset>
+          <legend>Ubicaciones desbloqueadas</legend>
+          <div class="check-grid">
+            <label><input name="locations" type="checkbox" value="coconut-bay" checked> Coconut Bay</label>
+            <label><input name="locations" type="checkbox" value="crescent-isle"> Crescent Isle</label>
+            <label><input name="locations" type="checkbox" value="tanglewood"> Tanglewood</label>
+            <label><input name="locations" type="checkbox" value="luxian-dunes"> Luxian Dunes</label>
+            <label><input name="locations" type="checkbox" value="twilight-realm"> Twilight Realm</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Misiones completadas</legend>
+          <div class="check-grid">
+            <label><input name="quests" type="checkbox" value="alien-quest"> Alien Quest</label>
+            <label><input name="quests" type="checkbox" value="our-ship-its-broken"> Our Ship... It's Broken!</label>
+            <label><input name="quests" type="checkbox" value="paulies-lost-saw"> Paulie's Lost Saw</label>
+            <label><input name="quests" type="checkbox" value="undying-love"> Undying Love</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Vendedores disponibles</legend>
+          <div class="check-grid">
+            <label><input name="vendors" type="checkbox" value="vlad"> Vlad está presente</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="control-panel">
+        <div class="section-heading">
+          <span>02</span>
+          <div><h2>Inventario</h2><p>Los objetos poseídos no se cobran nuevamente.</p></div>
+        </div>
+
+        <details open>
+          <summary>Equipamiento que ya posees</summary>
+          <div id="ownedEquipment" class="inventory-grid"></div>
+        </details>
+
+        <details>
+          <summary>Encantamientos que ya posees</summary>
+          <div id="ownedEnchantments" class="inventory-grid"></div>
+        </details>
+
+        <details>
+          <summary>Materiales de Leviathan</summary>
+          <div class="field-grid materials">
+            <label>Leviathan Scale<input data-material="leviathan-scale" type="number" min="0" value="0"></label>
+            <label>Dorsal Spike<input data-material="leviathan-dorsal-spike" type="number" min="0" value="0"></label>
+            <label>Scrap Metal<input data-material="scrap-metal" type="number" min="0" value="0"></label>
+            <label>Powerful Relic<input data-material="powerful-relic" type="number" min="0" value="0"></label>
+            <label>Tear of Leviathan<input data-material="tear-of-the-leviathan" type="number" min="0" value="0"></label>
+          </div>
+        </details>
+      </section>
+
+      <section class="control-panel decision-panel">
+        <div class="section-heading">
+          <span>03</span>
+          <div><h2>Objetivo</h2><p>El algoritmo cambiará sus prioridades.</p></div>
+        </div>
+
+        <label>Quiero optimizar
+          <select id="goal">
+            <option value="BALANCED">Balance general</option>
+            <option value="RARE_FISH">Peces raros</option>
+            <option value="LARGE_FISH">Peces grandes</option>
+            <option value="FAST_CATCHES">Capturas rápidas</option>
+            <option value="EASY_REEL">Recogida sencilla</option>
+          </select>
+        </label>
+
+        <div class="field-grid">
+          <label>Hora
+            <select id="timeOfDay">
+              <option value="">Cualquiera</option>
+              <option value="DAY">Día</option>
+              <option value="NIGHT">Noche</option>
+            </select>
+          </label>
+          <label>Clima
+            <select id="weather">
+              <option value="">Cualquiera</option>
+              <option value="CLEAR">Despejado</option>
+              <option value="FOG">Niebla</option>
+              <option value="RAIN">Lluvia</option>
+              <option value="STORM">Tormenta</option>
+            </select>
+          </label>
+        </div>
+
+        <button class="primary-button" type="submit">Calcular mi mejor build <span>→</span></button>
+        <p class="privacy-note">Todo se calcula localmente. No guardamos tus datos.</p>
+      </section>
+    </form>
+
+    <section id="recommendations" class="results-section" aria-live="polite">
+      <div class="results-placeholder">
+        <span>◌</span>
+        <h2>Esperando tus datos</h2>
+        <p>Completa tu progreso y ejecuta el recomendador.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Proyecto de portafolio de Pablo Castro · Datos comunitarios de FISH!</p>
+    <a href="https://github.com/PCastro2001/Fish-VrChat">Ver código en GitHub</a>
+  </footer>
+
+  <script type="module" src="/src/advisor.ts"></script>
+</body>
+</html>
