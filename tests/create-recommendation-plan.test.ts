@@ -80,4 +80,16 @@ describe("recommendation plan", () => {
       }),
     ).toBe("Debes completar la misión Alien Quest.");
   });
+  it("prefers an attainable next step over an end-game item", () => {
+    const plan = createRecommendationPlan(
+      progress({ money: 10_000 }),
+      "BALANCED",
+    );
+
+    expect(plan.futureUpgrade?.selection.line.id).toBe("aquamarine-line");
+    expect(plan.futureUpgrade?.upgradeCost).toBe(10_100);
+    expect(plan.futureUpgrade?.blockers).toContain("Te faltan $100.");
+    expect(plan.futureUpgrade?.selection.rod.id).not.toBe("leviathan-rod");
+  });
+
 });
