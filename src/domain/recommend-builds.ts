@@ -3,6 +3,7 @@ import {
 } from "../data/equipment-acquisition.js";
 import {
   BOBBERS,
+  ENCHANTMENTS,
   LINES,
   RODS,
 } from "../data/equipment-catalog.js";
@@ -11,6 +12,7 @@ import { evaluateAcquisition } from "./evaluate-acquisition.js";
 import type {
   BuildSelection,
   BuildStats,
+  Enchantment,
   Equipment,
 } from "./equipment.js";
 import type { PlayerProgress } from "./player-progress.js";
@@ -21,6 +23,11 @@ export type RecommendationGoal =
   | "LARGE_FISH"
   | "FAST_CATCHES"
   | "EASY_REEL";
+
+export interface FishingContext {
+  timeOfDay?: "DAY" | "NIGHT";
+  weather?: "CLEAR" | "FOG" | "RAIN" | "STORM";
+}
 
 export interface BuildRecommendation {
   selection: BuildSelection;
@@ -81,6 +88,11 @@ const WEIGHTS: Record<RecommendationGoal, ScoringWeights> = {
     maxWeightKg: 0,
   },
 };
+
+const DAY_ONLY = new Set(["day-walker", "son-of-kriptan"]);
+const NIGHT_ONLY = new Set(["night-stalker", "the-night-watcher"]);
+const FOG_ONLY = new Set(["fog-dweller"]);
+const RAIN_ONLY = new Set(["rain-lover"]);
 
 function clamp01(value: number): number {
   return Math.min(1, Math.max(0, value));
@@ -147,7 +159,44 @@ function availableEquipment(
   });
 }
 
-function explain(goal: RecommendationGoal, stats: BuildStats): readonly string[] {
+function enchantmentApplies(
+  enchantment: Enchantment,
+  context: FishingContext,
+): boolean {
+  if (DAY_ONLY.has(enchantment.id)) {
+    return context.timeOfDay === "DAY";
+  }
+  if (NIGHT_ONLY.has(enchantment.id)) {
+    return context.timeOfDay === "NIGHT";
+  }
+  if (FOG_ONLY.has(enchantment.id)) {
+    return context.weather === "FOG";
+  }
+  if (RAIN_ONLY.has(enchantment.id)) {
+    return context.weather === "RAIN" || context.weather === "STORM";
+  }
+  return true;
+}
+
+function availableEnchantments(
+  progress: PlayerProgress,
+  context: FishingContext,
+): readonly (Enchantment | undefined)[] {
+  return [
+    undefined,
+    ...ENCHANTMENTS.filter(
+      (enchantment) =>
+        progress.ownedEnchantmentIds.has(enchantment.id) &&
+        enchantmentApplies(enchantment, context),
+    ),
+  ];
+}
+
+function explain(
+  goal: RecommendationGoal,
+  stats: BuildStats,
+  enchantment?: Enchantment,
+): readonly string[] {
   const explanations: Record<RecommendationGoal, readonly string[]> = {
     BALANCED: [
       `Equilibra ${stats.luck} Luck, ${stats.bigCatch} Big Catch y ${Math.round(stats.attractionRate * 100)}% de Attraction.`,
@@ -173,17 +222,21 @@ function explain(goal: RecommendationGoal, stats: BuildStats): readonly string[]
     ],
   };
 
-  return explanations[goal];
+  return enchantment
+    ? [...explanations[goal], `Usa el encantamiento ${enchantment.name} que ya posees.`]
+    : explanations[goal];
 }
 
 export function recommendBuilds(
   progress: PlayerProgress,
   goal: RecommendationGoal,
   maxResults = 3,
+  context: FishingContext = {},
 ): readonly BuildRecommendation[] {
   const rods = availableEquipment(RODS, progress);
   const lines = availableEquipment(LINES, progress);
   const bobbers = availableEquipment(BOBBERS, progress);
+  const enchantments = availableEnchantments(progress, context);
   const candidates: BuildRecommendation[] = [];
 
   for (const rod of rods) {
@@ -194,21 +247,26 @@ export function recommendBuilds(
           continue;
         }
 
-        const selection: BuildSelection = {
-          rod: rod.item,
-          line: line.item,
-          bobber: bobber.item,
-          completedIndexLocations: progress.completedIndexLocations,
-        };
-        const stats = calculateBuildStats(selection);
+        for (const enchantment of enchantments) {
+          const baseSelection = {
+            rod: rod.item,
+            line: line.item,
+            bobber: bobber.item,
+            completedIndexLocations: progress.completedIndexLocations,
+          };
+          const selection: BuildSelection = enchantment
+            ? { ...baseSelection, enchantment }
+            : baseSelection;
+          const stats = calculateBuildStats(selection);
 
-        candidates.push({
-          selection,
-          stats,
-          purchaseCost,
-          score: scoreBuild(stats, goal),
-          reasons: explain(goal, stats),
-        });
+          candidates.push({
+            selection,
+            stats,
+            purchaseCost,
+            score: scoreBuild(stats, goal),
+            reasons: explain(goal, stats, enchantment),
+          });
+        }
       }
     }
   }
@@ -220,7 +278,10 @@ export function recommendBuilds(
         a.purchaseCost - b.purchaseCost ||
         a.selection.rod.name.localeCompare(b.selection.rod.name) ||
         a.selection.line.name.localeCompare(b.selection.line.name) ||
-        a.selection.bobber.name.localeCompare(b.selection.bobber.name),
+        a.selection.bobber.name.localeCompare(b.selection.bobber.name) ||
+        (a.selection.enchantment?.name ?? "").localeCompare(
+          b.selection.enchantment?.name ?? "",
+        ),
     )
     .slice(0, Math.max(0, Math.trunc(maxResults)));
 }
