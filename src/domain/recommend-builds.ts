@@ -115,7 +115,7 @@ function normalizedStats(stats: BuildStats): ScoringWeights {
   };
 }
 
-function scoreBuild(stats: BuildStats, goal: RecommendationGoal): number {
+export function scoreBuild(stats: BuildStats, goal: RecommendationGoal): number {
   const values = normalizedStats(stats);
   const weights = WEIGHTS[goal];
 
