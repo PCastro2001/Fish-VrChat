@@ -209,6 +209,23 @@ details > .inventory-grid, details > .field-grid {
   padding: .9rem;
 }
 
+
+.rod-enchantment-row {
+  display: grid;
+  grid-template-columns: minmax(150px, .8fr) minmax(200px, 1.2fr);
+  gap: .7rem;
+  align-items: center;
+  padding: .65rem;
+  border-radius: 9px;
+  background: rgba(255,255,255,.025);
+  color: #cce0e9;
+  font-size: .76rem;
+}
+
+.rod-enchantment-row select {
+  margin: 0;
+}
+
 .primary-button {
   width: 100%;
   margin-top: 1.2rem;
@@ -346,7 +363,7 @@ footer {
 }
 
 @media (max-width: 560px) {
-  .field-grid, .check-grid, .inventory-grid { grid-template-columns: 1fr; }
+  .field-grid, .check-grid, .inventory-grid, .rod-enchantment-row { grid-template-columns: 1fr; }
   .hero, main, footer { width: min(100% - 1rem, 1180px); }
   footer { flex-direction: column; gap: .5rem; }
 }
