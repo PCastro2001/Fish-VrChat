@@ -116,8 +116,19 @@ function replaceEquipment(
   selection: BuildSelection,
   equipment: Equipment,
 ): BuildSelection {
-  const replacement: Record<EquipmentType, Partial<BuildSelection>> = {
-    ROD: { rod: equipment },
+  if (equipment.type === "ROD") {
+    const {
+      enchantment: _attachedToPreviousRod,
+      ...selectionWithoutEnchantment
+    } = selection;
+
+    return {
+      ...selectionWithoutEnchantment,
+      rod: equipment,
+    };
+  }
+
+  const replacement: Record<Exclude<EquipmentType, "ROD">, Partial<BuildSelection>> = {
     LINE: { line: equipment },
     BOBBER: { bobber: equipment },
   };
