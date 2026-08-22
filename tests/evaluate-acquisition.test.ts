@@ -13,6 +13,7 @@ function progress(
     level: 1,
     money: 0,
     fishSold: 0,
+    completedIndexLocations: 0,
     completedQuestIds: new Set(),
     unlockedLocationIds: new Set(["coconut-bay"]),
     availableVendorIds: new Set(),
