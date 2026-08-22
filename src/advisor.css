@@ -287,19 +287,28 @@ details > .inventory-grid, details > .field-grid {
   grid-template-columns: minmax(0, 1fr);
 }
 
-.rod-enchantment-row {
+#ownedEnchantments .rod-enchantment-row {
   display: grid;
-  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
-  gap: .7rem;
+  grid-template-columns: minmax(11rem, 1fr) minmax(13rem, 1.25fr);
+  gap: 1rem;
   align-items: center;
-  padding: .65rem;
-  border-radius: 9px;
+  width: 100%;
+  min-width: 0;
+  padding: .8rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
   background: rgba(255,255,255,.025);
   color: #cce0e9;
   font-size: .76rem;
 }
 
+.rod-enchantment-row > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .rod-enchantment-row select {
+  width: 100%;
   min-width: 0;
   margin: 0;
 }
@@ -457,7 +466,8 @@ footer {
     grid-column: auto;
   }
 
-  .rod-enchantment-row {
+  #ownedEnchantments .rod-enchantment-row {
+    grid-template-columns: minmax(0, 1fr);
     gap: .45rem;
   }
 
