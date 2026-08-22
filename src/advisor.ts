@@ -183,7 +183,7 @@ function availableCard(
 function futureCard(future: FutureBuildRecommendation): string {
   return `
     <article class="result-card">
-      <span class="result-label">PRÓXIMA MEJORA</span>
+      <span class="result-label">PRÓXIMO OBJETIVO REALISTA</span>
       <h3>${escapeHtml(future.selection.rod.name)}</h3>
       <div class="gear-list">${gearMarkup(future.selection)}</div>
       <div class="price">Costo: ${formatMoney(future.upgradeCost)}</div>
@@ -206,7 +206,7 @@ function renderPlan(plan: RecommendationPlan): void {
       ${
         plan.futureUpgrade
           ? futureCard(plan.futureUpgrade)
-          : `<article class="result-card"><span class="result-label">PRÓXIMA MEJORA</span><h3>Sin mejoras pendientes</h3><p class="privacy-note">No encontramos equipamiento bloqueado que supere esta build.</p></article>`
+          : `<article class="result-card"><span class="result-label">PRÓXIMO OBJETIVO REALISTA</span><h3>Sin mejoras pendientes</h3><p class="privacy-note">No encontramos equipamiento bloqueado que supere esta build.</p></article>`
       }
     </div>`;
   results.scrollIntoView({ behavior: "smooth", block: "start" });
