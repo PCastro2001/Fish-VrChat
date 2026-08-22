@@ -100,15 +100,56 @@ function renderRodEnchantments(): void {
   }
 }
 
-function renderOwnedOptions(): void {
-  const equipment = [...RODS, ...LINES, ...BOBBERS].filter(
-    ({ id }) => !STARTER_IDS.has(id),
-  );
-
-  equipmentContainer.innerHTML = equipment
+function equipmentOptions(
+  equipment: readonly { id: string; name: string }[],
+): string {
+  return equipment
+    .filter(({ id }) => !STARTER_IDS.has(id))
     .map(
-      ({ id, name, type }) =>
-        `<label><input name="ownedEquipment" type="checkbox" value="${escapeHtml(id)}"> ${escapeHtml(name)} <small>${type}</small></label>`,
+      ({ id, name }) =>
+        `<label><input name="ownedEquipment" type="checkbox" value="${escapeHtml(id)}"><span>${escapeHtml(name)}</span></label>`,
+    )
+    .join("");
+}
+
+function renderOwnedOptions(): void {
+  const groups = [
+    {
+      id: "rods",
+      icon: "🎣",
+      title: "Cañas",
+      description: "Selecciona las cañas únicas de tu inventario.",
+      options: equipmentOptions(RODS),
+    },
+    {
+      id: "lines",
+      icon: "🧵",
+      title: "Líneas",
+      description: "Marca las líneas que ya compraste o desbloqueaste.",
+      options: equipmentOptions(LINES),
+    },
+    {
+      id: "bobbers",
+      icon: "🔵",
+      title: "Flotadores",
+      description: "Marca los flotadores disponibles para tus builds.",
+      options: equipmentOptions(BOBBERS),
+    },
+  ];
+
+  equipmentContainer.innerHTML = groups
+    .map(
+      ({ id, icon, title, description, options }) => `
+        <section class="equipment-group equipment-group--${id}">
+          <div class="equipment-group__heading">
+            <span aria-hidden="true">${icon}</span>
+            <div>
+              <h3>${title}</h3>
+              <p>${description}</p>
+            </div>
+          </div>
+          <div class="equipment-options">${options}</div>
+        </section>`,
     )
     .join("");
 
