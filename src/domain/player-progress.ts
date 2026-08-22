@@ -2,6 +2,7 @@ export interface PlayerProgress {
   level: number;
   money: number;
   fishSold: number;
+  completedIndexLocations: number;
   completedQuestIds: ReadonlySet<string>;
   unlockedLocationIds: ReadonlySet<string>;
   availableVendorIds: ReadonlySet<string>;
