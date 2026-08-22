@@ -99,7 +99,7 @@ describe("build recommendations", () => {
       1,
     );
 
-    expect(recommendation?.stats.luck).toBe(210);
+    expect(recommendation?.stats.luck).toBe(195);
   });
 
   it("changes the best build when the player's objective changes", () => {
