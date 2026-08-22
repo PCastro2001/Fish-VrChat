@@ -186,10 +186,7 @@ function collectProgress(): PlayerProgress {
     level: Math.max(1, Math.trunc(numberValue("#level"))),
     money: Math.trunc(numberValue("#money")),
     fishSold: Math.trunc(numberValue("#fishSold")),
-    completedIndexLocations: Math.min(
-      8,
-      Math.trunc(numberValue("#indexLocations")),
-    ),
+    completedIndexLocations: checkedValues("completedIndexes").size,
     completedQuestIds: checkedValues("quests"),
     unlockedLocationIds: checkedValues("locations"),
     availableVendorIds: checkedValues("vendors"),
