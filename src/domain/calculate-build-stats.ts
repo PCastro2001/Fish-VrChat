@@ -5,7 +5,7 @@ import type {
 } from "./equipment.js";
 
 const MAX_EXPERTISE = 100;
-const MAX_INDEX_LOCATIONS = 8;
+const MAX_INDEX_LOCATIONS = 7;
 const LUCK_PER_INDEX_LOCATION = 15;
 
 const ZERO_STATS: EquipmentStats = {
