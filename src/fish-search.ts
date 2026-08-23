@@ -55,7 +55,7 @@ function render(): void {
         <h2>${escapeHtml(fish.name)}</h2>
         <dl>
         <div><dt>Agua</dt><dd>${escapeHtml(fish.waterType)}</dd></div>
-        <div><dt>Clima</dt><dd>${escapeHtml(fish.weather)}</dd></div>
+        <div><dt>Clima</dt><dd>${escapeHtml(fish.weather)}${fish.conditionMultiplier ? ` · ${fish.conditionMultiplier}×` : ""}</dd></div>
         <div><dt>Horario</dt><dd>${escapeHtml(fish.timeOfDay)}</dd></div>
       </dl>
       ${fish.minWeight && fish.maxWeight ? `<div class="weight-range"><span>Peso base</span><strong>${escapeHtml(fish.minWeight)} — ${escapeHtml(fish.maxWeight)}</strong></div>` : ""}
