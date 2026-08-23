@@ -4,6 +4,10 @@ export interface FishRecord {
   waterType: string;
   weather: string;
   timeOfDay: string;
+  rarity?: string;
+  minWeight?: string;
+  maxWeight?: string;
+  imageUrl?: string;
 }
 
 /** Normal-size fish records imported from the public TRUE Perfection Tracker. */
@@ -729,6 +733,240 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "weather": "Any",
     "timeOfDay": "Any"
   }
+,
+
+  {
+    "name": "Barbel",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "minWeight": "2.0 kg",
+    "maxWeight": "11.9 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/1c/Barbel.webp/120px-Barbel.webp.png"
+  },
+  {
+    "name": "Grayling",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Any",
+    "timeOfDay": "Morning",
+    "rarity": "Abundant",
+    "minWeight": "0.5 kg",
+    "maxWeight": "2 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/31/Grayling.webp/120px-Grayling.webp.png"
+  },
+  {
+    "name": "Zander",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Clear",
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "2.0 kg",
+    "maxWeight": "9.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/78/Zander.webp/120px-Zander.webp.png"
+  },
+  {
+    "name": "Pangasius",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Foggy",
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "2.2 g",
+    "maxWeight": "29.9 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/64/Pangasius.webp/120px-Pangasius.webp.png"
+  },
+  {
+    "name": "Largemouth Bass",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Any",
+    "timeOfDay": "Day",
+    "rarity": "Common",
+    "minWeight": "1.5 kg",
+    "maxWeight": "5.4 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/8f/Largemouth_Bass.webp/120px-Largemouth_Bass.webp.png"
+  },
+  {
+    "name": "Pike",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Foggy",
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "2.0 kg",
+    "maxWeight": "15.3 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/14/Pike.webp/120px-Pike.webp.png"
+  },
+  {
+    "name": "Tilapia",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "1.0 kg",
+    "maxWeight": "3.0 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/69/Tilapia.webp/120px-Tilapia.webp.png"
+  },
+  {
+    "name": "Blue Diamond Discus",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Foggy",
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "minWeight": "0.1 kg",
+    "maxWeight": "1.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/7b/Blue_Diamond_Discus.webp/120px-Blue_Diamond_Discus.webp.png"
+  },
+  {
+    "name": "African Lungfish",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "minWeight": "1.2 kg",
+    "maxWeight": "7.6 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/c/c5/African_Lungfish.webp/120px-African_Lungfish.webp.png"
+  },
+  {
+    "name": "African Pike",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "minWeight": "5.1 kg",
+    "maxWeight": "9.6 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/09/African_Pike.webp/120px-African_Pike.webp.png"
+  },
+  {
+    "name": "Arowana",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "minWeight": "1.0 kg",
+    "maxWeight": "8.7 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/79/Arowana.webp/120px-Arowana.webp.png"
+  },
+  {
+    "name": "Knife Fish",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "minWeight": "3.8 kg",
+    "maxWeight": "7.9 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/43/Knife_Fish.webp/120px-Knife_Fish.webp.png"
+  },
+  {
+    "name": "High-Fin Banded Shark",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Stormy",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "3.2 kg",
+    "maxWeight": "14.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/37/High-Fin_Banded_Shark.webp/120px-High-Fin_Banded_Shark.webp.png"
+  },
+  {
+    "name": "Wels Catfish",
+    "habitat": "Twilight Realms",
+    "waterType": "Freshwater",
+    "weather": "Clear",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "7.2 kg",
+    "maxWeight": "73.3 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d4/Wels_Catfish.webp/120px-Wels_Catfish.webp.png"
+  },
+  {
+    "name": "Bichir",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "1 kg",
+    "maxWeight": "3 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/a4/Bichir.webp/120px-Bichir.webp.png"
+  },
+  {
+    "name": "Electric Catfish",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "6.2 kg",
+    "maxWeight": "50.9 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/7a/Electric_Catfish.webp/120px-Electric_Catfish.webp.png"
+  },
+  {
+    "name": "Nile Perch",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "56.2 kg",
+    "maxWeight": "385.2 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/f3/Nile_Perch.webp/120px-Nile_Perch.webp.png"
+  },
+  {
+    "name": "Tiger Shovelnose Catfish",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "4.3 kg",
+    "maxWeight": "6.0 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/83/Tiger_Shovelnose_Catfish.webp/120px-Tiger_Shovelnose_Catfish.webp.png"
+  },
+  {
+    "name": "Elephant Fish",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "minWeight": "0.5 kg",
+    "maxWeight": "1.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/73/Elephant_Fish.webp/120px-Elephant_Fish.webp.png"
+  },
+  {
+    "name": "Mirage Fish",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "minWeight": "215.8 kg",
+    "maxWeight": "299.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/86/Mirage_Fish.webp/120px-Mirage_Fish.webp.png"
+  },
+  {
+    "name": "Sarcophagus",
+    "habitat": "Twilight Realms",
+    "waterType": "Any",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "minWeight": "3476.4 kg",
+    "maxWeight": "6978.1 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/3c/Sarcophagus.webp/120px-Sarcophagus.webp.png"
+  }
+
 ] as const;
 
 /** Tracker mutations. Tiny and Huge are size variants, not mutations. */
@@ -759,9 +997,41 @@ export const MUTATION_NAMES = [
   "Zebra"
 ] as const;
 
+export interface MutationBenefit {
+  name: string;
+  valueMultiplier: number;
+  poolBonus?: string;
+}
+
+export const MUTATION_BENEFITS: readonly MutationBenefit[] = [
+  { name: "Cursed", valueMultiplier: 1.1, poolBonus: "Occult Pool: 1.9× de probabilidad" },
+  { name: "Sandy", valueMultiplier: 1.2, poolBonus: "Sandy Updraft: 1.9× de probabilidad" },
+  { name: "Stone", valueMultiplier: 1.3 },
+  { name: "Zebra", valueMultiplier: 1.3, poolBonus: "Savanna Rift: 1.9× junto a Tiger" },
+  { name: "Negative", valueMultiplier: 1.5 },
+  { name: "Albino", valueMultiplier: 1.5 },
+  { name: "Ghastly", valueMultiplier: 1.5 },
+  { name: "Glitched", valueMultiplier: 1.5 },
+  { name: "Tiger", valueMultiplier: 1.6, poolBonus: "Savanna Rift: 1.9× junto a Zebra" },
+  { name: "Camo", valueMultiplier: 1.8 },
+  { name: "Void", valueMultiplier: 2 },
+  { name: "Shadow", valueMultiplier: 2, poolBonus: "Shadow Chasm: 1.9× de probabilidad" },
+  { name: "Shiny", valueMultiplier: 2, poolBonus: "Sparkling Pool: 1.9× de probabilidad" },
+  { name: "Frozen", valueMultiplier: 2 },
+  { name: "Blessed", valueMultiplier: 3 },
+  { name: "Golden", valueMultiplier: 3, poolBonus: "Midas Rift: 1.9× de probabilidad" },
+  { name: "Galaxy", valueMultiplier: 3, poolBonus: "Celestial Chasm: 1.9× de probabilidad" },
+  { name: "Radioactive", valueMultiplier: 3, poolBonus: "Ionized Fissure: 1.9× de probabilidad" },
+  { name: "Rainbow", valueMultiplier: 3 },
+  { name: "Burning", valueMultiplier: 4 },
+  { name: "Electric", valueMultiplier: 4 },
+  { name: "Holographic", valueMultiplier: 5 },
+  { name: "Static", valueMultiplier: 5 },
+] as const;
+
 export const FISH_DATA_COVERAGE = {
-  source: "FISH! Index TRUE Perfection Tracker by LucyferVC (Public Copy 2.0)",
-  habitats: 6,
+  source: "TRUE Perfection Tracker + Twilight Realms table supplied by the maintainer",
+  habitats: 7,
   records: FISH_CATALOG.length,
-  missingHabitats: ["Twilight Realms"],
+  missingHabitats: [],
 } as const;
