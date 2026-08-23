@@ -8,6 +8,7 @@ export interface FishRecord {
   minWeight?: string;
   maxWeight?: string;
   imageUrl?: string;
+  conditionMultiplier?: number;
 }
 
 /** Normal-size fish records imported from the public TRUE Perfection Tracker. */
@@ -17,161 +18,259 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Abundant",
+    "minWeight": "1 kg",
+    "maxWeight": "6 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/8c/Bream.webp/120px-Bream.webp.png"
   },
   {
     "name": "Roach",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Evening"
+    "timeOfDay": "Evening",
+    "rarity": "Abundant",
+    "minWeight": "0.2 kg",
+    "maxWeight": "2 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/99/Roach.webp/120px-Roach.webp.png"
   },
   {
     "name": "Goldfish",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Clear",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "minWeight": "0.5 kg",
+    "maxWeight": "2 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/4f/Goldfish.webp/120px-Goldfish.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Mackerel",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Foggy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "minWeight": "0.2 kg",
+    "maxWeight": "2.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/6d/Mackerel.webp/120px-Mackerel.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Needlefish",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Stormy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "minWeight": "0.9 kg",
+    "maxWeight": "11 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/5/59/Needlefish.webp/120px-Needlefish.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Carp",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Common",
+    "minWeight": "2 kg",
+    "maxWeight": "45 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/af/Carp.webp/120px-Carp.webp.png"
   },
   {
-    "name": "Black Sharkminnow",
+    "name": "Black Shark Minnow",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
-    "weather": "Any",
-    "timeOfDay": "Any"
+    "weather": "Rainy",
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "1 kg",
+    "maxWeight": "6 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d6/Black_Sharkminnow.webp/120px-Black_Sharkminnow.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Boxfish",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "0.4 kg",
+    "maxWeight": "4 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/fa/Boxfish.webp/120px-Boxfish.webp.png"
   },
   {
     "name": "Gulper Eel",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "1 kg",
+    "maxWeight": "20 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/c/ca/Gulper_Eel.webp/120px-Gulper_Eel.webp.png"
   },
   {
     "name": "John Dory",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "minWeight": "1 kg",
+    "maxWeight": "8 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/9a/John_Dory.webp/120px-John_Dory.webp.png"
   },
   {
     "name": "Lionfish",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Curious",
+    "minWeight": "0.1 kg",
+    "maxWeight": "1.5 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/3a/Lionfish.webp/120px-Lionfish.webp.png"
   },
   {
     "name": "Northern Pufferfish",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Curious",
+    "minWeight": "0.4 kg",
+    "maxWeight": "2 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/e/e1/Nothern_Pufferfish.webp/120px-Nothern_Pufferfish.webp.png"
   },
   {
     "name": "Red Melon Discus",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Foggy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "minWeight": "0.0 kg",
+    "maxWeight": "0.6 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/e/e6/Red_Melon_Discus.webp/120px-Red_Melon_Discus.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Alligator Gar",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Stormy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "10 kg",
+    "maxWeight": "80 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/9c/Alligator_Gar.webp/120px-Alligator_Gar.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Salween Rita Catfish",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Elusive",
+    "minWeight": "1 kg",
+    "maxWeight": "8 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/6a/Salween_Rita_Catfish.webp/120px-Salween_Rita_Catfish.webp.png"
   },
   {
     "name": "European Anglerfish",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Elusive",
+    "minWeight": "7 kg",
+    "maxWeight": "40 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d4/European_Anglerfish.webp/120px-European_Anglerfish.webp.png"
   },
   {
     "name": "Hogfish",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "minWeight": "1 kg",
+    "maxWeight": "15 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/82/Hogfish.webp/120px-Hogfish.webp.png"
   },
   {
     "name": "Goliath Tigerfish",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "minWeight": "20 kg",
+    "maxWeight": "100 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/78/Goliath_Tigerfish.webp/120px-Goliath_Tigerfish.webp.png"
   },
   {
     "name": "Frilled Shark",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "minWeight": "15 kg",
+    "maxWeight": "220 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/f5/Frilled_Shark.webp/120px-Frilled_Shark.webp.png"
   },
   {
     "name": "Blind Bladefish",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "minWeight": "4.24 kg",
+    "maxWeight": "6.8 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/41/Blind_Bladefish.webp/120px-Blind_Bladefish.webp.png"
   },
   {
     "name": "Red Dartfin",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "minWeight": "1 kg",
+    "maxWeight": "24.7 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/b3/Red_Dartfin.webp/120px-Red_Dartfin.webp.png"
   },
   {
     "name": "Spineback Ray",
     "habitat": "Coconut Bay",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "minWeight": "1,500 kg",
+    "maxWeight": "6,000 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/20/Spineback_Ray.webp/120px-Spineback_Ray.webp.png"
   },
   {
     "name": "Dragonfly Fish",
     "habitat": "Coconut Bay",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "minWeight": "2 kg",
+    "maxWeight": "69.6 kg",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/2e/Dragonfly_Fish.webp/120px-Dragonfly_Fish.webp.png"
   },
   {
     "name": "Ocean Perch",
@@ -732,9 +831,7 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "waterType": "Saltwater",
     "weather": "Any",
     "timeOfDay": "Any"
-  }
-,
-
+  },
   {
     "name": "Barbel",
     "habitat": "Twilight Realms",
@@ -766,7 +863,8 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "rarity": "Common",
     "minWeight": "2.0 kg",
     "maxWeight": "9.5 kg",
-    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/78/Zander.webp/120px-Zander.webp.png"
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/78/Zander.webp/120px-Zander.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Pangasius",
@@ -777,7 +875,8 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "rarity": "Common",
     "minWeight": "2.2 g",
     "maxWeight": "29.9 kg",
-    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/64/Pangasius.webp/120px-Pangasius.webp.png"
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/64/Pangasius.webp/120px-Pangasius.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Largemouth Bass",
@@ -799,7 +898,8 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "rarity": "Common",
     "minWeight": "2.0 kg",
     "maxWeight": "15.3 kg",
-    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/14/Pike.webp/120px-Pike.webp.png"
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/14/Pike.webp/120px-Pike.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Tilapia",
@@ -821,7 +921,8 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "rarity": "Curious",
     "minWeight": "0.1 kg",
     "maxWeight": "1.5 kg",
-    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/7b/Blue_Diamond_Discus.webp/120px-Blue_Diamond_Discus.webp.png"
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/7b/Blue_Diamond_Discus.webp/120px-Blue_Diamond_Discus.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "African Lungfish",
@@ -876,7 +977,8 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "rarity": "Elusive",
     "minWeight": "3.2 kg",
     "maxWeight": "14.5 kg",
-    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/37/High-Fin_Banded_Shark.webp/120px-High-Fin_Banded_Shark.webp.png"
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/37/High-Fin_Banded_Shark.webp/120px-High-Fin_Banded_Shark.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Wels Catfish",
@@ -887,7 +989,8 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "rarity": "Elusive",
     "minWeight": "7.2 kg",
     "maxWeight": "73.3 kg",
-    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d4/Wels_Catfish.webp/120px-Wels_Catfish.webp.png"
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d4/Wels_Catfish.webp/120px-Wels_Catfish.webp.png",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Bichir",
@@ -966,7 +1069,6 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "maxWeight": "6978.1 kg",
     "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/3c/Sarcophagus.webp/120px-Sarcophagus.webp.png"
   }
-
 ] as const;
 
 /** Tracker mutations. Tiny and Huge are size variants, not mutations. */
