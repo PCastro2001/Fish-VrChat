@@ -58,7 +58,7 @@ function render(): void {
         <div><dt>Clima</dt><dd>${escapeHtml(fish.weather)}${fish.conditionMultiplier ? ` · ${fish.conditionMultiplier}×` : ""}</dd></div>
         <div><dt>Horario</dt><dd>${escapeHtml(fish.timeOfDay)}</dd></div>
       </dl>
-      ${fish.minWeight && fish.maxWeight ? `<div class="weight-range"><span>Peso base</span><strong>${escapeHtml(fish.minWeight)} — ${escapeHtml(fish.maxWeight)}</strong></div>` : `<div class="weight-range"><span>Peso base</span><strong>No documentado</strong></div>`}
+      <div class="weight-range"><span>Peso base</span><strong>${fish.minWeight || fish.maxWeight ? `${escapeHtml(fish.minWeight ?? "Mín. no documentado")} — ${escapeHtml(fish.maxWeight ?? "Máx. no documentado")}` : "No documentado"}</strong></div>
       </div>
     </article>`).join("") : `<div class="results-placeholder"><h2>Sin coincidencias</h2><p>Prueba quitando uno de los filtros.</p></div>`;
 }
