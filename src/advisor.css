@@ -622,3 +622,114 @@ footer {
   .catalog-summary { align-items: flex-start; flex-direction: column; }
   .nav-links { gap: .6rem; font-size: .68rem; }
 }
+
+
+/* Immersive fish finder */
+.fish-card {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.fish-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(102, 227, 210, .48);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .22);
+}
+
+.fish-card__visual {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(102, 227, 210, .22), transparent 58%),
+    rgba(4, 14, 25, .55);
+  font-size: 2.2rem;
+}
+
+.fish-card__visual img {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.35));
+}
+
+.fish-card__body { min-width: 0; padding: 1rem; }
+
+.fish-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  align-items: center;
+}
+
+.rarity-badge {
+  padding: .2rem .45rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font: 700 .55rem "Space Mono", monospace;
+  text-transform: uppercase;
+}
+
+.rarity-abundant { color: #a9c8d2; }
+.rarity-common { color: #69a8ff; }
+.rarity-curious { color: #66e3d2; }
+.rarity-elusive { color: #caa8ff; }
+.rarity-fabled { color: #ff9f6e; }
+.rarity-mythic { color: #ff75ba; }
+.rarity-exotic { color: #ffc85c; }
+
+.weight-range {
+  margin-top: .65rem;
+  padding-top: .65rem;
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .65rem;
+}
+
+.weight-range strong { color: var(--gold); }
+
+.mutation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.mutation-card {
+  position: relative;
+  min-width: 0;
+  padding: .9rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(4, 14, 25, .38);
+}
+
+.mutation-card.featured {
+  border-color: rgba(255, 200, 92, .4);
+  background: linear-gradient(145deg, rgba(255, 200, 92, .09), rgba(4, 14, 25, .4));
+}
+
+.mutation-card__multiplier {
+  float: right;
+  color: var(--gold);
+  font: 700 .9rem "Space Mono", monospace;
+}
+
+.mutation-card h3 { margin: 0 0 .45rem; font-size: .85rem; }
+.mutation-card p { margin: 0; color: var(--muted); font-size: .66rem; line-height: 1.5; }
+.mutation-card p strong { color: var(--text); }
+.mutation-card small { display: block; margin-top: .55rem; color: var(--aqua); font-size: .58rem; line-height: 1.4; }
+
+@media (max-width: 900px) {
+  .mutation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .fish-card { grid-template-columns: 76px minmax(0, 1fr); }
+  .fish-card__visual img { width: 66px; height: 66px; }
+  .mutation-grid { grid-template-columns: minmax(0, 1fr); }
+}
