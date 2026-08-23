@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { searchFish } from "../src/domain/search-fish.js";
 
 const catalog = [
-  { name: "Goldfish", habitat: "Coconut Bay", waterType: "Freshwater", weather: "Clear", timeOfDay: "Any" },
+  { name: "Goldfish", habitat: "Coconut Bay", waterType: "Freshwater", weather: "Clear", timeOfDay: "Any", rarity: "Common" },
   { name: "Lionfish", habitat: "Crescent Isle", waterType: "Saltwater", weather: "Any", timeOfDay: "Night" },
 ] as const;
 
@@ -13,6 +13,10 @@ describe("searchFish", () => {
 
   it("treats Any fish conditions as compatible with a selected condition", () => {
     expect(searchFish(catalog, { weather: "Stormy" }).map(({ name }) => name)).toContain("Lionfish");
+  });
+
+  it("filters catalog entries by fish rarity", () => {
+    expect(searchFish(catalog, { rarity: "Common" }).map(({ name }) => name)).toEqual(["Goldfish"]);
   });
 
   it("combines habitat, water and time filters", () => {
