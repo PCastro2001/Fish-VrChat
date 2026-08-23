@@ -10,37 +10,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/advisor.css">
 </head>
-<body>
-  <header class="hero">
-    <nav>
-      <a class="brand" href="/advisor.html">FISH! <span>Fish Finder</span></a>
-      <div class="nav-links"><a href="/advisor.html">Build Advisor</a><a href="/index.html">Guía clásica</a></div>
-    </nav>
-    <div class="catalog-hero">
-      <p class="eyebrow">CATÁLOGO · 128 REGISTROS</p>
-      <h1>Encuentra el pez.<br><span>Antes de lanzar.</span></h1>
-      <p>Filtra por zona, tipo de agua, clima y horario. “Cualquiera” indica que el pez no exige esa condición.</p>
+<body class="fish-wiki-theme">
+  <div class="ocean-atmosphere" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="wiki-shell">
+    <aside class="wiki-sidebar">
+      <a class="wiki-logo" href="/fish-search.html"><span>FISH!</span><small>FIELD GUIDE</small></a>
+      <nav aria-label="Navegación principal">
+        <p>Navegación</p>
+        <a class="active" href="/fish-search.html">🐟 Buscar peces</a>
+        <a href="/advisor.html">🎣 Build Advisor</a>
+        <a href="#mutationCatalog">✨ Mutaciones</a>
+        <a href="/index.html">📖 Guía clásica</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>128 peces</strong>
+        <span>7 regiones documentadas</span>
+      </div>
+    </aside>
+
+    <div class="wiki-content">
+      <header class="catalog-topbar">
+        <a class="brand" href="/fish-search.html">FISH! <span>Fish Finder</span></a>
+        <div class="nav-links"><a href="/advisor.html">Build Advisor</a><a href="/index.html">Guía clásica</a></div>
+      </header>
+
+      <main class="catalog-main">
+        <section class="catalog-hero">
+          <p class="eyebrow">ARCHIPELAGO FIELD GUIDE · 128 REGISTROS</p>
+          <h1>Encuentra el pez.<br><span>Antes de lanzar.</span></h1>
+          <p>Explora las siete regiones de FISH! y descubre exactamente qué agua, clima y horario necesitas.</p>
+          <div class="hero-chips"><span>🌊 7 regiones</span><span>🐟 128 peces</span><span>✨ 24 mutaciones</span></div>
+        </section>
+
+        <section class="control-panel catalog-controls" aria-label="Filtros de búsqueda">
+          <label class="search-field">Buscar pez<input id="fishQuery" type="search" placeholder="Ej. Lionfish, Carp, Shark..."></label>
+          <label>Zona<select id="habitatFilter"><option value="">Todas</option></select></label>
+          <label>Agua<select id="waterFilter"><option value="">Todas</option></select></label>
+          <label>Rareza<select id="rarityFilter"><option value="">Todas</option></select></label>
+          <label>Clima<select id="weatherFilter"><option value="">Todos</option></select></label>
+          <label>Horario<select id="timeFilter"><option value="">Todos</option></select></label>
+        </section>
+
+        <section class="catalog-summary">
+          <div><strong id="resultCount">0</strong><span>peces encontrados</span></div>
+          <p>Los peces con condición “Any” aparecen automáticamente cuando son compatibles.</p>
+        </section>
+
+        <section id="fishResults" class="fish-grid" aria-live="polite"></section>
+
+        <section class="mutation-section">
+          <div class="section-heading"><span>GUÍA</span><div><h2>Beneficios de las mutaciones</h2><p>Descubre cuánto aumenta el valor de venta y qué pools mejoran su aparición.</p></div></div>
+          <div id="mutationCatalog" class="mutation-grid"></div>
+        </section>
+      </main>
     </div>
-  </header>
-  <main>
-    <section class="control-panel catalog-controls">
-      <label>Buscar pez<input id="fishQuery" type="search" placeholder="Ej. Lionfish, Carp, Shark..."></label>
-      <label>Zona<select id="habitatFilter"><option value="">Todas</option></select></label>
-      <label>Agua<select id="waterFilter"><option value="">Todas</option></select></label>
-      <label>Rareza<select id="rarityFilter"><option value="">Todas</option></select></label>
-      <label>Clima<select id="weatherFilter"><option value="">Todos</option></select></label>
-      <label>Horario<select id="timeFilter"><option value="">Todos</option></select></label>
-    </section>
-    <section class="catalog-summary">
-      <div><strong id="resultCount">0</strong><span>resultados</span></div>
-      <p>Siete regiones disponibles, incluyendo Twilight Realms. Los filtros compatibles con “Any” se incluyen automáticamente.</p>
-    </section>
-    <section id="fishResults" class="fish-grid" aria-live="polite"></section>
-    <section class="mutation-section">
-      <div class="section-heading"><span>02</span><div><h2>Catálogo de mutaciones</h2><p>Estas mutaciones aumentan el valor de venta. Tiny y Huge son variantes de tamaño y se calculan aparte.</p></div></div>
-      <div id="mutationCatalog" class="mutation-grid"></div>
-    </section>
-  </main>
+  </div>
+
   <script type="module" src="/src/fish-search.ts"></script>
 </body>
 </html>
