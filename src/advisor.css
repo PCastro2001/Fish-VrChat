@@ -737,8 +737,8 @@ footer {
 
 /* FISH! immersive field-guide theme */
 .fish-wiki-theme {
-  --wiki-violet: #9d7cff;
-  --wiki-blue: #3287ff;
+  --wiki-violet: #ff7b72;
+  --wiki-blue: #19a7ce;
   --wiki-glass: rgba(3, 12, 18, .88);
   background:
     linear-gradient(180deg, rgba(4, 14, 24, .28), rgba(3, 8, 15, .94)),
@@ -1013,4 +1013,198 @@ footer {
     grid-template-columns: minmax(0, 1fr);
   }
   .fish-wiki-theme .catalog-controls .search-field { grid-column: auto; }
+}
+
+
+/* Unified archipelago design system: Advisor + Finder */
+.fish-app-theme,
+.fish-wiki-theme {
+  --aqua: #54f0d1;
+  --blue: #27b7e6;
+  --gold: #ffc857;
+  --coral: #ff7b72;
+  --line: rgba(84, 240, 209, .18);
+}
+
+.fish-app-theme {
+  background:
+    linear-gradient(180deg, rgba(2,15,24,.28), rgba(2,8,15,.97)),
+    radial-gradient(circle at 82% 12%, rgba(0,154,130,.28), transparent 30rem),
+    radial-gradient(circle at 8% 28%, rgba(21,126,184,.34), transparent 32rem),
+    radial-gradient(circle at 62% 78%, rgba(255,123,114,.08), transparent 24rem),
+    #04101a;
+  background-attachment: fixed;
+}
+
+.fish-app-theme .hero,
+.fish-app-theme main,
+.fish-app-theme footer {
+  z-index: 1;
+}
+
+.fish-app-theme .hero nav {
+  margin-top: .75rem;
+  padding-inline: 1rem;
+  border: 1px solid rgba(84,240,209,.22);
+  border-radius: 15px;
+  background: rgba(3,17,26,.72);
+  box-shadow: 0 16px 45px rgba(0,0,0,.22);
+  backdrop-filter: blur(16px);
+}
+
+.fish-app-theme .hero-copy {
+  position: relative;
+  isolation: isolate;
+}
+
+.fish-app-theme .hero-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: min(33rem, 72vw);
+  aspect-ratio: 1;
+  left: -12rem;
+  top: 1rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(39,183,230,.16), transparent 67%);
+  animation: current-drift 9s ease-in-out infinite alternate;
+}
+
+.fish-app-theme h1 span,
+.fish-wiki-theme h1 span {
+  color: transparent;
+  background: linear-gradient(90deg, var(--aqua), var(--blue), var(--gold));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.fish-app-theme .control-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(84,240,209,.2);
+  background: linear-gradient(145deg, rgba(9,35,48,.91), rgba(3,16,26,.95));
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.fish-app-theme .control-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--aqua), var(--blue), var(--coral), transparent);
+  opacity: .72;
+}
+
+.fish-app-theme .control-panel:hover {
+  transform: translateY(-2px);
+  border-color: rgba(84,240,209,.38);
+  box-shadow: 0 24px 65px rgba(0,0,0,.25), 0 0 30px rgba(39,183,230,.04);
+}
+
+.fish-app-theme .check-grid label,
+.fish-app-theme .equipment-options label,
+.fish-app-theme details {
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.fish-app-theme .check-grid label:hover,
+.fish-app-theme .equipment-options label:hover {
+  background: rgba(84,240,209,.07);
+  transform: translateX(2px);
+}
+
+.fish-app-theme .check-grid label:has(input:checked),
+.fish-app-theme .equipment-options label:has(input:checked) {
+  color: var(--aqua);
+  background: linear-gradient(90deg, rgba(84,240,209,.13), rgba(39,183,230,.05));
+}
+
+.fish-app-theme .primary-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--aqua), #35d8c5);
+  box-shadow: 0 12px 30px rgba(84,240,209,.13);
+}
+
+.fish-app-theme .primary-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,.38), transparent 70%);
+  transition: transform .6s ease;
+}
+
+.fish-app-theme .primary-button:hover::after { transform: translateX(120%); }
+
+.fish-app-theme .result-card {
+  animation: reef-card-in .45s ease both;
+}
+.fish-app-theme .result-card:nth-child(2) { animation-delay: .08s; }
+.fish-app-theme .result-card:nth-child(3) { animation-delay: .16s; }
+
+.fish-app-theme .result-card.primary {
+  border-color: rgba(84,240,209,.55);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(84,240,209,.12), transparent 12rem),
+    linear-gradient(145deg, rgba(18,61,66,.76), var(--panel));
+}
+
+.fish-wiki-theme {
+  background:
+    linear-gradient(180deg, rgba(4,14,24,.24), rgba(2,8,15,.95)),
+    radial-gradient(circle at 78% 14%, rgba(0,154,130,.35), transparent 31rem),
+    radial-gradient(circle at 8% 35%, rgba(28,130,190,.43), transparent 27rem),
+    radial-gradient(circle at 62% 72%, rgba(255,123,114,.1), transparent 24rem),
+    linear-gradient(135deg, #15394d, #082330 44%, #0c312a 72%, #041019);
+}
+
+.fish-wiki-theme .wiki-sidebar nav a { color: #93dbe9; }
+.fish-wiki-theme .wiki-sidebar nav a:hover,
+.fish-wiki-theme .wiki-sidebar nav a.active {
+  color: white;
+  background: linear-gradient(90deg, rgba(84,240,209,.18), rgba(39,183,230,.08));
+}
+
+.fish-wiki-theme .fish-card {
+  animation: reef-card-in .4s ease both;
+}
+
+.fish-wiki-theme .fish-card__visual img {
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.fish-wiki-theme .fish-card:hover .fish-card__visual img {
+  transform: translateY(-4px) rotate(-2deg) scale(1.06);
+  filter: drop-shadow(0 12px 17px rgba(84,240,209,.2));
+}
+
+.fish-wiki-theme .mutation-card {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.fish-wiki-theme .mutation-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,200,87,.5);
+  background: rgba(255,200,87,.06);
+}
+
+@keyframes current-drift {
+  from { transform: translate3d(0,0,0) scale(.94); }
+  to { transform: translate3d(4rem,1.5rem,0) scale(1.08); }
+}
+
+@keyframes reef-card-in {
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
