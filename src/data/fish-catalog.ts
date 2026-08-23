@@ -683,154 +683,245 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/e/e6/Herring.webp/120px-Herring.webp.png",
+    "minWeight": "0.3 kg",
+    "maxWeight": "1.1 kg"
   },
   {
     "name": "Haddock",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/96/Haddock.webp/120px-Haddock.webp.png",
+    "minWeight": "0.9 kg",
+    "maxWeight": "11 kg"
   },
   {
     "name": "Cod",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/c/c0/Cod.webp/120px-Cod.webp.png",
+    "minWeight": "5 kg",
+    "maxWeight": "22 kg"
   },
   {
     "name": "Atlantic Salmon",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Evening"
+    "timeOfDay": "Evening",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/be/Atlantic_Salmon.webp/120px-Atlantic_Salmon.webp.png",
+    "minWeight": "3 kg",
+    "maxWeight": "6 kg"
   },
   {
     "name": "Pollock",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Rainy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/03/Pollock.webp/120px-Pollock.webp.png",
+    "minWeight": "0.5 kg",
+    "maxWeight": "21 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Halibut",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Stormy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/9a/Halibut.webp/120px-Halibut.webp.png",
+    "minWeight": "13 kg",
+    "maxWeight": "70 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Crab",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/5/5b/Crab.webp/120px-Crab.webp.png",
+    "minWeight": "0.4 kg",
+    "maxWeight": "2 kg"
   },
   {
     "name": "Mahi-Mahi",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/f0/Mahi-Mahi.webp/120px-Mahi-Mahi.webp.png",
+    "minWeight": "7 kg",
+    "maxWeight": "15 kg"
   },
   {
     "name": "Flying Fish",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Clear",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/9a/Flying_Fish.webp/120px-Flying_Fish.webp.png",
+    "minWeight": "0.4 kg",
+    "maxWeight": "1.5 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Albacore Tuna",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Rainy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/90/Albacore_Tuna.webp/120px-Albacore_Tuna.webp.png",
+    "minWeight": "10 kg",
+    "maxWeight": "30 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Sailfish",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/1e/Sailfish.webp/120px-Sailfish.webp.png",
+    "minWeight": "50 kg",
+    "maxWeight": "100 kg"
   },
   {
     "name": "Blobfish",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/b6/Blobfish.webp/120px-Blobfish.webp.png",
+    "minWeight": "1.5 kg",
+    "maxWeight": "15 kg"
   },
   {
     "name": "Common Stingray",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/01/Common_Stingray.webp/120px-Common_Stingray.webp.png",
+    "minWeight": "0.8 kg",
+    "maxWeight": "35 kg"
   },
   {
     "name": "Seahorse",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Rainy",
-    "timeOfDay": "Evening"
+    "timeOfDay": "Evening",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/5/56/Seahorse.webp/120px-Seahorse.webp.png",
+    "minWeight": "0.0 kg",
+    "maxWeight": "0.1 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Sunfish",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/e/e1/Sunfish.webp/120px-Sunfish.webp.png",
+    "minWeight": "234 kg",
+    "maxWeight": "1,023 kg"
   },
   {
     "name": "Oarfish",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/0e/Oarfish.webp/120px-Oarfish.webp.png",
+    "minWeight": "90 kg",
+    "maxWeight": "300 kg"
   },
   {
     "name": "Manta Ray",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/fb/Manta_Ray.webp/120px-Manta_Ray.webp.png",
+    "minWeight": "55.5 kg",
+    "maxWeight": "1,555 kg"
   },
   {
     "name": "Great White Shark",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/39/Great_White_Shark.webp/120px-Great_White_Shark.webp.png",
+    "minWeight": "489 kg",
+    "maxWeight": "1,457 kg"
   },
   {
     "name": "Giant Squid",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/1a/Giant_Squid.webp/120px-Giant_Squid.webp.png",
+    "minWeight": "89 kg",
+    "maxWeight": "512 kg"
   },
   {
     "name": "Abyssal Serpentfish",
     "habitat": "Open Sea",
-    "waterType": "Salt & Swamp",
+    "waterType": "Saltwater, Swampwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/5/51/Abyssal_Serpentfish.webp/120px-Abyssal_Serpentfish.webp.png",
+    "minWeight": "100 kg",
+    "maxWeight": "3,100 kg"
   },
   {
     "name": "Baby Megalodon",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/98/Baby_Megalodon.webp/120px-Baby_Megalodon.webp.png",
+    "minWeight": "35,000 kg",
+    "maxWeight": "120,000 kg"
   },
   {
     "name": "Three-Headed Salmon",
     "habitat": "Open Sea",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/47/Three-Headed_Salmon.webp/120px-Three-Headed_Salmon.webp.png"
   },
   {
     "name": "Barbel",
@@ -1068,6 +1159,24 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "minWeight": "3476.4 kg",
     "maxWeight": "6978.1 kg",
     "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/3c/Sarcophagus.webp/120px-Sarcophagus.webp.png"
+  },
+  {
+    "name": "Plankfish",
+    "habitat": "Open Sea",
+    "waterType": "Saltwater",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/f7/Plankfish.webp/120px-Plankfish.webp.png"
+  },
+  {
+    "name": "Bombfish",
+    "habitat": "Open Sea",
+    "waterType": "Saltwater",
+    "weather": "Any",
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/22/Bombfish.webp/120px-Bombfish.webp.png"
   }
 ] as const;
 
