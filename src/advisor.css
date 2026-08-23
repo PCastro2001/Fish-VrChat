@@ -733,3 +733,284 @@ footer {
   .fish-card__visual img { width: 66px; height: 66px; }
   .mutation-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+
+/* FISH! immersive field-guide theme */
+.fish-wiki-theme {
+  --wiki-violet: #9d7cff;
+  --wiki-blue: #3287ff;
+  --wiki-glass: rgba(3, 12, 18, .88);
+  background:
+    linear-gradient(180deg, rgba(4, 14, 24, .28), rgba(3, 8, 15, .94)),
+    radial-gradient(circle at 78% 14%, rgba(41, 164, 142, .38), transparent 31rem),
+    radial-gradient(circle at 8% 35%, rgba(36, 116, 179, .45), transparent 27rem),
+    linear-gradient(135deg, #17394e 0%, #092331 42%, #102f29 72%, #06131d 100%);
+  background-attachment: fixed;
+}
+
+.fish-wiki-theme::before {
+  opacity: .35;
+  background-image:
+    linear-gradient(rgba(157,124,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(157,124,255,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+.ocean-atmosphere {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ocean-atmosphere::before,
+.ocean-atmosphere::after {
+  content: "";
+  position: absolute;
+  width: 44rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: rgba(0,0,0,.25);
+  filter: blur(35px);
+  transform: rotate(-12deg);
+}
+
+.ocean-atmosphere::before { top: 5%; left: -8%; }
+.ocean-atmosphere::after { right: -10%; bottom: 12%; }
+
+.ocean-atmosphere span {
+  position: absolute;
+  border: 1px solid rgba(102,227,210,.22);
+  border-radius: 50%;
+  background: rgba(102,227,210,.04);
+  animation: bubble-rise 15s linear infinite;
+}
+.ocean-atmosphere span:nth-child(1) { width: 22px; height: 22px; left: 12%; bottom: -30px; }
+.ocean-atmosphere span:nth-child(2) { width: 11px; height: 11px; left: 74%; bottom: -20px; animation-delay: -6s; }
+.ocean-atmosphere span:nth-child(3) { width: 34px; height: 34px; left: 91%; bottom: -40px; animation-delay: -11s; }
+
+@keyframes bubble-rise {
+  to { transform: translateY(-115vh); opacity: 0; }
+}
+
+.wiki-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1540px, calc(100% - 2rem));
+  margin: 1rem auto 3rem;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.wiki-sidebar {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  min-height: calc(100vh - 2rem);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(218, 239, 244, .68);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(2,10,16,.94), rgba(5,17,24,.88));
+  box-shadow: 0 22px 70px rgba(0,0,0,.28);
+  backdrop-filter: blur(18px);
+}
+
+.wiki-logo {
+  padding: .75rem 0 1.2rem;
+  display: grid;
+  text-decoration: none;
+}
+.wiki-logo span {
+  color: #6ffbe1;
+  font: 800 2rem "Manrope", sans-serif;
+  letter-spacing: -.08em;
+  text-shadow: 0 3px 0 #1678bb, 0 0 24px rgba(102,227,210,.4);
+}
+.wiki-logo small {
+  color: var(--wiki-violet);
+  font: 700 .58rem "Space Mono", monospace;
+  letter-spacing: .18em;
+}
+
+.wiki-sidebar nav {
+  min-height: 0;
+  display: grid;
+  align-content: start;
+  justify-content: stretch;
+  border: 0;
+}
+
+.wiki-sidebar nav p {
+  margin: 0 0 .65rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid rgba(255,255,255,.45);
+  color: var(--text);
+  font: 700 .72rem "Space Mono", monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.wiki-sidebar nav a {
+  padding: .68rem .7rem;
+  border-radius: 9px;
+  color: #bba8ef;
+  font-size: .76rem;
+  text-decoration: none;
+  transition: background .18s, color .18s, transform .18s;
+}
+
+.wiki-sidebar nav a:hover,
+.wiki-sidebar nav a.active {
+  color: white;
+  background: linear-gradient(90deg, rgba(157,124,255,.2), rgba(50,135,255,.08));
+  transform: translateX(3px);
+}
+
+.sidebar-note {
+  margin-top: auto;
+  padding: .85rem;
+  display: grid;
+  gap: .2rem;
+  border: 1px solid rgba(157,124,255,.28);
+  border-radius: 11px;
+  background: rgba(157,124,255,.07);
+}
+.sidebar-note strong { color: var(--aqua); font: 700 .8rem "Space Mono", monospace; }
+.sidebar-note span { color: var(--muted); font-size: .63rem; }
+
+.wiki-content {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(218,239,244,.7);
+  border-radius: 18px;
+  background: var(--wiki-glass);
+  box-shadow: 0 24px 80px rgba(0,0,0,.38);
+  backdrop-filter: blur(18px);
+}
+
+.catalog-topbar {
+  min-height: 72px;
+  padding: 0 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, var(--wiki-violet), var(--wiki-blue), var(--aqua)) 1;
+  background: rgba(1,8,13,.64);
+}
+
+.catalog-main {
+  width: 100%;
+  margin: 0;
+  padding: 0 clamp(1rem, 3vw, 2rem) 2rem;
+}
+
+.fish-wiki-theme .catalog-hero {
+  position: relative;
+  max-width: none;
+  padding: clamp(2.5rem, 7vw, 5rem) 0 2.5rem;
+  border-bottom: 1px solid rgba(157,124,255,.22);
+}
+
+.fish-wiki-theme .catalog-hero::after {
+  content: "◌";
+  position: absolute;
+  right: 3%;
+  top: 8%;
+  color: rgba(102,227,210,.08);
+  font-size: clamp(9rem, 22vw, 19rem);
+  line-height: 1;
+}
+
+.fish-wiki-theme .catalog-hero h1 { position: relative; z-index: 1; max-width: 900px; }
+.fish-wiki-theme .catalog-hero > p { position: relative; z-index: 1; }
+
+.hero-chips {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: 1.2rem;
+}
+.hero-chips span {
+  padding: .5rem .7rem;
+  border: 1px solid rgba(157,124,255,.32);
+  border-radius: 999px;
+  background: rgba(157,124,255,.08);
+  color: #d8ceff;
+  font-size: .68rem;
+}
+
+.fish-wiki-theme .catalog-controls {
+  position: sticky;
+  z-index: 5;
+  top: 1rem;
+  margin-top: 1rem;
+  grid-template-columns: 1.5fr repeat(5, minmax(0, 1fr));
+  border-color: rgba(157,124,255,.42);
+  border-radius: 16px;
+  background: rgba(3,13,20,.94);
+  box-shadow: 0 15px 40px rgba(0,0,0,.32);
+  backdrop-filter: blur(20px);
+}
+
+.fish-wiki-theme .catalog-controls input,
+.fish-wiki-theme .catalog-controls select {
+  border-color: rgba(157,124,255,.25);
+}
+
+.fish-wiki-theme .fish-card {
+  border-color: rgba(188, 211, 222, .28);
+  background: linear-gradient(145deg, rgba(14,31,42,.94), rgba(3,13,20,.96));
+}
+
+.fish-wiki-theme .fish-card:hover {
+  border-color: var(--wiki-violet);
+  box-shadow: 0 18px 44px rgba(14, 3, 35, .45), 0 0 24px rgba(157,124,255,.08);
+}
+
+.fish-wiki-theme .mutation-section {
+  border-color: rgba(157,124,255,.38);
+  background: linear-gradient(145deg, rgba(18,24,43,.86), rgba(3,13,20,.92));
+}
+
+@media (max-width: 1120px) {
+  .fish-wiki-theme .catalog-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fish-wiki-theme .catalog-controls .search-field { grid-column: 1 / -1; }
+}
+
+@media (max-width: 780px) {
+  .wiki-shell {
+    width: min(100% - .75rem, 1540px);
+    margin-top: .4rem;
+    grid-template-columns: 1fr;
+  }
+  .wiki-sidebar {
+    position: static;
+    min-height: auto;
+    padding: .75rem;
+  }
+  .wiki-logo { padding: .25rem .4rem .7rem; }
+  .wiki-logo span { font-size: 1.5rem; }
+  .wiki-sidebar nav {
+    display: flex;
+    gap: .35rem;
+    overflow-x: auto;
+  }
+  .wiki-sidebar nav p, .sidebar-note { display: none; }
+  .wiki-sidebar nav a { white-space: nowrap; }
+  .catalog-topbar { display: none; }
+}
+
+@media (max-width: 560px) {
+  .catalog-main { padding-inline: .7rem; }
+  .fish-wiki-theme .catalog-controls {
+    position: static;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fish-wiki-theme .catalog-controls .search-field { grid-column: auto; }
+}
