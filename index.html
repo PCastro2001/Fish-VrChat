@@ -2147,10 +2147,18 @@
       color: var(--gold);
       font-weight: 700;
     }
-  </style>
+  
+    .unified-app-dock{position:fixed;z-index:1000;left:1rem;bottom:1rem;padding:.45rem;display:flex;gap:.35rem;border:1px solid rgba(84,240,209,.4);border-radius:14px;background:rgba(3,15,24,.92);box-shadow:0 16px 45px rgba(0,0,0,.42);backdrop-filter:blur(18px);animation:dock-arrive .55s ease both}
+    .unified-app-dock a{padding:.65rem .75rem;border-radius:10px;color:var(--text);font:600 .72rem 'Raleway',sans-serif;text-decoration:none;transition:background .18s,color .18s,transform .18s}
+    .unified-app-dock a:hover{color:#03141a;background:var(--teal);transform:translateY(-2px)}
+    .unified-app-dock a.active{color:var(--gold);background:rgba(255,200,87,.1)}
+    @keyframes dock-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:560px){.unified-app-dock{right:.5rem;left:.5rem;bottom:.5rem;justify-content:center}.unified-app-dock a{padding:.6rem .5rem;font-size:.65rem}}
+    @media(prefers-reduced-motion:reduce){.unified-app-dock{animation:none}.unified-app-dock a{transition:none}}
+</style>
 </head>
 
-<body>
+<body>\n  <nav class="unified-app-dock" aria-label="Herramientas FISH!">\n    <a href="/advisor.html">🎣 Builds</a>\n    <a href="/fish-search.html">🐟 Peces</a>\n    <a class="active" href="/index.html">📖 Guía</a>\n  </nav>
   <div class="bubbles" id="bubbles"></div>
 
   <header>
