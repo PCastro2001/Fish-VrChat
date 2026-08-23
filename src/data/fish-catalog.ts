@@ -1004,6 +1004,7 @@ export interface MutationBenefit {
 }
 
 export const MUTATION_BENEFITS: readonly MutationBenefit[] = [
+  { name: "Regular", valueMultiplier: 1 },
   { name: "Cursed", valueMultiplier: 1.1, poolBonus: "Occult Pool: 1.9× de probabilidad" },
   { name: "Sandy", valueMultiplier: 1.2, poolBonus: "Sandy Updraft: 1.9× de probabilidad" },
   { name: "Stone", valueMultiplier: 1.3 },
