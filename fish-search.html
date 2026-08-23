@@ -17,7 +17,7 @@
       <div class="nav-links"><a href="/advisor.html">Build Advisor</a><a href="/index.html">Guía clásica</a></div>
     </nav>
     <div class="catalog-hero">
-      <p class="eyebrow">CATÁLOGO · 103 REGISTROS</p>
+      <p class="eyebrow">CATÁLOGO · 124 REGISTROS</p>
       <h1>Encuentra el pez.<br><span>Antes de lanzar.</span></h1>
       <p>Filtra por zona, tipo de agua, clima y horario. “Cualquiera” indica que el pez no exige esa condición.</p>
     </div>
@@ -27,16 +27,17 @@
       <label>Buscar pez<input id="fishQuery" type="search" placeholder="Ej. Lionfish, Carp, Shark..."></label>
       <label>Zona<select id="habitatFilter"><option value="">Todas</option></select></label>
       <label>Agua<select id="waterFilter"><option value="">Todas</option></select></label>
+      <label>Rareza<select id="rarityFilter"><option value="">Todas</option></select></label>
       <label>Clima<select id="weatherFilter"><option value="">Todos</option></select></label>
       <label>Horario<select id="timeFilter"><option value="">Todos</option></select></label>
     </section>
     <section class="catalog-summary">
       <div><strong id="resultCount">0</strong><span>resultados</span></div>
-      <p>Fuente actual: TRUE Perfection Tracker. Twilight Realms queda pendiente de datos.</p>
+      <p>Siete regiones disponibles, incluyendo Twilight Realms. Los filtros compatibles con “Any” se incluyen automáticamente.</p>
     </section>
     <section id="fishResults" class="fish-grid" aria-live="polite"></section>
     <section class="mutation-section">
-      <div class="section-heading"><span>02</span><div><h2>Catálogo de mutaciones</h2><p>Blessed y Cursed son mutaciones. Tiny y Huge son variantes de tamaño.</p></div></div>
+      <div class="section-heading"><span>02</span><div><h2>Catálogo de mutaciones</h2><p>Estas mutaciones aumentan el valor de venta. Tiny y Huge son variantes de tamaño y se calculan aparte.</p></div></div>
       <div id="mutationCatalog" class="mutation-grid"></div>
     </section>
   </main>
