@@ -4,6 +4,7 @@ export interface FishSearchFilters {
   query?: string;
   habitat?: string;
   waterType?: string;
+  rarity?: string;
   weather?: string;
   timeOfDay?: string;
 }
@@ -27,6 +28,7 @@ export function searchFish(
     .filter((fish) => !query || normalize(fish.name).includes(query))
     .filter((fish) => matchesCondition(fish.habitat, filters.habitat))
     .filter((fish) => matchesCondition(fish.waterType, filters.waterType))
+    .filter((fish) => !filters.rarity || fish.rarity === filters.rarity)
     .filter((fish) => matchesCondition(fish.weather, filters.weather))
     .filter((fish) => matchesCondition(fish.timeOfDay, filters.timeOfDay))
     .sort((a, b) =>
