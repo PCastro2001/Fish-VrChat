@@ -1,4 +1,4 @@
-import { FISH_CATALOG, MUTATION_NAMES } from "./data/fish-catalog.js";
+import { FISH_CATALOG, MUTATION_BENEFITS } from "./data/fish-catalog.js";
 import { searchFish } from "./domain/search-fish.js";
 
 const get = <T extends Element>(selector: string): T => {
@@ -10,6 +10,7 @@ const get = <T extends Element>(selector: string): T => {
 const query = get<HTMLInputElement>("#fishQuery");
 const habitat = get<HTMLSelectElement>("#habitatFilter");
 const water = get<HTMLSelectElement>("#waterFilter");
+const rarity = get<HTMLSelectElement>("#rarityFilter");
 const weather = get<HTMLSelectElement>("#weatherFilter");
 const time = get<HTMLSelectElement>("#timeFilter");
 const results = get<HTMLElement>("#fishResults");
@@ -27,6 +28,7 @@ function fillOptions(select: HTMLSelectElement, values: readonly string[]): void
 
 fillOptions(habitat, FISH_CATALOG.map(({ habitat }) => habitat));
 fillOptions(water, FISH_CATALOG.map(({ waterType }) => waterType));
+fillOptions(rarity, FISH_CATALOG.flatMap(({ rarity }) => rarity ? [rarity] : []));
 fillOptions(weather, FISH_CATALOG.map(({ weather }) => weather).filter((value) => value !== "Any"));
 fillOptions(time, FISH_CATALOG.map(({ timeOfDay }) => timeOfDay).filter((value) => value !== "Any"));
 
@@ -35,26 +37,41 @@ function render(): void {
     query: query.value,
     habitat: habitat.value,
     waterType: water.value,
+    rarity: rarity.value,
     weather: weather.value,
     timeOfDay: time.value,
   });
   count.textContent = String(matches.length);
   results.innerHTML = matches.length ? matches.map((fish) => `
     <article class="fish-card">
-      <span class="fish-habitat">${escapeHtml(fish.habitat)}</span>
-      <h2>${escapeHtml(fish.name)}</h2>
-      <dl>
+      <div class="fish-card__visual">
+        ${fish.imageUrl ? `<img src="${escapeHtml(fish.imageUrl)}" alt="" loading="lazy">` : `<span aria-hidden="true">🐟</span>`}
+      </div>
+      <div class="fish-card__body">
+        <div class="fish-card__meta">
+          <span class="fish-habitat">${escapeHtml(fish.habitat)}</span>
+          ${fish.rarity ? `<span class="rarity-badge rarity-${escapeHtml(fish.rarity.toLowerCase())}">${escapeHtml(fish.rarity)}</span>` : ""}
+        </div>
+        <h2>${escapeHtml(fish.name)}</h2>
+        <dl>
         <div><dt>Agua</dt><dd>${escapeHtml(fish.waterType)}</dd></div>
         <div><dt>Clima</dt><dd>${escapeHtml(fish.weather)}</dd></div>
         <div><dt>Horario</dt><dd>${escapeHtml(fish.timeOfDay)}</dd></div>
       </dl>
+      ${fish.minWeight && fish.maxWeight ? `<div class="weight-range"><span>Peso base</span><strong>${escapeHtml(fish.minWeight)} — ${escapeHtml(fish.maxWeight)}</strong></div>` : ""}
+      </div>
     </article>`).join("") : `<div class="results-placeholder"><h2>Sin coincidencias</h2><p>Prueba quitando uno de los filtros.</p></div>`;
 }
 
-for (const control of [query, habitat, water, weather, time]) {
+for (const control of [query, habitat, water, rarity, weather, time]) {
   control.addEventListener("input", render);
 }
-mutations.innerHTML = MUTATION_NAMES.map((name) =>
-  `<span class="mutation-chip ${name === "Blessed" || name === "Cursed" ? "featured" : ""}">${escapeHtml(name)}</span>`,
-).join("");
+mutations.innerHTML = MUTATION_BENEFITS.map(({ name, valueMultiplier, poolBonus }) => `
+  <article class="mutation-card ${valueMultiplier >= 3 ? "featured" : ""}">
+    <span class="mutation-card__multiplier">${valueMultiplier}×</span>
+    <h3>${escapeHtml(name)}</h3>
+    <p>Multiplica el valor de venta del pez por <strong>${valueMultiplier}×</strong>.</p>
+    ${poolBonus ? `<small>${escapeHtml(poolBonus)}</small>` : ""}
+  </article>
+`).join("");
 render();
