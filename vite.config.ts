@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         legacy: resolve(process.cwd(), "index.html"),
         advisor: resolve(process.cwd(), "advisor.html"),
+        fishSearch: resolve(process.cwd(), "fish-search.html"),
       },
     },
   },
