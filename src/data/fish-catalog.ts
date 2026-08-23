@@ -277,406 +277,641 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Stormy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/7e/Ocean_Perch.webp/120px-Ocean_Perch.webp.png",
+    "minWeight": "0.5 kg",
+    "maxWeight": "7 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Tarpon",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Foggy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/3f/Tarpon.webp/120px-Tarpon.webp.png",
+    "minWeight": "10 kg",
+    "maxWeight": "200 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Black Scorpionfish",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Evening"
+    "timeOfDay": "Evening",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/e/e3/Black_Scorpionfish.webp/120px-Black_Scorpionfish.webp.png",
+    "minWeight": "0.3 kg",
+    "maxWeight": "2.2 kg"
   },
   {
     "name": "Snook",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Rainy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/af/Snook.webp/120px-Snook.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "22 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Lionfish",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/3a/Lionfish.webp/120px-Lionfish.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "1.5 kg"
   },
   {
     "name": "Clownfish",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d1/Clownfish.webp/120px-Clownfish.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "1 kg"
   },
   {
     "name": "Regal Blue Tang",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/11/Regal_Blue_Tang.webp/120px-Regal_Blue_Tang.webp.png",
+    "minWeight": "0.0 kg",
+    "maxWeight": "0.5 kg"
   },
   {
     "name": "Parrotfish",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Clear",
-    "timeOfDay": "Day"
+    "timeOfDay": "Day",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/88/Parrotfish.webp/120px-Parrotfish.webp.png",
+    "minWeight": "0.2 kg",
+    "maxWeight": "8 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Permit",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Stormy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/be/Permit.webp/120px-Permit.webp.png",
+    "minWeight": "0.2 kg",
+    "maxWeight": "36 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Hammerhead Shark",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Evening"
+    "timeOfDay": "Evening",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/4b/Hammerhead_Shark.webp/120px-Hammerhead_Shark.webp.png",
+    "minWeight": "80 kg",
+    "maxWeight": "450 kg"
   },
   {
     "name": "Brickfish",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/15/Brickfish.webp/120px-Brickfish.webp.png"
   },
   {
     "name": "Armored Brutefish",
     "habitat": "Crescent Isle",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/b4/Armored_Brutefish.webp/120px-Armored_Brutefish.webp.png"
   },
   {
     "name": "Celestial Whitefin",
     "habitat": "Crescent Isle",
-    "waterType": "Any",
+    "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/07/Celestial_Whitefin.webp/120px-Celestial_Whitefin.webp.png",
+    "minWeight": "500 kg",
+    "maxWeight": "1,500 kg"
   },
   {
     "name": "Flame Guppy",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/48/Flame_Guppy.webp/120px-Flame_Guppy.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "0.2 kg"
   },
   {
     "name": "Magma Carp",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/8b/Magma_Carp.webp/120px-Magma_Carp.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "5 kg"
   },
   {
     "name": "Ashscale Trout",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/fc/Ashscale_Trout.webp/120px-Ashscale_Trout.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "10 kg"
   },
   {
     "name": "Basalt Eel",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/15/Basalt_Eel.webp/120px-Basalt_Eel.webp.png",
+    "minWeight": "0.2 kg",
+    "maxWeight": "1.2 kg"
   },
   {
     "name": "Cinderfin",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/0e/Cinderfin.webp/120px-Cinderfin.webp.png",
+    "minWeight": "0.2 kg",
+    "maxWeight": "1.2 kg"
   },
   {
     "name": "Obsidian Fish",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/4b/Obsidian_Fish.webp/120px-Obsidian_Fish.webp.png",
+    "minWeight": "3 kg",
+    "maxWeight": "6.7 kg"
   },
   {
     "name": "Crystal Pike",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/05/Crystal_Pike.webp/120px-Crystal_Pike.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "9 kg"
   },
   {
     "name": "Molten Angler",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/24/Molten_Angler.webp/120px-Molten_Angler.webp.png",
+    "minWeight": "20 kg",
+    "maxWeight": "30 kg"
   },
   {
     "name": "Ifrit Barracuda",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/36/Ifrit_Barracuda.webp/120px-Ifrit_Barracuda.webp.png",
+    "minWeight": "50 kg",
+    "maxWeight": "105 kg"
   },
   {
     "name": "Pyrite Snapper",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/6a/Pyrite_Snapper.webp/120px-Pyrite_Snapper.webp.png",
+    "minWeight": "100 kg",
+    "maxWeight": "140 kg"
   },
   {
     "name": "Igneous Stingray",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/6f/Igneous_Stingray.webp/120px-Igneous_Stingray.webp.png"
   },
   {
     "name": "Red Demonfish",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/ae/Red_Demonfish.webp/120px-Red_Demonfish.webp.png",
+    "maxWeight": "237.8 kg"
   },
   {
     "name": "Hellmaw Grouper",
     "habitat": "Volcanic Depths",
     "waterType": "Lava",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/b6/Hellmaw_Grouper.webp/120px-Hellmaw_Grouper.webp.png",
+    "minWeight": "700 kg",
+    "maxWeight": "2,000 kg"
   },
   {
     "name": "Bluegill Sunfish",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Clear",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/72/Bluegill_Sunfish.webp/120px-Bluegill_Sunfish.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "2.5 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Bowfin",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Any",
-    "timeOfDay": "Evening"
+    "timeOfDay": "Evening",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/a9/Bowfin.webp/120px-Bowfin.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "10 kg"
   },
   {
     "name": "Channel Catfish",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Foggy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/f6/Channel_Catfish.webp/120px-Channel_Catfish.webp.png",
+    "minWeight": "0.5 kg",
+    "maxWeight": "26 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Cottonmouth Snake",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Clear",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/4/4c/Cottonmouth_Snake.webp/120px-Cottonmouth_Snake.webp.png",
+    "minWeight": "0.3 kg",
+    "maxWeight": "4.5 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Frog",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Rainy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/fb/Frog.webp/120px-Frog.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "0.8 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Alligator Snapping Turtle",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/8b/Alligator_Snapping_Turtle.webp/120px-Alligator_Snapping_Turtle.webp.png",
+    "minWeight": "10 kg",
+    "maxWeight": "113 kg"
   },
   {
     "name": "American Alligator",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/1d/American_Alligator.webp/120px-American_Alligator.webp.png",
+    "minWeight": "100 kg",
+    "maxWeight": "450 kg"
   },
   {
     "name": "Giant Gharial",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/76/Giant_Gharial.webp/120px-Giant_Gharial.webp.png",
+    "minWeight": "150 kg",
+    "maxWeight": "900 kg"
   },
   {
     "name": "Venomous Watcher",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/87/Venomous_Watcher.webp/120px-Venomous_Watcher.webp.png",
+    "minWeight": "2.2 kg"
   },
   {
     "name": "Dreadshell Colossus",
     "habitat": "Tanglewood",
     "waterType": "Swampwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/2d/Dreadshell_Colossus.webp/120px-Dreadshell_Colossus.webp.png",
+    "minWeight": "26,000 kg",
+    "maxWeight": "50,000 kg"
   },
   {
     "name": "Ide",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/a2/Ide.webp/120px-Ide.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "5 kg"
   },
   {
     "name": "Tench",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/6/63/Tench.webp/120px-Tench.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "4 kg"
   },
   {
     "name": "Perch",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Stormy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/83/Perch.webp/120px-Perch.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "2 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "GiltHead Bream",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Clear",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/23/GiltHead_Bream.webp/120px-GiltHead_Bream.webp.png",
+    "minWeight": "0.5 kg",
+    "maxWeight": "6 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Tilefish",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/d/d2/Tilefish.webp/120px-Tilefish.webp.png",
+    "minWeight": "2 kg",
+    "maxWeight": "55 kg"
   },
   {
     "name": "Rainbow Trout",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Foggy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/f7/Rainbow_Trout.webp/120px-Rainbow_Trout.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "5 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Eel",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Night"
+    "timeOfDay": "Night",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/3/35/Eel.webp/120px-Eel.webp.png",
+    "minWeight": "3 kg",
+    "maxWeight": "8 kg"
   },
   {
     "name": "Bluefish",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Rainy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/8c/Bluefish.webp/120px-Bluefish.webp.png",
+    "minWeight": "0.5 kg",
+    "maxWeight": "14 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Hawaiian Triggerfish",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/78/Hawaiian_Triggerfish.webp/120px-Hawaiian_Triggerfish.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "5 kg"
   },
   {
     "name": "John Dory",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Common",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/9a/John_Dory.webp/120px-John_Dory.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "8 kg"
   },
   {
     "name": "Barracuda",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/5/5d/Barracuda.webp/120px-Barracuda.webp.png",
+    "minWeight": "1 kg",
+    "maxWeight": "23 kg"
   },
   {
     "name": "Snow Yellow Discus",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Foggy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/f/fa/Snow_Yellow_Discus.webp/120px-Snow_Yellow_Discus.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "0.3 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Amberjack",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Curious",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/c/c1/Amberjack.webp/120px-Amberjack.webp.png",
+    "minWeight": "0.5 kg",
+    "maxWeight": "90 kg"
   },
   {
     "name": "Goonch Catfish",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Rainy",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/bb/Goonch_Catfish.webp/120px-Goonch_Catfish.webp.png",
+    "minWeight": "20 kg",
+    "maxWeight": "90 kg",
+    "conditionMultiplier": 1.5
   },
   {
     "name": "Siamese Giant Carp",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Morning"
+    "timeOfDay": "Morning",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/89/Siamese_Giant_Carp.webp/120px-Siamese_Giant_Carp.webp.png",
+    "minWeight": "38 kg",
+    "maxWeight": "167 kg"
   },
   {
     "name": "Wahoo",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/a/aa/Wahoo.webp/120px-Wahoo.webp.png",
+    "minWeight": "5 kg",
+    "maxWeight": "100 kg"
   },
   {
     "name": "Ironfin Stalker",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/1/18/Ironfin_Stalker.webp/120px-Ironfin_Stalker.webp.png",
+    "minWeight": "25 kg",
+    "maxWeight": "55 kg"
   },
   {
     "name": "Pinnate Batfish",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Fabled",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/9/95/Pinnate_Batfish.webp/120px-Pinnate_Batfish.webp.png",
+    "minWeight": "0.1 kg",
+    "maxWeight": "5 kg"
   },
   {
     "name": "Ancient Warriorfish",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/23/Ancient_Warriorfish.webp/120px-Ancient_Warriorfish.webp.png"
   },
   {
     "name": "Humpback Gar",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Mythic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/b0/Humpback_Gar.webp/120px-Humpback_Gar.webp.png"
   },
   {
     "name": "Shellonodon",
     "habitat": "Luxian Dunes",
     "waterType": "Saltwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/8/8b/Shellonodon.webp/120px-Shellonodon.webp.png",
+    "minWeight": "32,000 kg",
+    "maxWeight": "40,000 kg"
   },
   {
     "name": "Royal Bananafish",
     "habitat": "Luxian Dunes",
     "waterType": "Freshwater",
     "weather": "Any",
-    "timeOfDay": "Any"
+    "timeOfDay": "Any",
+    "rarity": "Exotic",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/7/7a/Royal_Bananafish.webp/120px-Royal_Bananafish.webp.png",
+    "minWeight": "6.5 kg",
+    "maxWeight": "6.6 kg"
   },
   {
     "name": "Herring",
@@ -1177,6 +1412,24 @@ export const FISH_CATALOG: readonly FishRecord[] = [
     "timeOfDay": "Any",
     "rarity": "Fabled",
     "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/2/22/Bombfish.webp/120px-Bombfish.webp.png"
+  },
+  {
+    "name": "Mudskipper",
+    "habitat": "Tanglewood",
+    "waterType": "Swampwater",
+    "weather": "Any",
+    "timeOfDay": "Day",
+    "rarity": "Abundant",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/b/bc/Mudskipper.webp/120px-Mudskipper.webp.png"
+  },
+  {
+    "name": "Soft Shelled Turtle",
+    "habitat": "Tanglewood",
+    "waterType": "Swampwater",
+    "weather": "Any",
+    "timeOfDay": "Morning",
+    "rarity": "Elusive",
+    "imageUrl": "https://static.wikitide.net/fishwikiwiki/thumb/0/0d/Soft_Shelled_Turtle.webp/120px-Soft_Shelled_Turtle.webp.png"
   }
 ] as const;
 
