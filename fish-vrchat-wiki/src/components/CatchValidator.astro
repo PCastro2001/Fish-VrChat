@@ -1,0 +1,110 @@
+---
+import { rodsData } from '../data/gear';
+import { openSeaFish } from '../data/fish/openSea';
+---
+
+<div class="bg-neutral-900/85 border border-white/15 p-6 rounded-2xl">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+    <div>
+      <h3 class="text-xl font-bold text-white">Comprobador de Captura (Open Sea)</h3>
+      <p class="text-xs text-slate-400">Selecciona tu caña para verificar qué peces puedes pescar sin romper línea.</p>
+    </div>
+    
+    <!-- Selector de Caña -->
+    <select id="validator-rod-select" class="bg-neutral-950 border border-cyan-500/40 text-cyan-300 text-sm font-semibold rounded-lg px-3 py-2 outline-none">
+      {rodsData.map((r, idx) => (
+        <option value={idx}>{r.name} (Max: {r.maxWeight})</option>
+      ))}
+    </select>
+  </div>
+
+  <!-- Resumen de Capacidad -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+    <div class="bg-neutral-950/60 p-3 rounded-xl border border-white/5 text-center">
+      <span class="text-[10px] uppercase text-slate-400 font-bold block">Tu Límite de Peso</span>
+      <span id="stat-max-weight" class="text-lg font-black text-purple-400">5 kg</span>
+    </div>
+    <div class="bg-neutral-950/60 p-3 rounded-xl border border-white/5 text-center">
+      <span class="text-[10px] uppercase text-slate-400 font-bold block">Peces Seguros</span>
+      <span id="stat-catchable-count" class="text-lg font-black text-emerald-400">0 / 24</span>
+    </div>
+    <div class="bg-neutral-950/60 p-3 rounded-xl border border-white/5 text-center">
+      <span class="text-[10px] uppercase text-slate-400 font-bold block">Peces Imposibles</span>
+      <span id="stat-impossible-count" class="text-lg font-black text-rose-400">0</span>
+    </div>
+  </div>
+
+  <!-- Lista de Peces con Estado de Captura -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="fish-status-grid">
+    {openSeaFish.map((fish) => (
+      <div 
+        class="fish-card p-3 rounded-xl border flex justify-between items-center bg-neutral-950/40 border-neutral-800 transition"
+        data-max-kg={fish.numericMaxWeightKg}
+      >
+        <div>
+          <div class="font-bold text-xs text-white flex items-center gap-1.5">
+            <span>{fish.name}</span>
+            <span class="text-[9px] px-1.5 py-0.2 rounded border border-white/10 text-slate-400">{fish.rarity}</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-0.5">
+            Peso máx: <span class="font-semibold text-slate-200">{fish.maxWeight}</span>
+          </div>
+        </div>
+
+        <div class="status-tag text-[10px] font-bold px-2 py-0.5 rounded">
+          <!-- Calculado con JS -->
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  import { rodsData } from '../data/gear';
+
+  function parseMaxWeight(wStr: string): number {
+    const clean = wStr.toLowerCase().replace('kg', '').replace(',', '').trim();
+    return parseFloat(clean) || 0;
+  }
+
+  const select = document.getElementById('validator-rod-select') as HTMLSelectElement;
+  const cards = document.querySelectorAll<HTMLDivElement>('.fish-card');
+  const statMaxWeight = document.getElementById('stat-max-weight')!;
+  const statCatchable = document.getElementById('stat-catchable-count')!;
+  const statImpossible = document.getElementById('stat-impossible-count')!;
+
+  function updateFishCatchability() {
+    const selectedRod = rodsData[parseInt(select.value)];
+    const rodLimit = parseMaxWeight(selectedRod.maxWeight || '0');
+    
+    statMaxWeight.textContent = selectedRod.maxWeight || '0 kg';
+
+    let catchable = 0;
+    let impossible = 0;
+
+    cards.forEach(card => {
+      const fishMax = parseFloat(card.dataset.maxKg || '0');
+      const tag = card.querySelector('.status-tag') as HTMLElement;
+
+      if (fishMax === 0) {
+        // Peso no definido (ej: Plankfish)
+        tag.textContent = 'Posible (?)';
+        tag.className = 'status-tag text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      } else if (rodLimit >= fishMax) {
+        catchable++;
+        tag.textContent = '✓ Seguro';
+        tag.className = 'status-tag text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      } else {
+        impossible++;
+        tag.textContent = '✗ Caña Débil';
+        tag.className = 'status-tag text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      }
+    });
+
+    statCatchable.textContent = `${catchable} / ${cards.length}`;
+    statImpossible.textContent = `${impossible}`;
+  }
+
+  select?.addEventListener('change', updateFishCatchability);
+  updateFishCatchability();
+</script>

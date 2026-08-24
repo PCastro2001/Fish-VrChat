@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500 selection:text-black">
+    
+    <!-- Barra Superior de Navegación -->
+    <header class="sticky top-0 z-50 bg-neutral-950/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-black text-sm">
+          F!
+        </div>
+        <span class="font-bold text-lg text-white tracking-wide">Fish! Optimizer & Wiki</span>
+      </div>
+
+      <nav class="flex gap-2 sm:gap-4 text-xs font-semibold">
+        <a href="#dashboard" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-neutral-800 transition">Tablero / Stats</a>
+        <a href="#optimizer" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-neutral-800 transition">Optimizador</a>
+        <a href="#pity" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-neutral-800 transition">Pity Reliquias</a>
+        <a href="#validator" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-neutral-800 transition">Validador Peces</a>
+      </nav>
+    </header>
+
+    <main class="py-8 px-4 md:px-8 space-y-12">
+      <slot />
+    </main>
+
+    <footer class="border-t border-white/10 py-6 text-center text-xs text-slate-500">
+      Fish! VRChat Guide & Loadout Optimizer • Diseñado para la comunidad
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+---
+import { tanglewoodIslanders, tanglewoodQuests, tanglewoodFish } from '../../data/locations/tanglewood';
+
+const rarityColors: Record<string, string> = {
+  Abundant: "bg-slate-500/20 text-slate-300 border-slate-500/30",
+  Common: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+  Curious: "bg-sky-500/20 text-sky-300 border-sky-500/30",
+  Elusive: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+  Fabled: "bg-rose-500/20 text-rose-300 border-rose-500/30",
+  Mythic: "bg-purple-500/20 text-purple-300 border-purple-500/30",
+  Exotic: "bg-gradient-to-r from-red-500/20 via-yellow-500/20 to-blue-500/20 text-amber-200 border-amber-400/40 font-bold"
+};
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tanglewood - Fish! VRChat Wiki</title>
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8 font-sans selection:bg-cyan-500 selection:text-black">
+    
+    <main class="max-w-7xl mx-auto bg-neutral-950/85 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 shadow-2xl">
+      
+      <h1 class="text-3xl font-bold tracking-wide text-white mb-2">Tanglewood</h1>
+      <div class="h-0.5 bg-gradient-to-r from-teal-500 via-emerald-500 to-transparent mb-6"></div>
+
+      <div class="space-y-3 text-slate-300 text-sm leading-relaxed mb-6">
+        <p>
+          <strong class="text-white">Tanglewood</strong> is one of the many Islands on the Fish! Archipelago. A dark and murky marshland located on a decently sized island. The Tanglewood Bog is home to the unique NPC the priest <span class="text-cyan-400 font-semibold cursor-pointer hover:underline">Pristina</span>. She has the ability to bless cursed fish and is located in a church in the middle of the island.
+        </p>
+        <p>
+          The island also contains a boat NPC <span class="text-cyan-400 font-semibold cursor-pointer hover:underline">Nessi</span>, a Sunleaf Exports NPC <span class="text-cyan-400 font-semibold cursor-pointer hover:underline">Petey</span>, and the second cheapest Shopkeeper NPC <span class="text-cyan-400 font-semibold cursor-pointer hover:underline">Grimbee</span>.
+        </p>
+        <div class="p-3 bg-red-950/20 border-l-2 border-red-500/60 rounded text-xs text-red-300/90">
+          On this island there seems to have been a murder in the past and dangerous secrets lurk around the corners of the maps. This island in particular is also home to two of the questlines in the game and hints at a third.
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-4 md:gap-6 mb-6 border-b border-white/10 pb-3 text-sm font-semibold">
+        <button class="loc-tab text-cyan-400 border-b-2 border-cyan-400 pb-1" data-target="tab-fish">Local Fish</button>
+        <button class="loc-tab text-slate-400 hover:text-white pb-1" data-target="tab-islanders">Islanders</button>
+        <button class="loc-tab text-slate-400 hover:text-white pb-1" data-target="tab-quests">Quests</button>
+      </div>
+
+      <div id="tab-fish" class="loc-section overflow-x-auto rounded-lg border border-neutral-800">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-neutral-800 text-xs font-bold text-center select-none">
+              <th class="p-3 bg-neutral-900 text-slate-300 text-left min-w-[160px]">Fish</th>
+              <th class="p-3 bg-neutral-900 text-slate-300">Photo</th>
+              <th class="p-3 bg-[#fcd34d] text-neutral-950">Rarity</th>
+              <th class="p-3 bg-[#38bdf8] text-neutral-950">Water Type</th>
+              <th class="p-3 bg-[#99f6e4] text-neutral-950">Weather</th>
+              <th class="p-3 bg-[#fdba74] text-neutral-950">Time</th>
+              <th class="p-3 bg-[#c084fc] text-neutral-950">Min Weight</th>
+              <th class="p-3 bg-[#f87171] text-neutral-950">Max Weight</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-800/60 font-medium text-center">
+            {tanglewoodFish.map((fish) => (
+              <tr class="hover:bg-neutral-900/60 transition-colors">
+                <td class="p-3 text-left font-bold text-cyan-400 hover:underline cursor-pointer">{fish.name}</td>
+                <td class="p-3"><div class="w-9 h-9 mx-auto bg-neutral-900 border border-neutral-700/80 rounded flex items-center justify-center text-[10px] text-neutral-600">Img</div></td>
+                <td class="p-3">
+                  <span class={`inline-block px-2.5 py-0.5 rounded-full text-xs border ${rarityColors[fish.rarity] || 'text-slate-300'}`}>
+                    {fish.rarity}
+                  </span>
+                </td>
+                <td class="p-3 text-slate-300">{fish.waterType}</td>
+                <td class="p-3 text-slate-300">{fish.weather}</td>
+                <td class="p-3 text-slate-300">{fish.time}</td>
+                <td class="p-3 text-slate-300">{fish.minWeight}</td>
+                <td class="p-3 text-slate-200 font-semibold">{fish.maxWeight}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div id="tab-islanders" class="loc-section hidden overflow-x-auto rounded-lg border border-neutral-800">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-neutral-800 text-xs font-bold text-center select-none">
+              <th class="p-3 bg-neutral-900 text-slate-300 text-left min-w-[200px]">Islander's Name</th>
+              <th class="p-3 bg-neutral-900 text-slate-300 text-left min-w-[200px]">Job</th>
+              <th class="p-3 bg-neutral-900 text-slate-300">Photo</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-800/60 font-medium">
+            {tanglewoodIslanders.map((npc) => (
+              <tr class="hover:bg-neutral-900/60 transition-colors">
+                <td class="p-3 text-cyan-400 font-semibold hover:underline cursor-pointer">{npc.name}</td>
+                <td class="p-3 text-slate-300">{npc.job}</td>
+                <td class="p-3 text-center">
+                  <div class="w-9 h-9 mx-auto bg-neutral-900 border border-neutral-700/80 rounded flex items-center justify-center text-[10px] text-neutral-600">Img</div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div id="tab-quests" class="loc-section hidden overflow-x-auto rounded-lg border border-neutral-800">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-neutral-800 text-xs font-bold text-left select-none">
+              <th class="p-3 bg-neutral-900 text-slate-300 min-w-[150px]">Quest Name</th>
+              <th class="p-3 bg-neutral-900 text-slate-300 min-w-[160px]">Giver / Location</th>
+              <th class="p-3 bg-neutral-900 text-slate-300">Prerequisites</th>
+              <th class="p-3 bg-neutral-900 text-slate-300 min-w-[150px]">Rewards</th>
+              <th class="p-3 bg-neutral-900 text-slate-300 min-w-[200px]">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-800/60 font-medium">
+            {tanglewoodQuests.map((quest) => (
+              <tr class="hover:bg-neutral-900/60 transition-colors">
+                <td class="p-3 text-cyan-400 font-bold hover:underline cursor-pointer">{quest.name}</td>
+                <td class="p-3 text-slate-300">{quest.giver}</td>
+                <td class="p-3 text-slate-400 text-xs">{quest.prerequisites}</td>
+                <td class="p-3 text-amber-300 font-semibold">{quest.rewards}</td>
+                <td class="p-3 text-slate-400 text-xs">{quest.notes}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+
+    <script>
+      const tabs = document.querySelectorAll<HTMLButtonElement>('.loc-tab');
+      const sections = document.querySelectorAll<HTMLDivElement>('.loc-section');
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach((t) => {
+            t.className = 'loc-tab text-slate-400 hover:text-white pb-1';
+          });
+          tab.className = 'loc-tab text-cyan-400 border-b-2 border-cyan-400 pb-1';
+
+          sections.forEach((sec) => sec.classList.add('hidden'));
+
+          const targetId = tab.dataset.target;
+          if (targetId) {
+            document.getElementById(targetId)?.classList.remove('hidden');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

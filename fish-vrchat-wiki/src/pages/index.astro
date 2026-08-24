@@ -1,0 +1,1374 @@
+---
+// 1. BASE DE DATOS DE EQUIPAMIENTO
+const rodsData = [
+  { name: "Stick and String", price: "$0", costNum: 0, location: "Default Rod", luck: "-50", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-100", maxWeight: "5kg" },
+  { name: "Sunleaf Rod", price: "$0", costNum: 0, location: "Sell Shops", luck: "+10", strength: "+5", expertise: "+10", attractionRate: "+25%", bigCatchRate: "+15", maxWeight: "250kg" },
+  { name: "Toy Rod", price: "$750", costNum: 750, location: "Coconut Bay", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "15kg" },
+  { name: "Sturdy Wooden Rod", price: "$2,000", costNum: 2000, location: "Coconut Bay", luck: "+15", strength: "-", expertise: "+5", attractionRate: "+20%", bigCatchRate: "-", maxWeight: "30kg" },
+  { name: "Slim Rod", price: "$10,000", costNum: 10000, location: "Coconut Bay", luck: "+20", strength: "+10", expertise: "+10", attractionRate: "+25%", bigCatchRate: "+20", maxWeight: "500kg" },
+  { name: "Telescopic Rod", price: "$15,000", costNum: 15000, location: "Coconut Bay", luck: "+10", strength: "+15", expertise: "+15", attractionRate: "+10%", bigCatchRate: "+5", maxWeight: "2,005kg" },
+  { name: "Metallic Rod", price: "$15,000", costNum: 15000, location: "Coconut Bay", luck: "-", strength: "+55", expertise: "+55", attractionRate: "+10%", bigCatchRate: "+10", maxWeight: "1,000kg" },
+  { name: "Darkwood Rod", price: "$25,000", costNum: 25000, location: "Tanglewood", luck: "+30", strength: "+10", expertise: "+10", attractionRate: "+30%", bigCatchRate: "+5", maxWeight: "1,800kg" },
+  { name: "Speedy Rod", price: "$55,000", costNum: 55000, location: "Crescent Isle", luck: "+1", strength: "+5", expertise: "+5", attractionRate: "+60%", bigCatchRate: "-", maxWeight: "1,500kg" },
+  { name: "Fortunate Rod", price: "$75,000", costNum: 75000, location: "Crescent Isle", luck: "+100", strength: "+10", expertise: "+5", attractionRate: "+10%", bigCatchRate: "+65", maxWeight: "1,500kg" },
+  { name: "Alien Rod", price: "$200,000", costNum: 200000, location: "Alien Quest", luck: "+55", strength: "+10", expertise: "+10", attractionRate: "+45%", bigCatchRate: "+30", maxWeight: "32,000kg" },
+  { name: "Rustfang Rod", price: "$250,000", costNum: 250000, location: "Luxian Dunes", luck: "+70", strength: "+20", expertise: "+20", attractionRate: "+25%", bigCatchRate: "+35", maxWeight: "35,000kg" },
+  { name: "Runesteel Rod", price: "$700,000", costNum: 700000, location: "Vlad (Islander)", luck: "+90", strength: "+25", expertise: "+20", attractionRate: "+30%", bigCatchRate: "+40", maxWeight: "100,000kg" },
+  { name: "Rod of the Pharaoh", price: "$750,000", costNum: 750000, location: "Luxian Dunes", luck: "+222", strength: "+20", expertise: "+40", attractionRate: "-10%", bigCatchRate: "+35", maxWeight: "100,000kg" },
+  { name: "Rod of Perpetuity", price: "$0", costNum: 0, location: "Reach level 500", luck: "+150", strength: "+30", expertise: "+30", attractionRate: "+50%", bigCatchRate: "+10", maxWeight: "500,000kg" },
+  { name: "Leviathan Rod", price: "$1,000,000", costNum: 1000000, location: "Crafted at Crescent Isle", luck: "+500", strength: "+20", expertise: "+20", attractionRate: "+25%", bigCatchRate: "+35", maxWeight: "100,000kg" }
+];
+
+const linesData = [
+  { name: "Basic Line", price: "$0", costNum: 0, location: "Default Line", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Aquamarine Line", price: "$100", costNum: 100, location: "Coconut Bay", luck: "-", strength: "-", expertise: "-", attractionRate: "+5%", bigCatchRate: "-" },
+  { name: "Carbon Line", price: "$1,000", costNum: 1000, location: "Coconut Bay", luck: "-", strength: "+7", expertise: "+7", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Heavy Duty Line", price: "$4,000", costNum: 4000, location: "Crescent Isle", luck: "-", strength: "+10", expertise: "+10", attractionRate: "-", bigCatchRate: "+10" },
+  { name: "Flavored Line", price: "$10,000", costNum: 10000, location: "Tanglewood", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+30" },
+  { name: "Lucky Line", price: "$10,000", costNum: 10000, location: "Crescent Isle", luck: "+30", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Diamond Line", price: "$25,000", costNum: 25000, location: "Luxian Dunes", luck: "+25", strength: "+15", expertise: "+15", attractionRate: "+10%", bigCatchRate: "-" },
+  { name: "Fur of Cerberus", price: "$35,000", costNum: 35000, location: "Vlad (Islander)", luck: "+25", strength: "-5", expertise: "-15", attractionRate: "+20%", bigCatchRate: "+10" },
+  { name: "Midas Line", price: "$50,000", costNum: 50000, location: "Twilight Realm", luck: "+60", strength: "+15", expertise: "+10", attractionRate: "+15%", bigCatchRate: "+5" },
+  { name: "Ethereal Line", price: "$0", costNum: 0, location: "Quest: Our Ship...", luck: "+75", strength: "-5", expertise: "-15", attractionRate: "+20%", bigCatchRate: "+20" }
+];
+
+const bobbersData = [
+  { name: "Basic Bobber", price: "$0", costNum: 0, location: "Default Bobber", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Paulie's Bobber", price: "$0", costNum: 0, location: "Quest: Lost Saw", luck: "-", strength: "-", expertise: "+5", attractionRate: "+5%", bigCatchRate: "-" },
+  { name: "Blue Bobber", price: "$100", costNum: 100, location: "Coconut Bay", luck: "+5", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Dud Bobber", price: "$1,000", costNum: 1000, location: "Crescent Isle", luck: "+5", strength: "-", expertise: "+5", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Feline Bobber", price: "$2,000", costNum: 2000, location: "Tanglewood", luck: "+5", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+10" },
+  { name: "Ornamental Bobber", price: "$10,000", costNum: 10000, location: "Luxian Dunes", luck: "+10", strength: "+5", expertise: "-", attractionRate: "+10%", bigCatchRate: "-" },
+  { name: "Lucky Bobber", price: "$10,000", costNum: 10000, location: "Luxian Dunes", luck: "+40", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
+  { name: "Rainbow Slime Bobber", price: "$35,000", costNum: 35000, location: "Vlad (Islander)", luck: "+30", strength: "+10", expertise: "-", attractionRate: "+10%", bigCatchRate: "+10" },
+  { name: "Pyramid Bobber", price: "$50,000", costNum: 50000, location: "Twilight Realm", luck: "+50", strength: "+10", expertise: "-", attractionRate: "+10%", bigCatchRate: "+10" },
+  { name: "Undying Heart", price: "$0", costNum: 0, location: "Quest: Undying Love", luck: "+50", strength: "+20", expertise: "+20", attractionRate: "+10%", bigCatchRate: "+5" }
+];
+
+const enchantmentsData = [
+  { name: "Sin Encantamiento", rarity: "None", costNum: 0, luck: "0", strength: "0", expertise: "0", attractionRate: "0", bigCatchRate: "0", maxWeight: "0" },
+  { name: "Lucky", rarity: "Common", costNum: 0, luck: "+15", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Reinforced", rarity: "Common", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "+400kg" },
+  { name: "Speedy", rarity: "Common", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+10%", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Day Walker", rarity: "Uncommon", costNum: 0, luck: "+50", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Tubby Chaser", rarity: "Uncommon", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+5", maxWeight: "+1,000kg" },
+  { name: "Light-Speed Reels", rarity: "Rare", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+40%", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Notoriously Big", rarity: "Rare", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+10", maxWeight: "+50,000kg" },
+  { name: "BIG BOYS ONLY", rarity: "Epic", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+65", maxWeight: "+100,000kg" },
+  { name: "Master of Balance", rarity: "Epic", costNum: 0, luck: "+20", strength: "+20", expertise: "+20", attractionRate: "+20%", bigCatchRate: "+20", maxWeight: "+400kg" },
+  { name: "Shiny Hunter", rarity: "Epic", costNum: 0, luck: "+80", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Speed Demon", rarity: "Epic", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+60%", bigCatchRate: "-", maxWeight: "-" },
+  { name: "God's Own Luck", rarity: "Legendary", costNum: 0, luck: "+250", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Messenger of the Heavens", rarity: "Legendary", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+100%", bigCatchRate: "-", maxWeight: "-" },
+  { name: "Strongest Angler", rarity: "Legendary", costNum: 0, luck: "+20", strength: "+85", expertise: "+85", attractionRate: "+10%", bigCatchRate: "+20", maxWeight: "+1,000,000kg" }
+];
+
+// 2. BASE DE DATOS COMPLETA DE PECES (ARCHIPIÉLAGO TOTAL)
+const allFishData = [
+  // Coconut Bay - Local Fish
+  { name: "Bream", island: "Coconut Bay", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Day", minW: "1 kg", maxW: "6 kg" },
+  { name: "Roach", island: "Coconut Bay", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Evening", minW: "0.2 kg", maxW: "2 kg" },
+  { name: "Goldfish", island: "Coconut Bay", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Clear (1.5x)", time: "Any", minW: "0.5 kg", maxW: "2 kg" },
+  { name: "Mackerel", island: "Coconut Bay", category: "Local Fish", rarity: "Abundant", water: "Saltwater", weather: "Foggy (1.5x)", time: "Any", minW: "0.2 kg", maxW: "2.5 kg" },
+  { name: "Needlefish", island: "Coconut Bay", category: "Local Fish", rarity: "Abundant", water: "Saltwater", weather: "Stormy (1.5x)", time: "Any", minW: "0.9 kg", maxW: "11 kg" },
+  { name: "Carp", island: "Coconut Bay", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Any", time: "Morning", minW: "2 kg", maxW: "45 kg" },
+  { name: "Black Shark Minnow", island: "Coconut Bay", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Rainy (1.5x)", time: "Any", minW: "1 kg", maxW: "6 kg" },
+  { name: "Boxfish", island: "Coconut Bay", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Any", time: "Any", minW: "0.4 kg", maxW: "4 kg" },
+  { name: "Gulper Eel", island: "Coconut Bay", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Any", time: "Any", minW: "1 kg", maxW: "20 kg" },
+  { name: "John Dory", island: "Coconut Bay", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Any", time: "Any", minW: "1 kg", maxW: "8 kg" },
+  { name: "Lionfish", island: "Coconut Bay", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Night", minW: "0.1 kg", maxW: "1.5 kg" },
+  { name: "Northern Pufferfish", island: "Coconut Bay", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Day", minW: "0.4 kg", maxW: "2 kg" },
+  { name: "Red Melon Discus", island: "Coconut Bay", category: "Local Fish", rarity: "Curious", water: "Freshwater", weather: "Foggy (1.5x)", time: "Any", minW: "0.0 kg", maxW: "0.6 kg" },
+  { name: "Alligator Gar", island: "Coconut Bay", category: "Local Fish", rarity: "Elusive", water: "Freshwater", weather: "Stormy (1.5x)", time: "Any", minW: "10 kg", maxW: "80 kg" },
+  { name: "Salween Rita Catfish", island: "Coconut Bay", category: "Local Fish", rarity: "Elusive", water: "Freshwater", weather: "Any", time: "Night", minW: "1 kg", maxW: "8 kg" },
+  { name: "European Anglerfish", island: "Coconut Bay", category: "Local Fish", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Night", minW: "7 kg", maxW: "40 kg" },
+  { name: "Hogfish", island: "Coconut Bay", category: "Local Fish", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Any", minW: "1 kg", maxW: "15 kg" },
+  { name: "Goliath Tigerfish", island: "Coconut Bay", category: "Local Fish", rarity: "Fabled", water: "Freshwater", weather: "Any", time: "Any", minW: "20 kg", maxW: "100 kg" },
+  { name: "Frilled Shark", island: "Coconut Bay", category: "Local Fish", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Any", minW: "15 kg", maxW: "220 kg" },
+  { name: "Blind Bladefish", island: "Coconut Bay", category: "Local Fish", rarity: "Mythic", water: "Freshwater", weather: "Any", time: "Any", minW: "4.24 kg", maxW: "6.8 kg" },
+  { name: "Red Dartfin", island: "Coconut Bay", category: "Local Fish", rarity: "Mythic", water: "Saltwater", weather: "Any", time: "Any", minW: "1 kg", maxW: "24.7 kg" },
+  { name: "Spineback Ray", island: "Coconut Bay", category: "Local Fish", rarity: "Exotic", water: "Saltwater", weather: "Any", time: "Any", minW: "1,500 kg", maxW: "6,000 kg" },
+  { name: "Dragonfly Fish", island: "Coconut Bay", category: "Local Fish", rarity: "Exotic", water: "Freshwater", weather: "Any", time: "Any", minW: "2 kg", maxW: "69.6 kg" },
+
+  // Coconut Bay - Open Sea Fish
+  { name: "Herring", island: "Coconut Bay", category: "Open Sea", rarity: "Abundant", water: "Saltwater", weather: "Any", time: "Any", minW: "0.3 kg", maxW: "1.1 kg" },
+  { name: "Haddock", island: "Coconut Bay", category: "Open Sea", rarity: "Abundant", water: "Saltwater", weather: "Any", time: "Any", minW: "0.9 kg", maxW: "11 kg" },
+  { name: "Cod", island: "Coconut Bay", category: "Open Sea", rarity: "Common", water: "Saltwater", weather: "Any", time: "Morning", minW: "5 kg", maxW: "22 kg" },
+  { name: "Atlantic Salmon", island: "Coconut Bay", category: "Open Sea", rarity: "Common", water: "Saltwater", weather: "Any", time: "Evening", minW: "3 kg", maxW: "6 kg" },
+  { name: "Pollock", island: "Coconut Bay", category: "Open Sea", rarity: "Common", water: "Saltwater", weather: "Rainy (1.5x)", time: "Any", minW: "0.5 kg", maxW: "21 kg" },
+  { name: "Halibut", island: "Coconut Bay", category: "Open Sea", rarity: "Curious", water: "Saltwater", weather: "Stormy (1.5x)", time: "Any", minW: "13 kg", maxW: "70 kg" },
+  { name: "Crab", island: "Coconut Bay", category: "Open Sea", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Night", minW: "0.4 kg", maxW: "2 kg" },
+  { name: "Mahi-Mahi", island: "Coconut Bay", category: "Open Sea", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Day", minW: "7 kg", maxW: "15 kg" },
+  { name: "Flying Fish", island: "Coconut Bay", category: "Open Sea", rarity: "Curious", water: "Saltwater", weather: "Clear (1.5x)", time: "Any", minW: "0.4 kg", maxW: "1.5 kg" },
+  { name: "Albacore Tuna", island: "Coconut Bay", category: "Open Sea", rarity: "Curious", water: "Saltwater", weather: "Rainy (1.5x)", time: "Any", minW: "10 kg", maxW: "30 kg" },
+  { name: "Sailfish", island: "Coconut Bay", category: "Open Sea", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Morning", minW: "50 kg", maxW: "100 kg" },
+  { name: "Blobfish", island: "Coconut Bay", category: "Open Sea", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Morning", minW: "1.5 kg", maxW: "15 kg" },
+  { name: "Common Stingray", island: "Coconut Bay", category: "Open Sea", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Night", minW: "0.8 kg", maxW: "35 kg" },
+  { name: "Seahorse", island: "Coconut Bay", category: "Open Sea", rarity: "Elusive", water: "Saltwater", weather: "Rainy (1.5x)", time: "Evening", minW: "0.0 kg", maxW: "0.1 kg" },
+  { name: "Sunfish", island: "Coconut Bay", category: "Open Sea", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Day", minW: "234 kg", maxW: "1,023 kg" },
+  { name: "Plankfish", island: "Coconut Bay", category: "Open Sea", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Oarfish", island: "Coconut Bay", category: "Open Sea", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Any", minW: "90 kg", maxW: "300 kg" },
+  { name: "Manta Ray", island: "Coconut Bay", category: "Open Sea", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Day", minW: "55.5 kg", maxW: "1,555 kg" },
+  { name: "Bombfish", island: "Coconut Bay", category: "Open Sea", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Great White Shark", island: "Coconut Bay", category: "Open Sea", rarity: "Mythic", water: "Saltwater", weather: "Any", time: "Any", minW: "489 kg", maxW: "1,457 kg" },
+  { name: "Giant Squid", island: "Coconut Bay", category: "Open Sea", rarity: "Mythic", water: "Saltwater", weather: "Any", time: "Any", minW: "89 kg", maxW: "512 kg" },
+  { name: "Abyssal Serpentfish", island: "Coconut Bay", category: "Open Sea", rarity: "Exotic", water: "Saltwater, Swampwater", weather: "Any", time: "Night", minW: "100 kg", maxW: "3,100 kg" },
+  { name: "Baby Megalodon", island: "Coconut Bay", category: "Open Sea", rarity: "Exotic", water: "Saltwater", weather: "Any", time: "Any", minW: "35,000 kg", maxW: "120,000 kg" },
+  { name: "Three-Headed Salmon", island: "Coconut Bay", category: "Open Sea", rarity: "Exotic", water: "Saltwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+
+  // Crescent Isle
+  { name: "Ocean Perch", island: "Crescent Isle", category: "Local Fish", rarity: "Abundant", water: "Saltwater", weather: "Stormy (1.5x)", time: "Any", minW: "0.5 kg", maxW: "7 kg" },
+  { name: "Tarpon", island: "Crescent Isle", category: "Local Fish", rarity: "Abundant", water: "Saltwater", weather: "Foggy (1.5x)", time: "Any", minW: "10 kg", maxW: "200 kg" },
+  { name: "Black Scorpionfish", island: "Crescent Isle", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Any", time: "Evening", minW: "0.3 kg", maxW: "2.2 kg" },
+  { name: "Snook", island: "Crescent Isle", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Rainy (1.5x)", time: "Any", minW: "1 kg", maxW: "22 kg" },
+  { name: "Lionfish", island: "Crescent Isle", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Night", minW: "0.1 kg", maxW: "1.5 kg" },
+  { name: "Clownfish", island: "Crescent Isle", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Day", minW: "0.1 kg", maxW: "1 kg" },
+  { name: "Regal Blue Tang", island: "Crescent Isle", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Morning", minW: "0.0 kg", maxW: "0.5 kg" },
+  { name: "Parrotfish", island: "Crescent Isle", category: "Local Fish", rarity: "Elusive", water: "Saltwater", weather: "Clear (1.5x)", time: "Day", minW: "0.2 kg", maxW: "8 kg" },
+  { name: "Permit", island: "Crescent Isle", category: "Local Fish", rarity: "Elusive", water: "Saltwater", weather: "Stormy (1.5x)", time: "Any", minW: "0.2 kg", maxW: "36 kg" },
+  { name: "Hammerhead Shark", island: "Crescent Isle", category: "Local Fish", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Evening", minW: "80 kg", maxW: "450 kg" },
+  { name: "Brickfish", island: "Crescent Isle", category: "Local Fish", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Armored Brutefish", island: "Crescent Isle", category: "Local Fish", rarity: "Mythic", water: "Saltwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Celestial Whitefin", island: "Crescent Isle", category: "Local Fish", rarity: "Exotic", water: "Saltwater", weather: "Any", time: "Any", minW: "500 kg", maxW: "1,500 kg" },
+
+  // Volcanic Depths
+  { name: "Flame Guppy", island: "Volcanic Depths", category: "Local Fish", rarity: "Abundant", water: "Lava", weather: "Any", time: "Any", minW: "0.1 kg", maxW: "0.2 kg" },
+  { name: "Magma Carp", island: "Volcanic Depths", category: "Local Fish", rarity: "Abundant", water: "Lava", weather: "Any", time: "Any", minW: "1 kg", maxW: "5 kg" },
+  { name: "Ashscale Trout", island: "Volcanic Depths", category: "Local Fish", rarity: "Common", water: "Lava", weather: "Any", time: "Any", minW: "1 kg", maxW: "10 kg" },
+  { name: "Basalt Eel", island: "Volcanic Depths", category: "Local Fish", rarity: "Common", water: "Lava", weather: "Any", time: "Any", minW: "0.2 kg", maxW: "1.2 kg" },
+  { name: "Cinderfin", island: "Volcanic Depths", category: "Local Fish", rarity: "Curious", water: "Lava", weather: "Any", time: "Any", minW: "0.2 kg", maxW: "1.2 kg" },
+  { name: "Obsidian Fish", island: "Volcanic Depths", category: "Local Fish", rarity: "Curious", water: "Lava", weather: "Any", time: "Any", minW: "3 kg", maxW: "6.7 kg" },
+  { name: "Crystal Pike", island: "Volcanic Depths", category: "Local Fish", rarity: "Elusive", water: "Lava", weather: "Any", time: "Any", minW: "1 kg", maxW: "9 kg" },
+  { name: "Molten Angler", island: "Volcanic Depths", category: "Local Fish", rarity: "Elusive", water: "Lava", weather: "Any", time: "Any", minW: "20 kg", maxW: "30 kg" },
+  { name: "Ifrit Barracuda", island: "Volcanic Depths", category: "Local Fish", rarity: "Fabled", water: "Lava", weather: "Any", time: "Any", minW: "50 kg", maxW: "105 kg" },
+  { name: "Pyrite Snapper", island: "Volcanic Depths", category: "Local Fish", rarity: "Fabled", water: "Lava", weather: "Any", time: "Any", minW: "100 kg", maxW: "140 kg" },
+  { name: "Igneous Stingray", island: "Volcanic Depths", category: "Local Fish", rarity: "Mythic", water: "Lava", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Red Demonfish", island: "Volcanic Depths", category: "Local Fish", rarity: "Mythic", water: "Lava", weather: "Any", time: "Any", minW: "-", maxW: "237.8 kg" },
+  { name: "Hellmaw Grouper", island: "Volcanic Depths", category: "Local Fish", rarity: "Exotic", water: "Lava", weather: "Any", time: "Any", minW: "700 kg", maxW: "2,000 kg" },
+
+  // Luxian Dunes
+  { name: "Ide", island: "Luxian Dunes", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Morning", minW: "1 kg", maxW: "5 kg" },
+  { name: "Tench", island: "Luxian Dunes", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Night", minW: "1 kg", maxW: "4 kg" },
+  { name: "Perch", island: "Luxian Dunes", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Stormy (1.5x)", time: "Any", minW: "0.1 kg", maxW: "2 kg" },
+  { name: "GiltHead Bream", island: "Luxian Dunes", category: "Local Fish", rarity: "Abundant", water: "Saltwater", weather: "Clear (1.5x)", time: "Any", minW: "0.5 kg", maxW: "6 kg" },
+  { name: "Tilefish", island: "Luxian Dunes", category: "Local Fish", rarity: "Abundant", water: "Saltwater", weather: "Any", time: "Any", minW: "2 kg", maxW: "55 kg" },
+  { name: "Rainbow Trout", island: "Luxian Dunes", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Foggy (1.5x)", time: "Any", minW: "1 kg", maxW: "5 kg" },
+  { name: "Eel", island: "Luxian Dunes", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Any", time: "Night", minW: "3 kg", maxW: "8 kg" },
+  { name: "Bluefish", island: "Luxian Dunes", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Rainy (1.5x)", time: "Any", minW: "0.5 kg", maxW: "14 kg" },
+  { name: "Hawaiian Triggerfish", island: "Luxian Dunes", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Any", time: "Any", minW: "1 kg", maxW: "5 kg" },
+  { name: "John Dory", island: "Luxian Dunes", category: "Local Fish", rarity: "Common", water: "Saltwater", weather: "Any", time: "Any", minW: "1 kg", maxW: "8 kg" },
+  { name: "Barracuda", island: "Luxian Dunes", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Morning", minW: "1 kg", maxW: "23 kg" },
+  { name: "Snow Yellow Discus", island: "Luxian Dunes", category: "Local Fish", rarity: "Curious", water: "Freshwater", weather: "Foggy (1.5x)", time: "Any", minW: "0.1 kg", maxW: "0.3 kg" },
+  { name: "Amberjack", island: "Luxian Dunes", category: "Local Fish", rarity: "Curious", water: "Saltwater", weather: "Any", time: "Any", minW: "0.5 kg", maxW: "90 kg" },
+  { name: "Goonch Catfish", island: "Luxian Dunes", category: "Local Fish", rarity: "Elusive", water: "Freshwater", weather: "Rainy (1.5x)", time: "Any", minW: "20 kg", maxW: "90 kg" },
+  { name: "Siamese Giant Carp", island: "Luxian Dunes", category: "Local Fish", rarity: "Elusive", water: "Freshwater", weather: "Any", time: "Morning", minW: "38 kg", maxW: "167 kg" },
+  { name: "Wahoo", island: "Luxian Dunes", category: "Local Fish", rarity: "Elusive", water: "Saltwater", weather: "Any", time: "Any", minW: "5 kg", maxW: "100 kg" },
+  { name: "Ironfin Stalker", island: "Luxian Dunes", category: "Local Fish", rarity: "Fabled", water: "Freshwater", weather: "Any", time: "Any", minW: "25 kg", maxW: "55 kg" },
+  { name: "Pinnate Batfish", island: "Luxian Dunes", category: "Local Fish", rarity: "Fabled", water: "Saltwater", weather: "Any", time: "Any", minW: "0.1 kg", maxW: "5 kg" },
+  { name: "Ancient Warriorfish", island: "Luxian Dunes", category: "Local Fish", rarity: "Mythic", water: "Freshwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Humpback Gar", island: "Luxian Dunes", category: "Local Fish", rarity: "Mythic", water: "Saltwater", weather: "Any", time: "Any", minW: "-", maxW: "-" },
+  { name: "Shellonodon", island: "Luxian Dunes", category: "Local Fish", rarity: "Exotic", water: "Saltwater", weather: "Any", time: "Any", minW: "32,000 kg", maxW: "40,000 kg" },
+  { name: "Royal Bananafish", island: "Luxian Dunes", category: "Local Fish", rarity: "Exotic", water: "Freshwater", weather: "Any", time: "Any", minW: "6.5 kg", maxW: "6.6 kg" },
+
+  // Tanglewood
+  { name: "Bluegill Sunfish", island: "Tanglewood", category: "Local Fish", rarity: "Abundant", water: "Swampwater", weather: "Clear (1.5x)", time: "Any", minW: "0.1 kg", maxW: "2.5 kg" },
+  { name: "Mudskipper", island: "Tanglewood", category: "Local Fish", rarity: "Abundant", water: "Swampwater", weather: "Any", time: "Day", minW: "-", maxW: "-" },
+  { name: "Bowfin", island: "Tanglewood", category: "Local Fish", rarity: "Common", water: "Swampwater", weather: "Any", time: "Evening", minW: "1 kg", maxW: "10 kg" },
+  { name: "Channel Catfish", island: "Tanglewood", category: "Local Fish", rarity: "Common", water: "Swampwater", weather: "Foggy (1.5x)", time: "Any", minW: "0.5 kg", maxW: "26 kg" },
+  { name: "Cottonmouth Snake", island: "Tanglewood", category: "Local Fish", rarity: "Curious", water: "Swampwater", weather: "Clear (1.5x)", time: "Any", minW: "0.3 kg", maxW: "4.5 kg" },
+  { name: "Frog", island: "Tanglewood", category: "Local Fish", rarity: "Curious", water: "Swampwater", weather: "Rainy (1.5x)", time: "Any", minW: "0.1 kg", maxW: "0.8 kg" },
+  { name: "Alligator Snapping Turtle", island: "Tanglewood", category: "Local Fish", rarity: "Elusive", water: "Swampwater", weather: "Any", time: "Any", minW: "10 kg", maxW: "113 kg" },
+  { name: "Soft Shelled Turtle", island: "Tanglewood", category: "Local Fish", rarity: "Elusive", water: "Swampwater", weather: "Any", time: "Morning", minW: "-", maxW: "-" },
+  { name: "American Alligator", island: "Tanglewood", category: "Local Fish", rarity: "Fabled", water: "Swampwater", weather: "Any", time: "Night", minW: "100 kg", maxW: "450 kg" },
+  { name: "Giant Gharial", island: "Tanglewood", category: "Local Fish", rarity: "Fabled", water: "Swampwater", weather: "Any", time: "Any", minW: "150 kg", maxW: "900 kg" },
+  { name: "Venomous Watcher", island: "Tanglewood", category: "Local Fish", rarity: "Mythic", water: "Swampwater", weather: "Any", time: "Any", minW: "2.2 kg", maxW: "-" },
+  { name: "Dreadshell Colossus", island: "Tanglewood", category: "Local Fish", rarity: "Exotic", water: "Swampwater", weather: "Any", time: "Any", minW: "26,000 kg", maxW: "50,000 kg" },
+
+  // Twilight Realm
+  { name: "Barbel", island: "Twilight Realm", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Any", minW: "2.0 kg", maxW: "11.9 kg" },
+  { name: "Grayling", island: "Twilight Realm", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Morning", minW: "0.5 kg", maxW: "2 kg" },
+  { name: "Zander", island: "Twilight Realm", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Clear (1.5x)", time: "Any", minW: "2.0 kg", maxW: "9.5 kg" },
+  { name: "Pangasius", island: "Twilight Realm", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Foggy (1.5x)", time: "Any", minW: "2.2 kg", maxW: "29.9 kg" },
+  { name: "Largemouth Bass", island: "Twilight Realm", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Any", time: "Day", minW: "1.5 kg", maxW: "5.4 kg" },
+  { name: "Pike", island: "Twilight Realm", category: "Local Fish", rarity: "Common", water: "Freshwater", weather: "Foggy (1.5x)", time: "Any", minW: "2.0 kg", maxW: "15.3 kg" },
+  { name: "Tilapia", island: "Twilight Realm", category: "Local Fish", rarity: "Common", water: "Any", weather: "Any", time: "Any", minW: "1.0 kg", maxW: "3.0 kg" },
+  { name: "Blue Diamond Discus", island: "Twilight Realm", category: "Local Fish", rarity: "Curious", water: "Freshwater", weather: "Foggy (1.5x)", time: "Any", minW: "0.1 kg", maxW: "1.5 kg" },
+  { name: "African Lungfish", island: "Twilight Realm", category: "Local Fish", rarity: "Curious", water: "Any", weather: "Any", time: "Any", minW: "1.2 kg", maxW: "7.6 kg" },
+  { name: "African Pike", island: "Twilight Realm", category: "Local Fish", rarity: "Curious", water: "Any", weather: "Any", time: "Any", minW: "5.1 kg", maxW: "9.6 kg" },
+  { name: "Arowana", island: "Twilight Realm", category: "Local Fish", rarity: "Curious", water: "Any", weather: "Any", time: "Any", minW: "1.0 kg", maxW: "8.7 kg" },
+  { name: "Knife Fish", island: "Twilight Realm", category: "Local Fish", rarity: "Curious", water: "Any", weather: "Any", time: "Any", minW: "3.8 kg", maxW: "7.9 kg" },
+  { name: "High-Fin Banded Shark", island: "Twilight Realm", category: "Local Fish", rarity: "Elusive", water: "Freshwater", weather: "Stormy (1.5x)", time: "Any", minW: "3.2 kg", maxW: "14.5 kg" },
+  { name: "Wels Catfish", island: "Twilight Realm", category: "Local Fish", rarity: "Elusive", water: "Freshwater", weather: "Clear (1.5x)", time: "Any", minW: "7.2 kg", maxW: "73.3 kg" },
+  { name: "Bichir", island: "Twilight Realm", category: "Local Fish", rarity: "Elusive", water: "Any", weather: "Any", time: "Any", minW: "1 kg", maxW: "3 kg" },
+  { name: "Electric Catfish", island: "Twilight Realm", category: "Local Fish", rarity: "Elusive", water: "Any", weather: "Any", time: "Any", minW: "6.2 kg", maxW: "50.9 kg" },
+  { name: "Nile Perch", island: "Twilight Realm", category: "Local Fish", rarity: "Elusive", water: "Any", weather: "Any", time: "Any", minW: "56.2 kg", maxW: "385.2 kg" },
+  { name: "Tiger Shovelnose Catfish", island: "Twilight Realm", category: "Local Fish", rarity: "Elusive", water: "Any", weather: "Any", time: "Any", minW: "4.3 kg", maxW: "6.0 kg" },
+  { name: "Elephant Fish", island: "Twilight Realm", category: "Local Fish", rarity: "Fabled", water: "Any", weather: "Any", time: "Any", minW: "0.5 kg", maxW: "1.5 kg" },
+  { name: "Mirage Fish", island: "Twilight Realm", category: "Local Fish", rarity: "Mythic", water: "Any", weather: "Any", time: "Any", minW: "215.8 kg", maxW: "299.5 kg" },
+  { name: "Sarcophagus", island: "Twilight Realm", category: "Local Fish", rarity: "Exotic", water: "Any", weather: "Any", time: "Any", minW: "3,476.4 kg", maxW: "6,978.1 kg" }
+];
+
+// 3. BASE DE DATOS OFICIAL DE POOLS OCULTOS Y EVENTOS
+const occultPoolsData = [
+  { name: "School of Fish", effect: "Aumenta drásticamente la probabilidad de pescar ese pez específico", multiplier: "Específico", type: "Cardumen" },
+  { name: "Strange Whirlpool", effect: "1.5x probabilidad de todas las mutaciones y 2x multiplicador de Suerte", multiplier: "1.5x Mut / 2x Luck", type: "Vórtice General" },
+  { name: "Sandy Updraft", effect: "1.9x probabilidad de mutación Sandy fish", multiplier: "1.9x Sandy", type: "Dunas / Viento" },
+  { name: "Savanna Rift", effect: "1.9x probabilidad de modificadores Tiger & Zebra", multiplier: "1.9x Tiger/Zebra", type: "Falla Terrestre" },
+  { name: "Shadow Chasm", effect: "1.9x probabilidad de mutación Shadow fish", multiplier: "1.9x Shadow", type: "Abismo Sombrío" },
+  { name: "Sparkling Pool", effect: "1.9x probabilidad de mutación Shiny fish", multiplier: "1.9x Shiny", type: "Piscina Brillante" },
+  { name: "Ionized Fissure", effect: "1.9x probabilidad de mutación Radioactive fish", multiplier: "1.9x Radioactive", type: "Fisura Ionizada" },
+  { name: "Celestial Chasm", effect: "1.9x probabilidad de mutación Galaxy fish", multiplier: "1.9x Galaxy", type: "Abismo Celestial" },
+  { name: "Midas Rift", effect: "1.9x probabilidad de mutación Gold fish", multiplier: "1.9x Gold", type: "Falla Dorada" },
+  { name: "Occult Pool", effect: "1.9x probabilidad de mutación Cursed fish", multiplier: "1.9x Cursed", type: "Piscina Oculta" }
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FishVR - Official Loadout & Wiki</title>
+  </head>
+  <body>
+    <div class="island-bg-glow"></div>
+
+    <div class="island-container">
+      
+      <!-- TOP HEADER (FISHVR) -->
+      <header class="island-card island-header">
+        <div>
+          <div class="island-badge">FishVR</div>
+          <h1>FishVR • Official Loadout & Wiki</h1>
+          <p>Optimizador físico, base de datos de especies, piscinas ocultas y catálogo de rarezas.</p>
+        </div>
+        
+        <div class="island-header-stats">
+          <div class="island-input-group island-input-money">
+            <label>🪙 Monedas ($)</label>
+            <input type="number" id="budget-input" min="0" step="500" value="0" />
+          </div>
+          <div class="island-input-group island-input-islands">
+            <label>🏝️ Islas 100% (+15)</label>
+            <input type="number" id="islands-input" min="0" max="6" value="0" />
+          </div>
+        </div>
+      </header>
+
+      <!-- BARRA DE NAVEGACIÓN -->
+      <nav class="island-nav-bar">
+        <button class="island-nav-btn active" data-target="sec-optimizer">🎣 Optimizador de Cañas</button>
+        <button class="island-nav-btn" data-target="sec-fishdex">🐟 Base de Datos de Peces ({allFishData.length})</button>
+        <button class="island-nav-btn" data-target="sec-rarities">✨ Rarezas, Mutaciones & Pools</button>
+      </nav>
+
+      <!-- SECCIÓN 1: OPTIMIZADOR DE CAÑAS -->
+      <div id="sec-optimizer" class="island-view active">
+        
+        <section class="island-card island-filter-bar" style="margin-bottom: 20px;">
+          <div>
+            <h2>Estrategia de Pesca</h2>
+            <p>Selecciona qué atributo priorizar en la caña y aparejos.</p>
+          </div>
+          <div class="island-tab-group" id="goal-container">
+            <button class="island-tab active" data-stat="balance">⚖️ Balance Total</button>
+            <button class="island-tab" data-stat="luck">🍀 Suerte</button>
+            <button class="island-tab" data-stat="attractionRate">⚡ Velocidad</button>
+            <button class="island-tab" data-stat="bigCatchRate">🐋 Peces Grandes</button>
+            <button class="island-tab" data-stat="strength">💪 Fuerza</button>
+            <button class="island-tab" data-stat="maxWeight">⚖️ Max Weight</button>
+          </div>
+        </section>
+
+        <!-- Resultados -->
+        <div class="island-grid-2" style="margin-bottom: 20px;">
+          
+          <div class="island-card island-card-featured">
+            <div class="island-card-header">
+              <span class="island-tag island-tag-cyan">Tu Build Óptima en Mochila</span>
+              <span id="opt-total-stat" class="island-stat-value">Equilibrado</span>
+            </div>
+            
+            <div class="island-item-preview">
+              <div class="island-photo-frame island-frame-cyan" id="opt-rod-img-slot">🎣</div>
+              <div>
+                <h3 id="opt-title">Stick and String + Basic Line</h3>
+                <span class="island-subtext">Build armónica sin cuellos de botella</span>
+              </div>
+            </div>
+            
+            <div class="island-data-sheet">
+              <div class="island-row"><span>Caña Equipada:</span><strong id="opt-rod">Stick and String</strong></div>
+              <div class="island-row"><span>Encantamiento:</span><strong id="opt-enchant" style="color: #4ef2bb;">Sin Encantamiento</strong></div>
+              <div class="island-row"><span>Línea:</span><strong id="opt-line">Basic Line</strong></div>
+              <div class="island-row"><span>Boya:</span><strong id="opt-bobber">Basic Bobber</strong></div>
+            </div>
+          </div>
+
+          <div class="island-card island-card-upgrade">
+            <div class="island-card-header">
+              <span class="island-tag island-tag-mint">Próxima Gran Compra</span>
+              <span id="next-gain" class="island-tag island-tag-sand">+0</span>
+            </div>
+
+            <div class="island-item-preview">
+              <div class="island-photo-frame island-frame-mint" id="next-img-slot">⛵</div>
+              <div>
+                <h3 id="next-name">-</h3>
+                <span id="next-type" class="island-subtext">-</span>
+              </div>
+            </div>
+
+            <div class="island-data-sheet">
+              <div class="island-row"><span>Puerto / Tienda:</span><strong id="next-loc" style="color: #ffd166;">-</strong></div>
+              <div class="island-row"><span>Precio de Venta:</span><strong id="next-price">-</strong></div>
+              <div class="island-row"><span>Estado de Bolsillo:</span><strong id="next-afford-status" style="color: #4ef2bb;">-</strong></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mochila del Pescador -->
+        <section class="island-card" style="margin-bottom: 20px;">
+          <div class="island-inv-top">
+            <div>
+              <h2>Mochila del Pescador</h2>
+              <p>Marca tus cañas y selecciona el encantamiento que le colocaste a cada una en el Altar.</p>
+            </div>
+            <div class="island-btn-group">
+              <button id="btn-select-all" class="island-btn">Marcar todo</button>
+              <button id="btn-select-basic" class="island-btn">Solo inicial</button>
+            </div>
+          </div>
+
+          <div class="island-grid-inv">
+            
+            <div class="island-inv-column island-col-rods">
+              <h4 style="color: #38efef;">Cañas y Encantamiento del Altar</h4>
+              <div class="island-scrollbox-rods">
+                {rodsData.map((r, i) => (
+                  <div class="island-rod-entry">
+                    <label class="island-entry-label">
+                      <input type="checkbox" class="rod-inv-check" data-idx={i} checked={i === 0} />
+                      <div class="island-entry-info">
+                        <span class="island-name">{r.name}</span>
+                        <span class="island-price">{r.price}</span>
+                      </div>
+                    </label>
+                    
+                    <div class="island-enchant-row">
+                      <span>Altar:</span>
+                      <select class="island-enchant-select" data-rod-idx={i}>
+                        {enchantmentsData.map((e, eIdx) => (
+                          <option value={eIdx}>
+                            {e.name === "Sin Encantamiento" ? "Sin Encantamiento" : `[${e.rarity}] ${e.name}`}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="island-inv-column">
+              <h4 style="color: #4ef2bb;">Líneas (Lines)</h4>
+              <div class="island-scrollbox">
+                {linesData.map((l, i) => (
+                  <label class="island-checkbox-entry">
+                    <input type="checkbox" class="line-inv-check" data-idx={i} checked={i === 0} />
+                    <div class="island-entry-info">
+                      <span class="island-name">{l.name}</span>
+                      <span class="island-price">{l.price}</span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="island-inv-column">
+              <h4 style="color: #4ef2bb;">Boyas (Bobbers)</h4>
+              <div class="island-scrollbox">
+                {bobbersData.map((b, i) => (
+                  <label class="island-checkbox-entry">
+                    <input type="checkbox" class="bobber-inv-check" data-idx={i} checked={i === 0} />
+                    <div class="island-entry-info">
+                      <span class="island-name">{b.name}</span>
+                      <span class="island-price">{b.price}</span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Telemetría -->
+        <section class="island-grid-stats" style="margin-bottom: 20px;">
+          <div class="island-card island-stat-panel">
+            <span style="color: #ffd166;">Suerte Total</span>
+            <strong id="disp-luck" style="color: #ffd166;">-50</strong>
+          </div>
+          <div class="island-card island-stat-panel">
+            <span style="color: #38efef;">Atracción</span>
+            <strong id="disp-attraction" style="color: #38efef;">0%</strong>
+          </div>
+          <div class="island-card island-stat-panel">
+            <span style="color: #a7f3d0;">Tiempo Ciclo</span>
+            <strong id="disp-cycle" style="color: #ffffff;">19.0s</strong>
+          </div>
+          <div class="island-card island-stat-panel">
+            <span style="color: #4ef2bb;">Capturas / Hr</span>
+            <strong id="disp-catches" style="color: #4ef2bb;">189</strong>
+          </div>
+          <div class="island-card island-stat-panel">
+            <span style="color: #67e8f9;">Max Weight</span>
+            <strong id="disp-weight" style="color: #67e8f9;">5 kg</strong>
+          </div>
+          <div class="island-card island-stat-panel">
+            <span style="color: #fde68a;">Big Catch</span>
+            <strong id="disp-bigcatch" style="color: #fde68a;">-100</strong>
+          </div>
+        </section>
+
+        <!-- Rarity Pool -->
+        <section class="island-card">
+          <div class="island-card-header" style="margin-bottom: 14px;">
+            <div>
+              <h2>Probabilidades de Captura (Rarity Pool)</h2>
+              <p>Paleta oficial y distribución exponencial de Suerte del motor FishVR.</p>
+            </div>
+            <span id="disp-luck-mult" class="island-tag island-tag-cyan">Multiplicador: 0.50x</span>
+          </div>
+          <div id="rarity-container" class="island-grid-rarities">
+            <!-- Render dinámico -->
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SECCIÓN 2: BUSCADOR DE PECES COMPLETO -->
+      <div id="sec-fishdex" class="island-view">
+        <section class="island-card">
+          <div class="island-inv-top">
+            <div>
+              <h2>Base de Datos de Peces por Isla</h2>
+              <p>Consulta condiciones de captura, clima, horarios, tipos de agua y rangos de peso.</p>
+            </div>
+          </div>
+
+          <!-- Barra de Filtros -->
+          <div class="fish-search-bar">
+            <input type="text" id="fish-search-input" placeholder="🔍 Buscar por nombre (ej. Minnow, Shark, Discus)..." class="fish-input" />
+            <select id="fish-island-filter" class="fish-select">
+              <option value="ALL">Todas las Islas</option>
+              <option value="Coconut Bay">Coconut Bay</option>
+              <option value="Crescent Isle">Crescent Isle</option>
+              <option value="Volcanic Depths">Volcanic Depths</option>
+              <option value="Luxian Dunes">Luxian Dunes</option>
+              <option value="Tanglewood">Tanglewood</option>
+              <option value="Twilight Realm">Twilight Realm</option>
+            </select>
+            <select id="fish-rarity-filter" class="fish-select">
+              <option value="ALL">Todas las Rarezas</option>
+              <option value="Abundant">Abundant</option>
+              <option value="Common">Common</option>
+              <option value="Curious">Curious</option>
+              <option value="Elusive">Elusive</option>
+              <option value="Fabled">Fabled</option>
+              <option value="Mythic">Mythic</option>
+              <option value="Exotic">Exotic</option>
+            </select>
+            <select id="fish-water-filter" class="fish-select">
+              <option value="ALL">Todo Tipo de Agua</option>
+              <option value="Freshwater">Freshwater</option>
+              <option value="Saltwater">Saltwater</option>
+              <option value="Lava">Lava</option>
+              <option value="Swampwater">Swampwater</option>
+            </select>
+          </div>
+
+          <!-- Tabla Completa -->
+          <div class="fish-table-wrapper">
+            <table class="fish-table">
+              <thead>
+                <tr>
+                  <th>Especie</th>
+                  <th>Rareza</th>
+                  <th>Isla / Ubicación</th>
+                  <th>Tipo de Agua</th>
+                  <th>Clima Requerido</th>
+                  <th>Horario</th>
+                  <th>Peso Mínimo</th>
+                  <th>Peso Máximo</th>
+                </tr>
+              </thead>
+              <tbody id="fish-table-body">
+                {allFishData.map(f => (
+                  <tr class="fish-row" data-name={f.name.toLowerCase()} data-island={f.island} data-rarity={f.rarity} data-water={f.water}>
+                    <td class="font-bold text-white">{f.name}</td>
+                    <td><span class={`rarity-badge rarity-${f.rarity.toLowerCase().replace(/\s+/g, '-')}`}>{f.rarity}</span></td>
+                    <td style="color: #38efef;">{f.island} <span style="font-size: 10px; color: #93c5b5; display:block;">({f.category})</span></td>
+                    <td style="color: #4ef2bb;">{f.water}</td>
+                    <td style={f.weather.includes('1.5x') ? "color: #ffd166; font-weight: bold;" : "color: #93c5b5;"}>{f.weather}</td>
+                    <td>{f.time}</td>
+                    <td>{f.minW}</td>
+                    <td class="font-bold" style="color: #ffffff;">{f.maxW}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- SECCIÓN: TABLA OFICIAL DE MUTACIONES Y PURIFICACIÓN -->
+<section class="island-card">
+  <div class="island-card-header" style="margin-bottom: 12px;">
+    <div>
+      <h2>🧬 Fish Mutations & Value Modifiers</h2>
+      <p>Multiplicadores de venta oficiales por mutación y mecánicas de alteración.</p>
+    </div>
+    <span class="island-tag island-tag-mint">Valores Oficiales</span>
+  </div>
+
+  <!-- NOTA ESPECIAL DE PURIFICACIÓN -->
+  <div class="purity-alert-box" style="background: linear-gradient(135deg, rgba(244,63,94,0.15), rgba(78,242,187,0.15)); border: 1px solid #38efef; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+    <div>
+      <strong style="color: #4ef2bb; font-size: 13px; display: block;">⛪ Mecánica de Purificación (Tanglewood Church)</strong>
+      <span style="font-size: 11px; color: #d1fae5;">Puedes llevar cualquier pez con mutación <strong style="color: #f43f5e;">Cursed (1.1x)</strong> a la Iglesia de Tanglewood para purificarlo y transformarlo en <strong style="color: #ffffff;">Blessed (3x)</strong>.</span>
+    </div>
+    <span style="font-size: 16px; font-weight: 900; color: #ffd166; white-space: nowrap;">1.1x ➔ 3.0x</span>
+  </div>
+
+  <!-- TABLA DE MUTACIONES SEGÚN CAPTURA OFICIAL -->
+  <div class="fish-table-wrapper">
+    <table class="fish-table">
+      <thead>
+        <tr>
+          <th>Mutation / Modifiers</th>
+          <th style="text-align: right;">Modifier Multiplier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color: #f43f5e; font-weight: bold;">🔱 Cursed</td>
+          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.1x</td>
+        </tr>
+        <tr>
+          <td style="color: #ffe082; font-weight: bold;">🏰 Sandy</td>
+          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.2x</td>
+        </tr>
+        <tr>
+          <td style="color: #cbd5e1;">🪨 Stone, 🧲 Zebra</td>
+          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.3x</td>
+        </tr>
+        <tr>
+          <td>
+            <span style="color: #60a5fa;">⛔ Negative</span>, 
+            <span style="color: #ffffff;">🐰 Albino</span>, 
+            <span style="color: #94a3b8;">👤 Ghastly</span>, 
+            <span style="color: #c084fc;">✖️ Glitched</span>
+          </td>
+          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.5x</td>
+        </tr>
+        <tr>
+          <td style="color: #fb923c; font-weight: bold;">🐾 Tiger</td>
+          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.6x</td>
+        </tr>
+        <tr>
+          <td style="color: #4ade80; font-weight: bold;">🌾 Camo</td>
+          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.8x</td>
+        </tr>
+        <tr>
+          <td>
+            <span style="color: #c084fc;">🔮 Void</span>, 
+            <span style="color: #64748b;">👁️ Shadow</span>, 
+            <span style="color: #38efef; font-weight: bold;">✨ Shiny</span>, 
+            <span style="color: #93c5fd;">❄️ Frozen</span>
+          </td>
+          <td style="text-align: right; font-weight: 900; color: #38efef; font-size: 15px;">2x</td>
+        </tr>
+        <tr>
+          <td>
+            <span style="color: #f8fafc; font-weight: bold;">👼 Blessed</span>, 
+            <span style="color: #facc15; font-weight: bold;">👑 Golden</span>, 
+            <span style="color: #d8b4fe; font-weight: bold;">⭐ Galaxy</span>, 
+            <span style="color: #4ade80; font-weight: bold;">🧪 Radioactive</span>, 
+            <span style="background: linear-gradient(90deg, #f43f5e, #eab308, #22c55e, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">🌈 Rainbow</span>
+          </td>
+          <td style="text-align: right; font-weight: 900; color: #4ef2bb; font-size: 16px;">3x</td>
+        </tr>
+        <tr>
+          <td>
+            <span style="color: #f97316; font-weight: bold;">🔥 Burning</span>, 
+            <span style="color: #38bdf8; font-weight: bold;">⚡ Electric</span>
+          </td>
+          <td style="text-align: right; font-weight: 900; color: #38efef; font-size: 17px;">4x</td>
+        </tr>
+        <tr>
+          <td>
+            <span style="color: #22d3ee; font-weight: bold;">💠 Holographic</span>, 
+            <span style="color: #e2e8f0; font-weight: bold;">📺 Static</span>
+          </td>
+          <td style="text-align: right; font-weight: 900; color: #ec4899; font-size: 18px; text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);">5x</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    </div>
+
+    <!-- ESTILOS -->
+    <style is:global>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      
+      body {
+        background-color: #061724;
+        color: #d1fae5;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        padding: 24px 16px;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .island-bg-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 15%, rgba(56, 239, 239, 0.08), transparent 45%),
+                    radial-gradient(circle at 80% 80%, rgba(78, 242, 187, 0.07), transparent 45%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .island-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .island-card {
+        background-color: #0c2331;
+        border: 1px solid #143d4f;
+        border-radius: 20px;
+        padding: 22px;
+        box-shadow: 0 8px 24px -4px rgba(4, 16, 26, 0.5);
+      }
+      .island-card-featured {
+        background: linear-gradient(145deg, #0f3647, #0c2331);
+        border-color: #176579;
+      }
+      .island-card-upgrade {
+        background: linear-gradient(145deg, #0e3b3c, #0c2331);
+        border-color: #1e7065;
+      }
+
+      .island-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .island-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: rgba(56, 239, 239, 0.15);
+        color: #38efef;
+        border: 1px solid rgba(56, 239, 239, 0.3);
+        padding: 4px 12px;
+        border-radius: 100px;
+        margin-bottom: 6px;
+      }
+      h1 { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: -0.5px; }
+      h2 { font-size: 17px; font-weight: 700; color: #ffffff; }
+      h3 { font-size: 18px; font-weight: 800; color: #ffffff; }
+      h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+      p { font-size: 13px; color: #93c5b5; }
+      .island-subtext { font-size: 12px; color: #93c5b5; }
+
+      .island-nav-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #143d4f;
+        padding-bottom: 10px;
+      }
+      .island-nav-btn {
+        background-color: #0c2331;
+        color: #93c5b5;
+        border: 1px solid #143d4f;
+        border-radius: 12px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .island-nav-btn:hover { background-color: #113f54; color: #ffffff; }
+      .island-nav-btn.active {
+        background: linear-gradient(135deg, #38efef, #4ef2bb);
+        color: #042022;
+        border-color: #38efef;
+        box-shadow: 0 0 16px rgba(56, 239, 239, 0.3);
+      }
+
+      .island-view { display: none; }
+      .island-view.active { display: block; }
+
+      .island-header-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+      .island-input-group {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        padding: 8px 14px;
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .island-input-group label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+      .island-input-money label { color: #ffd166; }
+      .island-input-islands label { color: #38efef; }
+      .island-input-group input {
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 800;
+        outline: none;
+      }
+
+      .island-filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+      }
+      .island-tab-group { display: flex; flex-wrap: wrap; gap: 8px; }
+      .island-tab {
+        background-color: #0a2938;
+        color: #a7f3d0;
+        border: 1px solid #16485e;
+        border-radius: 100px;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .island-tab:hover {
+        background-color: #113f54;
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+      .island-tab.active {
+        background: linear-gradient(135deg, #38efef, #4ef2bb);
+        color: #042022;
+        border-color: #38efef;
+        font-weight: 800;
+        box-shadow: 0 0 16px rgba(56, 239, 239, 0.4);
+      }
+
+      .island-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 18px;
+      }
+      .island-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+      .island-stat-value { font-size: 26px; font-weight: 900; color: #38efef; text-shadow: 0 0 12px rgba(56, 239, 239, 0.3); }
+      .island-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+      .island-tag-cyan { background-color: rgba(56, 239, 239, 0.15); color: #38efef; border: 1px solid #38efef; }
+      .island-tag-mint { background-color: rgba(78, 242, 187, 0.15); color: #4ef2bb; border: 1px solid #4ef2bb; }
+      .island-tag-sand { background-color: rgba(255, 209, 102, 0.15); color: #ffd166; border: 1px solid #ffd166; }
+
+      .island-item-preview { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+      .island-photo-frame {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background-color: #061924;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+      }
+      .island-frame-cyan { border: 1px solid #38efef; box-shadow: 0 0 12px rgba(56, 239, 239, 0.2); }
+      .island-frame-mint { border: 1px solid #4ef2bb; box-shadow: 0 0 12px rgba(78, 242, 187, 0.2); }
+
+      .island-data-sheet {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 14px;
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 13px;
+      }
+      .island-row { display: flex; justify-content: space-between; border-bottom: 1px solid #0f2c3a; padding-bottom: 6px; }
+      .island-row:last-child { border-bottom: none; padding-bottom: 0; }
+      .island-row span { color: #93c5b5; }
+      .island-row strong { color: #ffffff; }
+
+      .island-inv-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; }
+      .island-btn-group { display: flex; gap: 8px; }
+      .island-btn {
+        background-color: #0a2938;
+        border: 1px solid #16485e;
+        color: #38efef;
+        border-radius: 100px;
+        padding: 6px 14px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .island-btn:hover { background-color: #113f54; color: #ffffff; }
+
+      .island-grid-inv {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .island-grid-inv { grid-template-columns: 1fr; }
+      }
+
+      .island-scrollbox { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; }
+      .island-scrollbox-rods { max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 6px; }
+
+      .island-rod-entry {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 12px;
+        padding: 10px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .island-entry-label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+      .island-entry-info { display: flex; justify-content: space-between; width: 100%; font-size: 13px; }
+      .island-name { font-weight: 700; color: #ffffff; }
+      .island-price { font-size: 12px; color: #93c5b5; }
+      .island-entry-label input { accent-color: #38efef; width: 16px; height: 16px; }
+
+      .island-enchant-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #04121b;
+        padding: 5px 10px;
+        border-radius: 8px;
+        border: 1px solid #0f2c3a;
+      }
+      .island-enchant-row span { font-size: 10px; font-weight: 800; color: #4ef2bb; text-transform: uppercase; }
+      .island-enchant-select {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: #d1fae5;
+        font-size: 11px;
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+      }
+      .island-enchant-select option { background-color: #061924; color: #ffffff; }
+
+      .island-checkbox-entry {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 10px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .island-checkbox-entry input { accent-color: #4ef2bb; width: 16px; height: 16px; }
+
+      .island-grid-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 12px;
+      }
+      .island-stat-panel { padding: 16px 12px; text-align: center; border-radius: 16px; }
+      .island-stat-panel span { font-size: 10px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
+      .island-stat-panel strong { font-size: 22px; font-weight: 900; }
+
+      .island-grid-rarities {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 8px;
+        text-align: center;
+      }
+      .island-rarity-card {
+        padding: 12px 6px;
+        border-radius: 12px;
+        border: 1px solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .island-rarity-name { font-size: 10px; font-weight: 800; text-transform: uppercase; }
+      .island-rarity-val { font-size: 16px; font-weight: 900; margin: 4px 0; }
+      .island-rarity-base { font-size: 9px; opacity: 0.75; }
+
+      /* TABLA DE PECES */
+      .fish-search-bar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+      .fish-input {
+        flex: 2;
+        min-width: 240px;
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 12px;
+        padding: 10px 16px;
+        color: #ffffff;
+        font-size: 13px;
+        outline: none;
+      }
+      .fish-select {
+        flex: 1;
+        min-width: 140px;
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 12px;
+        padding: 10px 14px;
+        color: #d1fae5;
+        font-size: 13px;
+        outline: none;
+        cursor: pointer;
+      }
+      .fish-table-wrapper {
+        overflow-x: auto;
+        border-radius: 14px;
+        border: 1px solid #143d4f;
+      }
+      .fish-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 12px;
+      }
+      .fish-table th {
+        background-color: #061924;
+        padding: 12px 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.5px;
+        color: #38efef;
+        border-bottom: 1px solid #143d4f;
+      }
+      .fish-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #0f2c3a;
+      }
+      .fish-table tr:hover { background-color: #0e293a; }
+
+      /* BADGES DE RAREZA OFICIALES */
+      .rarity-badge {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 6px;
+        display: inline-block;
+      }
+      .rarity-trash { background-color: #2b3038; color: #8a8e94; border: 1px solid #4a505b; }
+      .rarity-abundant { background-color: #27283d; color: #c4c8e2; border: 1px solid #4b4e72; }
+      .rarity-common { background-color: #0f381e; color: #22c55e; border: 1px solid #16a34a; }
+      .rarity-curious { background-color: #0d2a54; color: #3b82f6; border: 1px solid #2563eb; }
+      .rarity-elusive { background-color: #3a164d; color: #a855f7; border: 1px solid #9333ea; }
+      .rarity-fabled { background-color: #4a3600; color: #eab308; border: 1px solid #ca8a04; font-weight: 900; }
+      .rarity-mythic { background-color: #4d0d14; color: #dc2626; border: 1px solid #b91c1c; font-weight: 900; }
+      .rarity-exotic { background-color: #4d0a32; color: #ec4899; border: 1px solid #db2777; font-weight: 900; }
+      .rarity-relic { background-color: #422006; color: #f97316; border: 1px solid #ea580c; }
+      .rarity-secret {
+        background: linear-gradient(135deg, #2b1055, #7597de);
+        color: #ffffff;
+        border: 1px solid #a855f7;
+        font-weight: 900;
+      }
+      .rarity-ultimate-secret {
+        background-color: #500718;
+        color: #f43f5e;
+        border: 1px solid #e11d48;
+        font-weight: 900;
+        box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+      }
+
+      /* POOLS OCULTOS GRID */
+      .occult-pools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+      }
+      .occult-pool-card {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 14px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+      }
+      .occult-mult-badge {
+        font-size: 10px;
+        font-weight: 800;
+        background-color: rgba(56, 239, 239, 0.15);
+        color: #38efef;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+      .occult-type-badge {
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #93c5b5;
+      }
+
+      /* SHOWCASE GRID DE RAREZAS */
+      .rarity-showcase-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .rarity-card-item {
+        padding: 14px 12px;
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .rarity-card-item strong { font-size: 14px; }
+      .rarity-card-item span { font-size: 11px; opacity: 0.85; }
+
+      .mutation-list { display: flex; flex-direction: column; gap: 10px; }
+      .mutation-entry {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 12px;
+        padding: 10px 14px;
+      }
+      .mutation-title { font-size: 13px; font-weight: 800; display: block; margin-bottom: 2px; }
+    </style>
+
+    <!-- SCRIPTS DINÁMICOS -->
+    <script is:inline define:vars={{ rodsData, linesData, bobbersData, enchantmentsData }}>
+      const RARITY_BASE = {
+        Trash: 9.00, Abundant: 27.00, Common: 25.00, Curious: 18.00,
+        Elusive: 11.00, Fabled: 4.40, Mythic: 2.50, Exotic: 0.085,
+        Relic: 2.50, Secret: 0.01, UltimateSecret: 0.005
+      };
+
+      const RARITY_EXP = {
+        Trash: -1.0, Abundant: -1.2, Common: -0.8, Curious: 0.2,
+        Elusive: 0.5, Fabled: 0.85, Mythic: 1.05, Exotic: 1.20,
+        Relic: 0.0, Secret: 1.22, UltimateSecret: 1.26
+      };
+
+      const RARITY_CLASSES = {
+        Trash: "rarity-trash",
+        Abundant: "rarity-abundant",
+        Common: "rarity-common",
+        Curious: "rarity-curious",
+        Elusive: "rarity-elusive",
+        Fabled: "rarity-fabled",
+        Mythic: "rarity-mythic",
+        Exotic: "rarity-exotic",
+        Relic: "rarity-relic",
+        Secret: "rarity-secret",
+        UltimateSecret: "rarity-ultimate-secret"
+      };
+
+      let activeStat = 'balance';
+
+      // NAVEGACIÓN
+      document.querySelectorAll('.island-nav-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.island-nav-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.island-view').forEach(v => v.classList.remove('active'));
+
+          const target = e.currentTarget;
+          target.classList.add('active');
+          const viewId = target.dataset.target;
+          document.getElementById(viewId)?.classList.add('active');
+        });
+      });
+
+      // BUSCADOR EN VIVO DE PECES
+      const searchInput = document.getElementById('fish-search-input');
+      const islandFilter = document.getElementById('fish-island-filter');
+      const rarityFilter = document.getElementById('fish-rarity-filter');
+      const waterFilter = document.getElementById('fish-water-filter');
+      const tableRows = document.querySelectorAll('.fish-row');
+
+      function filterFishTable() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedIsland = islandFilter.value;
+        const selectedRarity = rarityFilter.value;
+        const selectedWater = waterFilter.value;
+
+        tableRows.forEach(row => {
+          const name = row.dataset.name;
+          const island = row.dataset.island;
+          const rarity = row.dataset.rarity;
+          const water = row.dataset.water;
+
+          const matchesQuery = !query || name.includes(query) || island.toLowerCase().includes(query);
+          const matchesIsland = selectedIsland === 'ALL' || island === selectedIsland;
+          const matchesRarity = selectedRarity === 'ALL' || rarity.toLowerCase() === selectedRarity.toLowerCase();
+          const matchesWater = selectedWater === 'ALL' || water.toLowerCase().includes(selectedWater.toLowerCase());
+
+          if (matchesQuery && matchesIsland && matchesRarity && matchesWater) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
+
+      [searchInput, islandFilter, rarityFilter, waterFilter].forEach(el => {
+        el?.addEventListener('input', filterFishTable);
+        el?.addEventListener('change', filterFishTable);
+      });
+
+      // MOTOR DE OPTIMIZACIÓN
+      function parseVal(s) {
+        if (!s || s === '-') return 0;
+        return parseFloat(String(s).replace('%', '').replace('+', '').replace(/,/g, '').trim()) || 0;
+      }
+
+      function parseWeight(s) {
+        if (!s || s === '-') return 0;
+        return parseFloat(String(s).toLowerCase().replace('kg', '').replace(/,/g, '').replace('+', '').trim()) || 0;
+      }
+
+      function getStatValue(item, stat) {
+        if (!item) return 0;
+        if (stat === 'maxWeight') return parseWeight(item.maxWeight);
+        return parseVal(item[stat]);
+      }
+
+      function calculateBalanceScore(item, enchant = null) {
+        const luck = parseVal(item.luck) + (enchant ? parseVal(enchant.luck) : 0);
+        const attr = parseVal(item.attractionRate) + (enchant ? parseVal(enchant.attractionRate) : 0);
+        const str = parseVal(item.strength) + (enchant ? parseVal(enchant.strength) : 0);
+        const exp = parseVal(item.expertise) + (enchant ? parseVal(enchant.expertise) : 0);
+        const bigC = parseVal(item.bigCatchRate) + (enchant ? parseVal(enchant.bigCatchRate) : 0);
+        const weight = parseWeight(item.maxWeight) + (enchant ? parseWeight(enchant.maxWeight) : 0);
+
+        const luckScore = Math.min(100, Math.max(-50, luck)) * 0.25;
+        const attrScore = Math.min(100, Math.max(-50, attr)) * 0.25;
+        const miniGameScore = (Math.max(0, str) + Math.max(0, exp)) * 0.25;
+        const bigCatchScore = Math.min(60, Math.max(-50, bigC)) * 0.15;
+        const weightScore = Math.min(50, Math.log10(Math.max(1, weight)) * 10);
+
+        let penalty = 0;
+        if (luck < 0) penalty += Math.abs(luck) * 0.8;
+        if (attr < 0) penalty += Math.abs(attr) * 1.2;
+        if (bigC < -20) penalty += Math.abs(bigC) * 0.5;
+
+        return (luckScore + attrScore + miniGameScore + bigCatchScore + weightScore) - penalty;
+      }
+
+      function optimize() {
+        const ownedRodCheckboxes = Array.from(document.querySelectorAll('.rod-inv-check:checked'));
+        const ownedRodsWithEnchants = ownedRodCheckboxes.map(cb => {
+          const rodIdx = parseInt(cb.dataset.idx);
+          const rod = rodsData[rodIdx];
+          const select = document.querySelector(`.island-enchant-select[data-rod-idx="${rodIdx}"]`);
+          const enchIdx = select ? parseInt(select.value) : 0;
+          const enchant = enchantmentsData[enchIdx] || enchantmentsData[0];
+          return { rod, enchant, rodIdx };
+        });
+
+        const ownedLines = Array.from(document.querySelectorAll('.line-inv-check:checked'))
+          .map(cb => linesData[parseInt(cb.dataset.idx)]);
+        const ownedBobbers = Array.from(document.querySelectorAll('.bobber-inv-check:checked'))
+          .map(cb => bobbersData[parseInt(cb.dataset.idx)]);
+
+        const islands = parseInt(document.getElementById('islands-input').value) || 0;
+        const budget = parseFloat(document.getElementById('budget-input').value) || 0;
+
+        let bestRodCombo, bestLine, bestBobber;
+
+        if (activeStat === 'balance') {
+          bestRodCombo = ownedRodsWithEnchants.sort((a, b) => calculateBalanceScore(b.rod, b.enchant) - calculateBalanceScore(a.rod, a.enchant))[0] || { rod: rodsData[0], enchant: enchantmentsData[0], rodIdx: 0 };
+          bestLine = ownedLines.sort((a, b) => calculateBalanceScore(b) - calculateBalanceScore(a))[0] || linesData[0];
+          bestBobber = ownedBobbers.sort((a, b) => calculateBalanceScore(b) - calculateBalanceScore(a))[0] || bobbersData[0];
+        } else {
+          bestRodCombo = ownedRodsWithEnchants.sort((a, b) => {
+            const scoreA = getStatValue(a.rod, activeStat) + getStatValue(a.enchant, activeStat);
+            const scoreB = getStatValue(b.rod, activeStat) + getStatValue(b.enchant, activeStat);
+            return scoreB - scoreA;
+          })[0] || { rod: rodsData[0], enchant: enchantmentsData[0], rodIdx: 0 };
+
+          bestLine = ownedLines.sort((a, b) => getStatValue(b, activeStat) - getStatValue(a, activeStat))[0] || linesData[0];
+          bestBobber = ownedBobbers.sort((a, b) => getStatValue(b, activeStat) - getStatValue(a, activeStat))[0] || bobbersData[0];
+        }
+
+        const totalLuck = parseVal(bestRodCombo.rod.luck) + parseVal(bestRodCombo.enchant.luck) + parseVal(bestLine.luck) + parseVal(bestBobber.luck) + (islands * 15);
+        const totalAttraction = Math.min(100, Math.max(0, parseVal(bestRodCombo.rod.attractionRate) + parseVal(bestRodCombo.enchant.attractionRate) + parseVal(bestLine.attractionRate) + parseVal(bestBobber.attractionRate)));
+        const totalBigCatch = parseVal(bestRodCombo.rod.bigCatchRate) + parseVal(bestRodCombo.enchant.bigCatchRate) + parseVal(bestLine.bigCatchRate) + parseVal(bestBobber.bigCatchRate);
+        const totalWeight = parseWeight(bestRodCombo.rod.maxWeight) + parseWeight(bestRodCombo.enchant.maxWeight);
+
+        document.getElementById('opt-title').textContent = `${bestRodCombo.rod.name} + ${bestLine.name}`;
+        document.getElementById('opt-rod').textContent = bestRodCombo.rod.name;
+        document.getElementById('opt-enchant').textContent = bestRodCombo.enchant.name;
+        document.getElementById('opt-line').textContent = bestLine.name;
+        document.getElementById('opt-bobber').textContent = bestBobber.name;
+
+        if (activeStat === 'balance') {
+          document.getElementById('opt-total-stat').textContent = 'Equilibrado';
+        } else {
+          const isPercent = activeStat === 'attractionRate';
+          const bestStatScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(bestBobber, activeStat) + (activeStat === 'luck' ? islands * 15 : 0);
+          document.getElementById('opt-total-stat').textContent = `${bestStatScore >= 0 ? '+' : ''}${bestStatScore}${isPercent ? '%' : ''}`;
+        }
+
+        // Siguiente Mejora
+        const ownedRodIndices = ownedRodCheckboxes.map(cb => parseInt(cb.dataset.idx));
+        
+        const unownedRods = rodsData.filter((_, idx) => !ownedRodIndices.includes(idx)).map(i => ({
+          ...i,
+          category: 'Caña (Rod)',
+          gain: activeStat === 'balance' ? calculateBalanceScore(i) - calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) : getStatValue(i, activeStat) - getStatValue(bestRodCombo.rod, activeStat)
+        }));
+
+        const unownedLines = linesData.filter(l => !ownedLines.includes(l)).map(i => ({
+          ...i,
+          category: 'Línea (Line)',
+          gain: activeStat === 'balance' ? calculateBalanceScore(i) - calculateBalanceScore(bestLine) : getStatValue(i, activeStat) - getStatValue(bestLine, activeStat)
+        }));
+
+        const unownedBobbers = bobbersData.filter(b => !ownedBobbers.includes(b)).map(i => ({
+          ...i,
+          category: 'Boya (Bobber)',
+          gain: activeStat === 'balance' ? calculateBalanceScore(i) - calculateBalanceScore(bestBobber) : getStatValue(i, activeStat) - getStatValue(bestBobber, activeStat)
+        }));
+
+        const allUpgrades = [...unownedRods, ...unownedLines, ...unownedBobbers]
+          .filter(u => u.gain > 0)
+          .sort((a, b) => b.gain - a.gain);
+
+        const affordableUpgrades = allUpgrades.filter(u => (u.costNum || 0) <= budget);
+        const nextUp = affordableUpgrades[0] || allUpgrades[0];
+
+        if (nextUp) {
+          document.getElementById('next-name').textContent = nextUp.name;
+          document.getElementById('next-type').textContent = nextUp.category;
+          document.getElementById('next-loc').textContent = nextUp.location;
+          document.getElementById('next-price').textContent = nextUp.price;
+          
+          if (activeStat === 'balance') {
+            document.getElementById('next-gain').textContent = `+${Math.round(nextUp.gain)} Balance`;
+          } else {
+            const isPercent = activeStat === 'attractionRate';
+            document.getElementById('next-gain').textContent = `+${nextUp.gain}${isPercent ? '%' : ''}`;
+          }
+
+          const statusEl = document.getElementById('next-afford-status');
+          if ((nextUp.costNum || 0) <= budget) {
+            statusEl.textContent = '✓ Puedes comprarlo ahora';
+            statusEl.style.color = '#4ef2bb';
+          } else {
+            const diff = (nextUp.costNum || 0) - budget;
+            statusEl.textContent = `✗ Te faltan $${diff.toLocaleString()}`;
+            statusEl.style.color = '#ff85a1';
+          }
+        } else {
+          document.getElementById('next-name').textContent = '¡Build Máxima!';
+          document.getElementById('next-type').textContent = 'Tienes el mejor equipo posible.';
+          document.getElementById('next-loc').textContent = '-';
+          document.getElementById('next-price').textContent = '-';
+          document.getElementById('next-gain').textContent = '+0';
+          document.getElementById('next-afford-status').textContent = 'Completado';
+        }
+
+        // Tiempos
+        const waitTime = Math.max(0, 14.0 * (1 - totalAttraction / 100));
+        const cycleTime = parseFloat((waitTime + 3.5 + 1.5).toFixed(2));
+        const catchesHr = Math.round(3600 / cycleTime);
+
+        document.getElementById('disp-luck').textContent = (totalLuck >= 0 ? '+' : '') + totalLuck;
+        document.getElementById('disp-attraction').textContent = totalAttraction + '%';
+        document.getElementById('disp-cycle').textContent = cycleTime + 's';
+        document.getElementById('disp-catches').textContent = catchesHr;
+        document.getElementById('disp-weight').textContent = totalWeight.toLocaleString() + ' kg';
+        document.getElementById('disp-bigcatch').textContent = (totalBigCatch >= 0 ? '+' : '') + totalBigCatch;
+
+        // Distribución
+        const luckMultiplier = Math.max(0.01, 1 + (totalLuck / 100));
+        document.getElementById('disp-luck-mult').textContent = 'Multiplicador: ' + luckMultiplier.toFixed(2) + 'x';
+
+        let totalPool = 0;
+        const adjWeights = {};
+        for (const [r, base] of Object.entries(RARITY_BASE)) {
+          const exp = RARITY_EXP[r] || 0;
+          const w = base * Math.pow(luckMultiplier, exp);
+          adjWeights[r] = w;
+          totalPool += w;
+        }
+
+        const container = document.getElementById('rarity-container');
+        container.innerHTML = '';
+        for (const [r, w] of Object.entries(adjWeights)) {
+          const pct = ((w / totalPool) * 100);
+          const formatted = pct < 0.01 ? pct.toFixed(4) : pct.toFixed(2);
+          const card = document.createElement('div');
+          card.className = `island-rarity-card ${RARITY_CLASSES[r] || 'rarity-trash'}`;
+          card.innerHTML = `<span class="island-rarity-name">${r}</span>` +
+                           `<span class="island-rarity-val">${formatted}%</span>` +
+                           `<span class="island-rarity-base">Base: ${RARITY_BASE[r]}%</span>`;
+          container.appendChild(card);
+        }
+      }
+
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.addEventListener('change', optimize));
+      document.querySelectorAll('.island-enchant-select').forEach(sel => sel.addEventListener('change', optimize));
+      document.getElementById('islands-input')?.addEventListener('input', optimize);
+      document.getElementById('budget-input')?.addEventListener('input', optimize);
+
+      document.querySelectorAll('.island-tab').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.island-tab').forEach(b => b.classList.remove('active'));
+          const target = e.currentTarget;
+          target.classList.add('active');
+          activeStat = target.dataset.stat;
+          optimize();
+        });
+      });
+
+      document.getElementById('btn-select-all')?.addEventListener('click', () => {
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+        optimize();
+      });
+
+      document.getElementById('btn-select-basic')?.addEventListener('click', () => {
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelector('.rod-inv-check[data-idx="0"]').checked = true;
+        document.querySelector('.line-inv-check[data-idx="0"]').checked = true;
+        document.querySelector('.bobber-inv-check[data-idx="0"]').checked = true;
+        optimize();
+      });
+
+      optimize();
+    </script>
+  </body>
+</html>

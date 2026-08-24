@@ -1,0 +1,72 @@
+<div class="bg-neutral-900/85 border border-purple-500/30 p-5 rounded-2xl">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Altar de Crescent Isle</span>
+      <h3 class="text-xl font-black text-white mt-1">Calculadora de Pity (Legendario Garantizado)</h3>
+    </div>
+    <div class="text-right">
+      <span class="text-xs text-slate-400 block">Puntos Acumulados</span>
+      <span id="pity-total-pts" class="text-2xl font-black text-purple-400">0 / 200</span>
+    </div>
+  </div>
+
+  <div class="w-full bg-neutral-950 h-3 rounded-full border border-white/5 overflow-hidden mb-5">
+    <div id="pity-bar" class="h-full bg-gradient-to-r from-cyan-500 via-purple-500 to-amber-400 transition-all duration-300" style="width: 0%"></div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="bg-neutral-950/60 p-3 rounded-xl border border-white/5">
+      <label class="text-xs font-semibold text-slate-300 block mb-1">Old Relic Piece (+1 pt)</label>
+      <input type="number" id="input-old" min="0" value="0" class="w-full bg-neutral-900 border border-neutral-700 text-white rounded px-3 py-1.5 text-sm outline-none focus:border-cyan-400" />
+    </div>
+
+    <div class="bg-neutral-950/60 p-3 rounded-xl border border-white/5">
+      <label class="text-xs font-semibold text-emerald-400 block mb-1">Mossy Relic (+3 pts)</label>
+      <input type="number" id="input-mossy" min="0" value="0" class="w-full bg-neutral-900 border border-neutral-700 text-white rounded px-3 py-1.5 text-sm outline-none focus:border-emerald-400" />
+    </div>
+
+    <div class="bg-neutral-950/60 p-3 rounded-xl border border-white/5">
+      <label class="text-xs font-semibold text-purple-400 block mb-1">Powerful Relic (+6 pts)</label>
+      <input type="number" id="input-powerful" min="0" value="0" class="w-full bg-neutral-900 border border-neutral-700 text-white rounded px-3 py-1.5 text-sm outline-none focus:border-purple-400" />
+    </div>
+  </div>
+
+  <div class="mt-4 p-3 rounded-xl bg-neutral-950/80 border border-white/5 flex flex-col sm:flex-row justify-between items-center text-xs">
+    <span class="text-slate-300" id="pity-status-msg">Ingresa tus reliquias para calcular el pity.</span>
+    <span class="font-bold text-amber-300" id="pity-remaining-msg">Faltan 200 pts</span>
+  </div>
+</div>
+
+<script>
+  const inOld = document.getElementById('input-old') as HTMLInputElement;
+  const inMossy = document.getElementById('input-mossy') as HTMLInputElement;
+  const inPowerful = document.getElementById('input-powerful') as HTMLInputElement;
+  
+  const totalPtsSpan = document.getElementById('pity-total-pts')!;
+  const bar = document.getElementById('pity-bar')!;
+  const statusMsg = document.getElementById('pity-status-msg')!;
+  const remainingMsg = document.getElementById('pity-remaining-msg')!;
+
+  function updatePity() {
+    const oldPts = (parseInt(inOld.value) || 0) * 1;
+    const mossyPts = (parseInt(inMossy.value) || 0) * 3;
+    const powPts = (parseInt(inPowerful.value) || 0) * 6;
+    const current = oldPts + mossyPts + powPts;
+
+    const percent = Math.min(100, Math.round((current / 200) * 100));
+    bar.style.width = `${percent}%`;
+    totalPtsSpan.textContent = `${current} / 200`;
+
+    if (current >= 200) {
+      statusMsg.innerHTML = '<span class="text-emerald-400 font-bold">¡PITY ALCANZADO!</span> Tu próximo roll garantiza un Legendario.';
+      remainingMsg.textContent = '¡Listo para encantar!';
+    } else {
+      const needed = 200 - current;
+      const powerfulNeeded = Math.ceil(needed / 6);
+      statusMsg.textContent = `Equivale a ~${powerfulNeeded} Powerful Relics restantes.`;
+      remainingMsg.textContent = `Faltan ${needed} pts`;
+    }
+  }
+
+  [inOld, inMossy, inPowerful].forEach(input => input?.addEventListener('input', updatePity));
+</script>
