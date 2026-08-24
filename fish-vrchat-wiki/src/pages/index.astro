@@ -1,69 +1,6 @@
 ---
-// 1. BASE DE DATOS DE EQUIPAMIENTO
-const rodsData = [
-  { name: "Stick and String", price: "$0", costNum: 0, location: "Default Rod", luck: "-50", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-100", maxWeight: "5kg" },
-  { name: "Sunleaf Rod", price: "$0", costNum: 0, location: "Sell Shops", luck: "+10", strength: "+5", expertise: "+10", attractionRate: "+25%", bigCatchRate: "+15", maxWeight: "250kg" },
-  { name: "Toy Rod", price: "$750", costNum: 750, location: "Coconut Bay", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "15kg" },
-  { name: "Sturdy Wooden Rod", price: "$2,000", costNum: 2000, location: "Coconut Bay", luck: "+15", strength: "-", expertise: "+5", attractionRate: "+20%", bigCatchRate: "-", maxWeight: "30kg" },
-  { name: "Slim Rod", price: "$10,000", costNum: 10000, location: "Coconut Bay", luck: "+20", strength: "+10", expertise: "+10", attractionRate: "+25%", bigCatchRate: "+20", maxWeight: "500kg" },
-  { name: "Telescopic Rod", price: "$15,000", costNum: 15000, location: "Coconut Bay", luck: "+10", strength: "+15", expertise: "+15", attractionRate: "+10%", bigCatchRate: "+5", maxWeight: "2,005kg" },
-  { name: "Metallic Rod", price: "$15,000", costNum: 15000, location: "Coconut Bay", luck: "-", strength: "+55", expertise: "+55", attractionRate: "+10%", bigCatchRate: "+10", maxWeight: "1,000kg" },
-  { name: "Darkwood Rod", price: "$25,000", costNum: 25000, location: "Tanglewood", luck: "+30", strength: "+10", expertise: "+10", attractionRate: "+30%", bigCatchRate: "+5", maxWeight: "1,800kg" },
-  { name: "Speedy Rod", price: "$55,000", costNum: 55000, location: "Crescent Isle", luck: "+1", strength: "+5", expertise: "+5", attractionRate: "+60%", bigCatchRate: "-", maxWeight: "1,500kg" },
-  { name: "Fortunate Rod", price: "$75,000", costNum: 75000, location: "Crescent Isle", luck: "+100", strength: "+10", expertise: "+5", attractionRate: "+10%", bigCatchRate: "+65", maxWeight: "1,500kg" },
-  { name: "Alien Rod", price: "$200,000", costNum: 200000, location: "Alien Quest", luck: "+55", strength: "+10", expertise: "+10", attractionRate: "+45%", bigCatchRate: "+30", maxWeight: "32,000kg" },
-  { name: "Rustfang Rod", price: "$250,000", costNum: 250000, location: "Luxian Dunes", luck: "+70", strength: "+20", expertise: "+20", attractionRate: "+25%", bigCatchRate: "+35", maxWeight: "35,000kg" },
-  { name: "Runesteel Rod", price: "$700,000", costNum: 700000, location: "Vlad (Islander)", luck: "+90", strength: "+25", expertise: "+20", attractionRate: "+30%", bigCatchRate: "+40", maxWeight: "100,000kg" },
-  { name: "Rod of the Pharaoh", price: "$750,000", costNum: 750000, location: "Luxian Dunes", luck: "+222", strength: "+20", expertise: "+40", attractionRate: "-10%", bigCatchRate: "+35", maxWeight: "100,000kg" },
-  { name: "Rod of Perpetuity", price: "$0", costNum: 0, location: "Reach level 500", luck: "+150", strength: "+30", expertise: "+30", attractionRate: "+50%", bigCatchRate: "+10", maxWeight: "500,000kg" },
-  { name: "Leviathan Rod", price: "$1,000,000", costNum: 1000000, location: "Crafted at Crescent Isle", luck: "+500", strength: "+20", expertise: "+20", attractionRate: "+25%", bigCatchRate: "+35", maxWeight: "100,000kg" }
-];
+import { rodsData, linesData, bobbersData, enchantmentsData } from '../data/gear';
 
-const linesData = [
-  { name: "Basic Line", price: "$0", costNum: 0, location: "Default Line", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Aquamarine Line", price: "$100", costNum: 100, location: "Coconut Bay", luck: "-", strength: "-", expertise: "-", attractionRate: "+5%", bigCatchRate: "-" },
-  { name: "Carbon Line", price: "$1,000", costNum: 1000, location: "Coconut Bay", luck: "-", strength: "+7", expertise: "+7", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Heavy Duty Line", price: "$4,000", costNum: 4000, location: "Crescent Isle", luck: "-", strength: "+10", expertise: "+10", attractionRate: "-", bigCatchRate: "+10" },
-  { name: "Flavored Line", price: "$10,000", costNum: 10000, location: "Tanglewood", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+30" },
-  { name: "Lucky Line", price: "$10,000", costNum: 10000, location: "Crescent Isle", luck: "+30", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Diamond Line", price: "$25,000", costNum: 25000, location: "Luxian Dunes", luck: "+25", strength: "+15", expertise: "+15", attractionRate: "+10%", bigCatchRate: "-" },
-  { name: "Fur of Cerberus", price: "$35,000", costNum: 35000, location: "Vlad (Islander)", luck: "+25", strength: "-5", expertise: "-15", attractionRate: "+20%", bigCatchRate: "+10" },
-  { name: "Midas Line", price: "$50,000", costNum: 50000, location: "Twilight Realm", luck: "+60", strength: "+15", expertise: "+10", attractionRate: "+15%", bigCatchRate: "+5" },
-  { name: "Ethereal Line", price: "$0", costNum: 0, location: "Quest: Our Ship...", luck: "+75", strength: "-5", expertise: "-15", attractionRate: "+20%", bigCatchRate: "+20" }
-];
-
-const bobbersData = [
-  { name: "Basic Bobber", price: "$0", costNum: 0, location: "Default Bobber", luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Paulie's Bobber", price: "$0", costNum: 0, location: "Quest: Lost Saw", luck: "-", strength: "-", expertise: "+5", attractionRate: "+5%", bigCatchRate: "-" },
-  { name: "Blue Bobber", price: "$100", costNum: 100, location: "Coconut Bay", luck: "+5", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Dud Bobber", price: "$1,000", costNum: 1000, location: "Crescent Isle", luck: "+5", strength: "-", expertise: "+5", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Feline Bobber", price: "$2,000", costNum: 2000, location: "Tanglewood", luck: "+5", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+10" },
-  { name: "Ornamental Bobber", price: "$10,000", costNum: 10000, location: "Luxian Dunes", luck: "+10", strength: "+5", expertise: "-", attractionRate: "+10%", bigCatchRate: "-" },
-  { name: "Lucky Bobber", price: "$10,000", costNum: 10000, location: "Luxian Dunes", luck: "+40", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-" },
-  { name: "Rainbow Slime Bobber", price: "$35,000", costNum: 35000, location: "Vlad (Islander)", luck: "+30", strength: "+10", expertise: "-", attractionRate: "+10%", bigCatchRate: "+10" },
-  { name: "Pyramid Bobber", price: "$50,000", costNum: 50000, location: "Twilight Realm", luck: "+50", strength: "+10", expertise: "-", attractionRate: "+10%", bigCatchRate: "+10" },
-  { name: "Undying Heart", price: "$0", costNum: 0, location: "Quest: Undying Love", luck: "+50", strength: "+20", expertise: "+20", attractionRate: "+10%", bigCatchRate: "+5" }
-];
-
-const enchantmentsData = [
-  { name: "Sin Encantamiento", rarity: "None", costNum: 0, luck: "0", strength: "0", expertise: "0", attractionRate: "0", bigCatchRate: "0", maxWeight: "0" },
-  { name: "Lucky", rarity: "Common", costNum: 0, luck: "+15", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Reinforced", rarity: "Common", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "+400kg" },
-  { name: "Speedy", rarity: "Common", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+10%", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Day Walker", rarity: "Uncommon", costNum: 0, luck: "+50", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Tubby Chaser", rarity: "Uncommon", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+5", maxWeight: "+1,000kg" },
-  { name: "Light-Speed Reels", rarity: "Rare", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+40%", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Notoriously Big", rarity: "Rare", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+10", maxWeight: "+50,000kg" },
-  { name: "BIG BOYS ONLY", rarity: "Epic", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+65", maxWeight: "+100,000kg" },
-  { name: "Master of Balance", rarity: "Epic", costNum: 0, luck: "+20", strength: "+20", expertise: "+20", attractionRate: "+20%", bigCatchRate: "+20", maxWeight: "+400kg" },
-  { name: "Shiny Hunter", rarity: "Epic", costNum: 0, luck: "+80", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Speed Demon", rarity: "Epic", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+60%", bigCatchRate: "-", maxWeight: "-" },
-  { name: "God's Own Luck", rarity: "Legendary", costNum: 0, luck: "+250", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Messenger of the Heavens", rarity: "Legendary", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+100%", bigCatchRate: "-", maxWeight: "-" },
-  { name: "Strongest Angler", rarity: "Legendary", costNum: 0, luck: "+20", strength: "+85", expertise: "+85", attractionRate: "+10%", bigCatchRate: "+20", maxWeight: "+1,000,000kg" }
-];
-
-// 2. BASE DE DATOS COMPLETA DE PECES (ARCHIPIÉLAGO TOTAL)
 const allFishData = [
   // Coconut Bay - Local Fish
   { name: "Bream", island: "Coconut Bay", category: "Local Fish", rarity: "Abundant", water: "Freshwater", weather: "Any", time: "Day", minW: "1 kg", maxW: "6 kg" },
@@ -208,7 +145,6 @@ const allFishData = [
   { name: "Sarcophagus", island: "Twilight Realm", category: "Local Fish", rarity: "Exotic", water: "Any", weather: "Any", time: "Any", minW: "3,476.4 kg", maxW: "6,978.1 kg" }
 ];
 
-// 3. BASE DE DATOS OFICIAL DE POOLS OCULTOS Y EVENTOS
 const occultPoolsData = [
   { name: "School of Fish", effect: "Aumenta drásticamente la probabilidad de pescar ese pez específico", multiplier: "Específico", type: "Cardumen" },
   { name: "Strange Whirlpool", effect: "1.5x probabilidad de todas las mutaciones y 2x multiplicador de Suerte", multiplier: "1.5x Mut / 2x Luck", type: "Vórtice General" },
@@ -240,7 +176,7 @@ const occultPoolsData = [
         <div>
           <div class="island-badge">FishVR</div>
           <h1>FishVR • Official Loadout & Wiki</h1>
-          <p>Optimizador físico, base de datos de especies, piscinas ocultas y catálogo de rarezas.</p>
+          <p>Optimizador físico, análisis de balance, base de datos y catálogo de mutaciones.</p>
         </div>
         
         <div class="island-header-stats">
@@ -275,58 +211,82 @@ const occultPoolsData = [
             <button class="island-tab" data-stat="luck">🍀 Suerte</button>
             <button class="island-tab" data-stat="attractionRate">⚡ Velocidad</button>
             <button class="island-tab" data-stat="bigCatchRate">🐋 Peces Grandes</button>
-            <button class="island-tab" data-stat="strength">💪 Fuerza</button>
+            <button class="island-tab" data-stat="strength">💪 Fuerza / Minijuego</button>
             <button class="island-tab" data-stat="maxWeight">⚖️ Max Weight</button>
           </div>
         </section>
 
-        <!-- Resultados -->
-        <div class="island-grid-2" style="margin-bottom: 20px;">
-          
-          <div class="island-card island-card-featured">
-            <div class="island-card-header">
-              <span class="island-tag island-tag-cyan">Tu Build Óptima en Mochila</span>
-              <span id="opt-total-stat" class="island-stat-value">Equilibrado</span>
-            </div>
-            
-            <div class="island-item-preview">
-              <div class="island-photo-frame island-frame-cyan" id="opt-rod-img-slot">🎣</div>
-              <div>
-                <h3 id="opt-title">Stick and String + Basic Line</h3>
-                <span class="island-subtext">Build armónica sin cuellos de botella</span>
-              </div>
-            </div>
-            
-            <div class="island-data-sheet">
-              <div class="island-row"><span>Caña Equipada:</span><strong id="opt-rod">Stick and String</strong></div>
-              <div class="island-row"><span>Encantamiento:</span><strong id="opt-enchant" style="color: #4ef2bb;">Sin Encantamiento</strong></div>
-              <div class="island-row"><span>Línea:</span><strong id="opt-line">Basic Line</strong></div>
-              <div class="island-row"><span>Boya:</span><strong id="opt-bobber">Basic Bobber</strong></div>
-            </div>
-          </div>
+        <!-- RESULTADOS: TU BUILD + 2 VÍAS DE PROGRESIÓN (ORO VS RELIQUIAS) -->
+		<div class="island-grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 20px;">
+		
+		<!-- 1. TU MEJOR BUILD ACTUAL -->
+		<div class="island-card island-card-featured">
+			<div class="island-card-header">
+			<span class="island-tag island-tag-cyan">Build Activa en Mochila</span>
+			<span id="opt-total-stat" class="island-stat-value">Equilibrado</span>
+			</div>
+			
+			<div class="island-item-preview">
+			<div class="island-photo-frame island-frame-cyan" id="opt-rod-img-slot">🎣</div>
+			<div>
+				<h3 id="opt-title">Stick and String + Basic Line</h3>
+				<span class="island-subtext">Configuración óptima actual</span>
+			</div>
+			</div>
+			
+			<div class="island-data-sheet">
+			<div class="island-row"><span>Caña Equipada:</span><strong id="opt-rod">Stick and String</strong></div>
+			<div class="island-row"><span>Encantamiento:</span><strong id="opt-enchant" style="color: #4ef2bb;">Sin Encantamiento</strong></div>
+			<div class="island-row"><span>Línea:</span><strong id="opt-line">Basic Line</strong></div>
+			<div class="island-row"><span>Boya:</span><strong id="opt-bobber">Basic Bobber</strong></div>
+			</div>
+		</div>
 
-          <div class="island-card island-card-upgrade">
-            <div class="island-card-header">
-              <span class="island-tag island-tag-mint">Próxima Gran Compra</span>
-              <span id="next-gain" class="island-tag island-tag-sand">+0</span>
-            </div>
+		<!-- 2. OPCIÓN A: RUTA DE TIENDA (SI TIENES DINERO) -->
+		<div class="island-card island-card-upgrade">
+			<div class="island-card-header">
+			<span class="island-tag island-tag-sand">Ruta 1: Tienda ($)</span>
+			<span id="next-gain" class="island-tag island-tag-mint">+0</span>
+			</div>
 
-            <div class="island-item-preview">
-              <div class="island-photo-frame island-frame-mint" id="next-img-slot">⛵</div>
-              <div>
-                <h3 id="next-name">-</h3>
-                <span id="next-type" class="island-subtext">-</span>
-              </div>
-            </div>
+			<div class="island-item-preview">
+			<div class="island-photo-frame island-frame-sand" style="border: 1px solid #ffd166;" id="next-img-slot">🪙</div>
+			<div>
+				<h3 id="next-name">-</h3>
+				<span id="next-type" class="island-subtext">Comprar en el Puerto</span>
+			</div>
+			</div>
 
-            <div class="island-data-sheet">
-              <div class="island-row"><span>Puerto / Tienda:</span><strong id="next-loc" style="color: #ffd166;">-</strong></div>
-              <div class="island-row"><span>Precio de Venta:</span><strong id="next-price">-</strong></div>
-              <div class="island-row"><span>Estado de Bolsillo:</span><strong id="next-afford-status" style="color: #4ef2bb;">-</strong></div>
-            </div>
-          </div>
+			<div class="island-data-sheet">
+			<div class="island-row"><span>Ubicación:</span><strong id="next-loc" style="color: #ffd166;">-</strong></div>
+			<div class="island-row"><span>Precio de Venta:</span><strong id="next-price">-</strong></div>
+			<div class="island-row"><span>Bolsillo:</span><strong id="next-afford-status" style="color: #4ef2bb;">-</strong></div>
+			</div>
+		</div>
 
-        </div>
+		<!-- 3. OPCIÓN B: RUTA DE ALTAR (SI TIENES RELIQUIAS) -->
+		<div class="island-card" style="background: linear-gradient(145deg, #181329, #0c2331); border-color: #554496;">
+			<div class="island-card-header">
+			<span class="island-tag" style="background-color: rgba(196,195,234,0.15); color: #c4c3ea; border: 1px solid #c4c3ea;">Ruta 2: Altar (Reliquias)</span>
+			<span id="altar-target-rarity" class="island-tag" style="background-color: rgba(78,242,187,0.15); color: #4ef2bb; border: 1px solid #4ef2bb;">Recomendado</span>
+			</div>
+
+			<div class="island-item-preview">
+			<div class="island-photo-frame" style="border: 1px solid #c4c3ea;">🔮</div>
+			<div>
+				<h3 id="altar-ench-name" style="color: #ffffff;">God's Own Luck</h3>
+				<span id="altar-ench-sub" class="island-subtext">Buscar en Altar de Crescent Isle</span>
+			</div>
+			</div>
+
+			<div class="island-data-sheet">
+			<div class="island-row"><span>Para tu caña:</span><strong id="altar-target-rod" style="color: #38efef;">-</strong></div>
+			<div class="island-row"><span>Efecto:</span><strong id="altar-ench-effect" style="color: #ffd166;">-</strong></div>
+			<div class="island-row"><span>Costo:</span><strong style="color: #c4c3ea;">Tirar Reliquias al Altar</strong></div>
+			</div>
+		</div>
+
+		</div>
 
         <!-- Mochila del Pescador -->
         <section class="island-card" style="margin-bottom: 20px;">
@@ -404,7 +364,7 @@ const occultPoolsData = [
           </div>
         </section>
 
-        <!-- Telemetría -->
+        <!-- Telemetría Física -->
         <section class="island-grid-stats" style="margin-bottom: 20px;">
           <div class="island-card island-stat-panel">
             <span style="color: #ffd166;">Suerte Total</span>
@@ -415,8 +375,8 @@ const occultPoolsData = [
             <strong id="disp-attraction" style="color: #38efef;">0%</strong>
           </div>
           <div class="island-card island-stat-panel">
-            <span style="color: #a7f3d0;">Tiempo Ciclo</span>
-            <strong id="disp-cycle" style="color: #ffffff;">19.0s</strong>
+            <span style="color: #a7f3d0;">Minijuego (Str+Exp)</span>
+            <strong id="disp-minigame" style="color: #ffffff;">0</strong>
           </div>
           <div class="island-card island-stat-panel">
             <span style="color: #4ef2bb;">Capturas / Hr</span>
@@ -448,7 +408,7 @@ const occultPoolsData = [
 
       </div>
 
-      <!-- SECCIÓN 2: BUSCADOR DE PECES COMPLETO -->
+      <!-- SECCIÓN 2: BUSCADOR DE PECES -->
       <div id="sec-fishdex" class="island-view">
         <section class="island-card">
           <div class="island-inv-top">
@@ -458,7 +418,6 @@ const occultPoolsData = [
             </div>
           </div>
 
-          <!-- Barra de Filtros -->
           <div class="fish-search-bar">
             <input type="text" id="fish-search-input" placeholder="🔍 Buscar por nombre (ej. Minnow, Shark, Discus)..." class="fish-input" />
             <select id="fish-island-filter" class="fish-select">
@@ -489,7 +448,6 @@ const occultPoolsData = [
             </select>
           </div>
 
-          <!-- Tabla Completa -->
           <div class="fish-table-wrapper">
             <table class="fish-table">
               <thead>
@@ -523,105 +481,132 @@ const occultPoolsData = [
         </section>
       </div>
 
-      <!-- SECCIÓN: TABLA OFICIAL DE MUTACIONES Y PURIFICACIÓN -->
-<section class="island-card">
-  <div class="island-card-header" style="margin-bottom: 12px;">
-    <div>
-      <h2>🧬 Fish Mutations & Value Modifiers</h2>
-      <p>Multiplicadores de venta oficiales por mutación y mecánicas de alteración.</p>
+      <!-- SECCIÓN 3: RAREZAS, MUTACIONES & POOLS -->
+      <div id="sec-rarities" class="island-view">
+        
+        <!-- PISCINAS OCULTAS -->
+        <section class="island-card" style="margin-bottom: 20px;">
+          <div class="island-card-header">
+            <div>
+              <h2>🌌 Piscinas Ocultas y Vórtices (Occult Pools)</h2>
+              <p>Multiplicadores de aparición y condiciones especiales en aguas del archipiélago.</p>
+            </div>
+            <span class="island-tag island-tag-cyan">10 Eventos Documentados</span>
+          </div>
+
+          <div class="occult-pools-grid">
+            {occultPoolsData.map(pool => (
+              <div class="occult-pool-card">
+                <div class="flex justify-between items-center mb-1">
+                  <strong class="text-white text-sm">{pool.name}</strong>
+                  <span class="occult-mult-badge">{pool.multiplier}</span>
+                </div>
+                <span class="occult-type-badge">{pool.type}</span>
+                <p class="text-xs text-slate-300 mt-2">{pool.effect}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- TABLA DE MUTACIONES Y PURIFICACIÓN -->
+        <section class="island-card" style="margin-bottom: 20px;">
+          <div class="island-card-header" style="margin-bottom: 12px;">
+            <div>
+              <h2>🧬 Fish Mutations & Value Modifiers</h2>
+              <p>Multiplicadores de venta oficiales por mutación y mecánicas de alteración.</p>
+            </div>
+            <span class="island-tag island-tag-mint">Valores Oficiales</span>
+          </div>
+
+          <div class="purity-alert-box" style="background: linear-gradient(135deg, rgba(244,63,94,0.15), rgba(78,242,187,0.15)); border: 1px solid #38efef; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+            <div>
+              <strong style="color: #4ef2bb; font-size: 13px; display: block;">⛪ Mecánica de Purificación (Tanglewood Church)</strong>
+              <span style="font-size: 11px; color: #d1fae5;">Puedes llevar cualquier pez con mutación <strong style="color: #f43f5e;">Cursed (1.1x)</strong> a la Iglesia de Tanglewood para purificarlo y transformarlo en <strong style="color: #ffffff;">Blessed (3x)</strong>.</span>
+            </div>
+            <span style="font-size: 16px; font-weight: 900; color: #ffd166; white-space: nowrap;">1.1x ➔ 3.0x</span>
+          </div>
+
+          <div class="fish-table-wrapper">
+            <table class="fish-table">
+              <thead>
+                <tr>
+                  <th>Mutation / Modifiers</th>
+                  <th style="text-align: right;">Modifier Multiplier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color: #f43f5e; font-weight: bold;">🔱 Cursed</td>
+                  <td style="text-align: right; font-weight: bold; color: #ffd166;">1.1x</td>
+                </tr>
+                <tr>
+                  <td style="color: #ffe082; font-weight: bold;">🏰 Sandy</td>
+                  <td style="text-align: right; font-weight: bold; color: #ffd166;">1.2x</td>
+                </tr>
+                <tr>
+                  <td style="color: #cbd5e1;">🪨 Stone, 🧲 Zebra</td>
+                  <td style="text-align: right; font-weight: bold; color: #ffd166;">1.3x</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span style="color: #60a5fa;">⛔ Negative</span>, 
+                    <span style="color: #ffffff;">🐰 Albino</span>, 
+                    <span style="color: #94a3b8;">👤 Ghastly</span>, 
+                    <span style="color: #c084fc;">✖️ Glitched</span>
+                  </td>
+                  <td style="text-align: right; font-weight: bold; color: #ffd166;">1.5x</td>
+                </tr>
+                <tr>
+                  <td style="color: #fb923c; font-weight: bold;">🐾 Tiger</td>
+                  <td style="text-align: right; font-weight: bold; color: #ffd166;">1.6x</td>
+                </tr>
+                <tr>
+                  <td style="color: #4ade80; font-weight: bold;">🌾 Camo</td>
+                  <td style="text-align: right; font-weight: bold; color: #ffd166;">1.8x</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span style="color: #c084fc;">🔮 Void</span>, 
+                    <span style="color: #64748b;">👁️ Shadow</span>, 
+                    <span style="color: #38efef; font-weight: bold;">✨ Shiny</span>, 
+                    <span style="color: #93c5fd;">❄️ Frozen</span>
+                  </td>
+                  <td style="text-align: right; font-weight: 900; color: #38efef; font-size: 15px;">2x</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span style="color: #f8fafc; font-weight: bold;">👼 Blessed</span>, 
+                    <span style="color: #facc15; font-weight: bold;">👑 Golden</span>, 
+                    <span style="color: #d8b4fe; font-weight: bold;">⭐ Galaxy</span>, 
+                    <span style="color: #4ade80; font-weight: bold;">🧪 Radioactive</span>, 
+                    <span style="background: linear-gradient(90deg, #f43f5e, #eab308, #22c55e, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">🌈 Rainbow</span>
+                  </td>
+                  <td style="text-align: right; font-weight: 900; color: #4ef2bb; font-size: 16px;">3x</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span style="color: #f97316; font-weight: bold;">🔥 Burning</span>, 
+                    <span style="color: #38bdf8; font-weight: bold;">⚡ Electric</span>
+                  </td>
+                  <td style="text-align: right; font-weight: 900; color: #38efef; font-size: 17px;">4x</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span style="color: #22d3ee; font-weight: bold;">💠 Holographic</span>, 
+                    <span style="color: #e2e8f0; font-weight: bold;">📺 Static</span>
+                  </td>
+                  <td style="text-align: right; font-weight: 900; color: #ec4899; font-size: 18px; text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);">5x</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+
     </div>
-    <span class="island-tag island-tag-mint">Valores Oficiales</span>
-  </div>
 
-  <!-- NOTA ESPECIAL DE PURIFICACIÓN -->
-  <div class="purity-alert-box" style="background: linear-gradient(135deg, rgba(244,63,94,0.15), rgba(78,242,187,0.15)); border: 1px solid #38efef; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-    <div>
-      <strong style="color: #4ef2bb; font-size: 13px; display: block;">⛪ Mecánica de Purificación (Tanglewood Church)</strong>
-      <span style="font-size: 11px; color: #d1fae5;">Puedes llevar cualquier pez con mutación <strong style="color: #f43f5e;">Cursed (1.1x)</strong> a la Iglesia de Tanglewood para purificarlo y transformarlo en <strong style="color: #ffffff;">Blessed (3x)</strong>.</span>
-    </div>
-    <span style="font-size: 16px; font-weight: 900; color: #ffd166; white-space: nowrap;">1.1x ➔ 3.0x</span>
-  </div>
-
-  <!-- TABLA DE MUTACIONES SEGÚN CAPTURA OFICIAL -->
-  <div class="fish-table-wrapper">
-    <table class="fish-table">
-      <thead>
-        <tr>
-          <th>Mutation / Modifiers</th>
-          <th style="text-align: right;">Modifier Multiplier</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="color: #f43f5e; font-weight: bold;">🔱 Cursed</td>
-          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.1x</td>
-        </tr>
-        <tr>
-          <td style="color: #ffe082; font-weight: bold;">🏰 Sandy</td>
-          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.2x</td>
-        </tr>
-        <tr>
-          <td style="color: #cbd5e1;">🪨 Stone, 🧲 Zebra</td>
-          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.3x</td>
-        </tr>
-        <tr>
-          <td>
-            <span style="color: #60a5fa;">⛔ Negative</span>, 
-            <span style="color: #ffffff;">🐰 Albino</span>, 
-            <span style="color: #94a3b8;">👤 Ghastly</span>, 
-            <span style="color: #c084fc;">✖️ Glitched</span>
-          </td>
-          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.5x</td>
-        </tr>
-        <tr>
-          <td style="color: #fb923c; font-weight: bold;">🐾 Tiger</td>
-          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.6x</td>
-        </tr>
-        <tr>
-          <td style="color: #4ade80; font-weight: bold;">🌾 Camo</td>
-          <td style="text-align: right; font-weight: bold; color: #ffd166;">1.8x</td>
-        </tr>
-        <tr>
-          <td>
-            <span style="color: #c084fc;">🔮 Void</span>, 
-            <span style="color: #64748b;">👁️ Shadow</span>, 
-            <span style="color: #38efef; font-weight: bold;">✨ Shiny</span>, 
-            <span style="color: #93c5fd;">❄️ Frozen</span>
-          </td>
-          <td style="text-align: right; font-weight: 900; color: #38efef; font-size: 15px;">2x</td>
-        </tr>
-        <tr>
-          <td>
-            <span style="color: #f8fafc; font-weight: bold;">👼 Blessed</span>, 
-            <span style="color: #facc15; font-weight: bold;">👑 Golden</span>, 
-            <span style="color: #d8b4fe; font-weight: bold;">⭐ Galaxy</span>, 
-            <span style="color: #4ade80; font-weight: bold;">🧪 Radioactive</span>, 
-            <span style="background: linear-gradient(90deg, #f43f5e, #eab308, #22c55e, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">🌈 Rainbow</span>
-          </td>
-          <td style="text-align: right; font-weight: 900; color: #4ef2bb; font-size: 16px;">3x</td>
-        </tr>
-        <tr>
-          <td>
-            <span style="color: #f97316; font-weight: bold;">🔥 Burning</span>, 
-            <span style="color: #38bdf8; font-weight: bold;">⚡ Electric</span>
-          </td>
-          <td style="text-align: right; font-weight: 900; color: #38efef; font-size: 17px;">4x</td>
-        </tr>
-        <tr>
-          <td>
-            <span style="color: #22d3ee; font-weight: bold;">💠 Holographic</span>, 
-            <span style="color: #e2e8f0; font-weight: bold;">📺 Static</span>
-          </td>
-          <td style="text-align: right; font-weight: 900; color: #ec4899; font-size: 18px; text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);">5x</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-    </div>
-
-    <!-- ESTILOS -->
+    <!-- ESTILOS COMPLETOS -->
     <style is:global>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       
@@ -981,7 +966,7 @@ const occultPoolsData = [
       }
       .fish-table tr:hover { background-color: #0e293a; }
 
-      /* BADGES DE RAREZA OFICIALES */
+      /* BADGES DE RAREZA */
       .rarity-badge {
         font-size: 10px;
         font-weight: 800;
@@ -1013,7 +998,6 @@ const occultPoolsData = [
         box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
       }
 
-      /* POOLS OCULTOS GRID */
       .occult-pools-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1042,7 +1026,6 @@ const occultPoolsData = [
         color: #93c5b5;
       }
 
-      /* SHOWCASE GRID DE RAREZAS */
       .rarity-showcase-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1098,7 +1081,6 @@ const occultPoolsData = [
 
       let activeStat = 'balance';
 
-      // NAVEGACIÓN
       document.querySelectorAll('.island-nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           document.querySelectorAll('.island-nav-btn').forEach(b => b.classList.remove('active'));
@@ -1111,7 +1093,6 @@ const occultPoolsData = [
         });
       });
 
-      // BUSCADOR EN VIVO DE PECES
       const searchInput = document.getElementById('fish-search-input');
       const islandFilter = document.getElementById('fish-island-filter');
       const rarityFilter = document.getElementById('fish-rarity-filter');
@@ -1148,7 +1129,6 @@ const occultPoolsData = [
         el?.addEventListener('change', filterFishTable);
       });
 
-      // MOTOR DE OPTIMIZACIÓN
       function parseVal(s) {
         if (!s || s === '-') return 0;
         return parseFloat(String(s).replace('%', '').replace('+', '').replace(/,/g, '').trim()) || 0;
@@ -1162,6 +1142,7 @@ const occultPoolsData = [
       function getStatValue(item, stat) {
         if (!item) return 0;
         if (stat === 'maxWeight') return parseWeight(item.maxWeight);
+        if (stat === 'strength') return parseVal(item.strength) + parseVal(item.expertise);
         return parseVal(item[stat]);
       }
 
@@ -1225,6 +1206,8 @@ const occultPoolsData = [
 
         const totalLuck = parseVal(bestRodCombo.rod.luck) + parseVal(bestRodCombo.enchant.luck) + parseVal(bestLine.luck) + parseVal(bestBobber.luck) + (islands * 15);
         const totalAttraction = Math.min(100, Math.max(0, parseVal(bestRodCombo.rod.attractionRate) + parseVal(bestRodCombo.enchant.attractionRate) + parseVal(bestLine.attractionRate) + parseVal(bestBobber.attractionRate)));
+        const totalStrength = parseVal(bestRodCombo.rod.strength) + parseVal(bestRodCombo.enchant.strength) + parseVal(bestLine.strength) + parseVal(bestBobber.strength);
+        const totalExpertise = parseVal(bestRodCombo.rod.expertise) + parseVal(bestRodCombo.enchant.expertise) + parseVal(bestLine.expertise) + parseVal(bestBobber.expertise);
         const totalBigCatch = parseVal(bestRodCombo.rod.bigCatchRate) + parseVal(bestRodCombo.enchant.bigCatchRate) + parseVal(bestLine.bigCatchRate) + parseVal(bestBobber.bigCatchRate);
         const totalWeight = parseWeight(bestRodCombo.rod.maxWeight) + parseWeight(bestRodCombo.enchant.maxWeight);
 
@@ -1242,73 +1225,37 @@ const occultPoolsData = [
           document.getElementById('opt-total-stat').textContent = `${bestStatScore >= 0 ? '+' : ''}${bestStatScore}${isPercent ? '%' : ''}`;
         }
 
-        // Siguiente Mejora
-        const ownedRodIndices = ownedRodCheckboxes.map(cb => parseInt(cb.dataset.idx));
-        
-        const unownedRods = rodsData.filter((_, idx) => !ownedRodIndices.includes(idx)).map(i => ({
-          ...i,
-          category: 'Caña (Rod)',
-          gain: activeStat === 'balance' ? calculateBalanceScore(i) - calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) : getStatValue(i, activeStat) - getStatValue(bestRodCombo.rod, activeStat)
-        }));
+        // EVALUACIÓN DE LA RUTA DEL ALTAR (MEJOR ENCANTAMIENTO PARA LA CAÑA ACTUAL)
+		const targetEnchants = enchantmentsData
+		.filter(e => e.name !== "Sin Encantamiento")
+		.map(e => {
+			let score = 0;
+			if (activeStat === 'balance') {
+			score = calculateBalanceScore(bestRodCombo.rod, e);
+			} else {
+			score = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(e, activeStat);
+			}
+			return { ...e, score };
+		})
+		.sort((a, b) => b.score - a.score);
 
-        const unownedLines = linesData.filter(l => !ownedLines.includes(l)).map(i => ({
-          ...i,
-          category: 'Línea (Line)',
-          gain: activeStat === 'balance' ? calculateBalanceScore(i) - calculateBalanceScore(bestLine) : getStatValue(i, activeStat) - getStatValue(bestLine, activeStat)
-        }));
+		const bestAltarEnch = targetEnchants[0];
 
-        const unownedBobbers = bobbersData.filter(b => !ownedBobbers.includes(b)).map(i => ({
-          ...i,
-          category: 'Boya (Bobber)',
-          gain: activeStat === 'balance' ? calculateBalanceScore(i) - calculateBalanceScore(bestBobber) : getStatValue(i, activeStat) - getStatValue(bestBobber, activeStat)
-        }));
+		if (bestAltarEnch) {
+		document.getElementById('altar-ench-name').textContent = bestAltarEnch.name;
+		document.getElementById('altar-target-rarity').textContent = bestAltarEnch.rarity;
+		document.getElementById('altar-target-rod').textContent = bestRodCombo.rod.name;
+		document.getElementById('altar-ench-effect').textContent = bestAltarEnch.description;
+		}
 
-        const allUpgrades = [...unownedRods, ...unownedLines, ...unownedBobbers]
-          .filter(u => u.gain > 0)
-          .sort((a, b) => b.gain - a.gain);
-
-        const affordableUpgrades = allUpgrades.filter(u => (u.costNum || 0) <= budget);
-        const nextUp = affordableUpgrades[0] || allUpgrades[0];
-
-        if (nextUp) {
-          document.getElementById('next-name').textContent = nextUp.name;
-          document.getElementById('next-type').textContent = nextUp.category;
-          document.getElementById('next-loc').textContent = nextUp.location;
-          document.getElementById('next-price').textContent = nextUp.price;
-          
-          if (activeStat === 'balance') {
-            document.getElementById('next-gain').textContent = `+${Math.round(nextUp.gain)} Balance`;
-          } else {
-            const isPercent = activeStat === 'attractionRate';
-            document.getElementById('next-gain').textContent = `+${nextUp.gain}${isPercent ? '%' : ''}`;
-          }
-
-          const statusEl = document.getElementById('next-afford-status');
-          if ((nextUp.costNum || 0) <= budget) {
-            statusEl.textContent = '✓ Puedes comprarlo ahora';
-            statusEl.style.color = '#4ef2bb';
-          } else {
-            const diff = (nextUp.costNum || 0) - budget;
-            statusEl.textContent = `✗ Te faltan $${diff.toLocaleString()}`;
-            statusEl.style.color = '#ff85a1';
-          }
-        } else {
-          document.getElementById('next-name').textContent = '¡Build Máxima!';
-          document.getElementById('next-type').textContent = 'Tienes el mejor equipo posible.';
-          document.getElementById('next-loc').textContent = '-';
-          document.getElementById('next-price').textContent = '-';
-          document.getElementById('next-gain').textContent = '+0';
-          document.getElementById('next-afford-status').textContent = 'Completado';
-        }
-
-        // Tiempos
+        // Tiempos y Telemetría
         const waitTime = Math.max(0, 14.0 * (1 - totalAttraction / 100));
         const cycleTime = parseFloat((waitTime + 3.5 + 1.5).toFixed(2));
         const catchesHr = Math.round(3600 / cycleTime);
 
         document.getElementById('disp-luck').textContent = (totalLuck >= 0 ? '+' : '') + totalLuck;
         document.getElementById('disp-attraction').textContent = totalAttraction + '%';
-        document.getElementById('disp-cycle').textContent = cycleTime + 's';
+        document.getElementById('disp-minigame').textContent = `${totalStrength + totalExpertise} (Str ${totalStrength} / Exp ${totalExpertise})`;
         document.getElementById('disp-catches').textContent = catchesHr;
         document.getElementById('disp-weight').textContent = totalWeight.toLocaleString() + ' kg';
         document.getElementById('disp-bigcatch').textContent = (totalBigCatch >= 0 ? '+' : '') + totalBigCatch;
