@@ -2,49 +2,52 @@
 
 ## Versión de 30 segundos
 
-> Fish VR es una aplicación web estática que desarrollé para resolver un problema concreto de una comunidad de VRChat: elegir dónde pescar y qué equipamiento conviene usar entre muchas combinaciones posibles. Organicé los datos del juego y construí en JavaScript vanilla un motor de puntuación que genera recomendaciones, rankings y comparaciones según el objetivo y presupuesto del jugador. También incorporé búsqueda, filtros, guía de misiones, diseño responsive y traducción español-inglés.
+> Fish VR nació de un problema concreto: los jugadores debían comparar manualmente muchas variables para decidir dónde pescar y qué equipo comprar. Modelé esos datos y construí con JavaScript vanilla una aplicación que calcula estadísticas y genera recomendaciones, rankings y comparaciones según el objetivo y presupuesto del usuario. El proyecto demuestra cómo traduzco reglas de un dominio en lógica de negocio y una interfaz web útil.
 
 ## Versión de 90 segundos
 
-> Detecté que los jugadores de Fish! tenían que cruzar manualmente información sobre cañas, sedales, flotadores, peces, zonas, clima, horario y misiones. Convertí ese problema en Fish VR, una herramienta web que centraliza los datos y ayuda a tomar decisiones.
+> Fish VR nació al observar que los jugadores de Fish!, un mundo de VRChat, tenían que cruzar manualmente información sobre equipamiento, peces, zonas, clima y horario. El problema no era solo mostrar esos datos, sino convertirlos en una decisión útil: dónde pescar, qué configuración usar o qué mejora comprar.
 >
-> La construí con HTML, CSS y JavaScript vanilla. Modelé el equipamiento y los peces mediante estructuras de datos, implementé reglas para calcular estadísticas y diseñé un sistema de puntuación que cambia según el objetivo: maximizar dinero, velocidad, tamaño, rareza, facilidad o equilibrio. Sobre esa lógica desarrollé el asesor de zonas, el ranking, el comparador de hasta cuatro configuraciones y el recomendador de mejoras por presupuesto.
+> Construí la solución con HTML, CSS y JavaScript vanilla. Modelé peces y equipamiento mediante estructuras de datos, implementé reglas para calcular estadísticas y diseñé un sistema de puntuación adaptable a objetivos como dinero, velocidad, tamaño, rareza, facilidad o equilibrio. Sobre esa base desarrollé el asesor de zonas, rankings, un comparador de hasta cuatro configuraciones y recomendaciones limitadas por presupuesto.
 >
-> Elegí una aplicación estática para que pudiera abrirse sin instalación ni backend. El principal aprendizaje fue transformar reglas informales de un juego en lógica consistente y presentar resultados complejos de forma comprensible. Si continuara el proyecto, mi prioridad sería modularizar el archivo, agregar pruebas automatizadas y publicar una demo continua.
+> Elegí una arquitectura estática porque no existía una API oficial y quería que la herramienta funcionara sin cuentas, instalación ni backend. Ese enfoque simplificó el uso, aunque dejó un trade-off claro: los datos requieren actualización manual y la versión actual concentra lógica, datos y presentación en un solo archivo. Mi siguiente iteración sería modularizarla, probar el motor de cálculo y automatizar el despliegue. Lo más valioso fue transformar reglas informales en lógica consistente y resultados comprensibles para el usuario.
 
 ## Preguntas que podrían hacerte
 
 ### ¿Qué parte demuestra mejor tus habilidades?
 
-El motor que combina estadísticas del equipamiento, restricciones y objetivos. No es solo una página informativa: recibe entradas, aplica reglas de negocio y produce recomendaciones comparables.
+El flujo completo desde el modelado del dominio hasta el resultado visible. La aplicación recibe una configuración, aplica reglas de negocio y devuelve alternativas comparables; no se limita a presentar contenido estático.
 
 ### ¿Por qué usaste JavaScript vanilla?
 
-El proyecto no necesitaba una infraestructura compleja. JavaScript vanilla permitió crear una aplicación rápida y portable, y demostrar manejo del DOM, eventos, arreglos, objetos, filtrado y renderizado dinámico sin depender de un framework.
+El alcance no justificaba incorporar un framework. JavaScript vanilla mantuvo el prototipo portable y me permitió trabajar directamente con estructuras de datos, DOM, eventos, filtrado y renderizado dinámico.
 
 ### ¿Cuál fue el desafío principal?
 
-Normalizar datos del juego y convertir criterios distintos —dinero, rapidez, rareza, tamaño o dificultad— en puntuaciones coherentes. También fue importante mantener comprensible una interfaz con muchas opciones.
+Convertir criterios diferentes —dinero, rapidez, rareza, tamaño o dificultad— en reglas y puntuaciones coherentes, y explicar el resultado sin sobrecargar la interfaz.
+
+### ¿Qué trade-off asumiste?
+
+Al no existir una API oficial, incorporé los datos en el cliente. Eso permite respuestas inmediatas y ejecución sin backend, pero exige actualizar y versionar los datos manualmente.
 
 ### ¿Qué mejorarías técnicamente?
 
-Separaría `index.html` en módulos de datos, lógica y presentación; documentaría la procedencia y versión de cada conjunto de datos; agregaría pruebas unitarias al sistema de puntuación y automatizaría el despliegue.
+Separaría `index.html` en módulos de datos, lógica y presentación; documentaría la fuente y versión de los datos; añadiría pruebas unitarias al sistema de cálculo y automatizaría el despliegue.
 
 ### ¿Qué aprendiste?
 
-Aprendí a partir de una necesidad de usuarios, modelar un dominio, traducir reglas a código, diseñar filtros y comparadores, y ajustar la interfaz para que los resultados fueran útiles en vez de limitarme a mostrar datos.
+Aprendí a identificar una necesidad, modelar un dominio, traducir reglas informales a código y diseñar una interfaz que ayuda a decidir en lugar de limitarse a mostrar datos.
 
 ## Frase para el CV o LinkedIn
 
-**Fish VR — Fishing Advisor:** aplicación web bilingüe desarrollada con HTML, CSS y JavaScript vanilla que modela datos de un juego de VRChat y genera recomendaciones, rankings y comparaciones de equipamiento según objetivos, condiciones y presupuesto.
+**Fish VR — Fishing Advisor:** aplicación web bilingüe en HTML, CSS y JavaScript vanilla que modela datos de un juego de VRChat y genera recomendaciones, rankings y comparaciones según objetivos, condiciones y presupuesto.
 
-## Puntos que conviene demostrar en vivo
+## Demostración en vivo
 
-1. Cambiar el idioma entre español e inglés.
-2. Configurar equipo, clima y horario en el asesor.
-3. Explicar cómo cambia una recomendación al modificar el objetivo o presupuesto.
-4. Buscar y filtrar peces por rareza, isla y tipo de agua.
-5. Comparar dos configuraciones y justificar el resultado.
+1. Configurar equipo, clima y horario.
+2. Mostrar las estadísticas y recomendaciones resultantes.
+3. Cambiar un objetivo o el presupuesto y explicar el efecto.
+4. Comparar dos configuraciones.
+5. Cerrar mostrando la interfaz español-inglés y la vista responsive.
 
-No presentes el proyecto como una aplicación oficial ni afirmes que los cálculos provienen de una API. Explica con honestidad que los datos están modelados dentro del cliente y que la versión actual es un prototipo funcional.
-
+Presenta Fish VR como un prototipo funcional y comunitario. Los datos están modelados en el cliente; no provienen de una API ni representan una integración oficial con Fish! o VRChat.
