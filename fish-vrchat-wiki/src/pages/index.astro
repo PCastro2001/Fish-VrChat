@@ -196,6 +196,7 @@ const occultPoolsData = [
         <button class="island-nav-btn active" data-target="sec-optimizer">🎣 Optimizador de Cañas</button>
         <button class="island-nav-btn" data-target="sec-fishdex">🐟 Base de Datos de Peces ({allFishData.length})</button>
         <button class="island-nav-btn" data-target="sec-rarities">✨ Rarezas, Mutaciones & Pools</button>
+        <button class="island-nav-btn" data-target="sec-shops">🏪 Guía de Tiendas & Mejoras</button>
       </nav>
 
       <!-- SECCIÓN 1: OPTIMIZADOR DE CAÑAS -->
@@ -602,6 +603,42 @@ const occultPoolsData = [
           </div>
         </section>
 
+      </div>
+
+      <!-- SECCIÓN 4: GUÍA DE TIENDAS Y MEJORAS DE EQUIPO -->
+      <div id="sec-shops" class="island-view">
+        <section class="island-card">
+          <div class="island-inv-top">
+            <div>
+              <h2>🏪 Catálogo Oficial de Tiendas y Vendedores</h2>
+              <p>Ubica exactamente dónde comprar cada caña, línea y boya del archipiélago, con sus precios, estadísticas y sincro directa con tu mochila.</p>
+            </div>
+          </div>
+
+          <!-- Filtros de Tienda -->
+          <div class="fish-search-bar" style="margin-bottom: 16px;">
+            <input type="text" id="shop-search-input" placeholder="🔍 Buscar mejora o ubicación (ej. Coconut Bay, Alien, Diamond, Vlad)..." class="fish-input" />
+            <select id="shop-location-filter" class="fish-select">
+              <option value="ALL">Todas las Tiendas / Islas</option>
+              <option value="Coconut Bay">Coconut Bay</option>
+              <option value="Crescent Isle">Crescent Isle</option>
+              <option value="Tanglewood">Tanglewood</option>
+              <option value="Luxian Dunes">Luxian Dunes</option>
+              <option value="Twilight Realm">Twilight Realm</option>
+              <option value="SPECIAL">Vendedores Especiales / Logros / Misiones</option>
+            </select>
+            <select id="shop-category-filter" class="fish-select">
+              <option value="ALL">Todas las Categorías</option>
+              <option value="rod">Cañas 🎣</option>
+              <option value="line">Líneas 🧵</option>
+              <option value="bobber">Boyas 🎈</option>
+            </select>
+          </div>
+
+          <div class="shop-grid" id="shop-cards-container">
+            <!-- Renders dinámicos vía JS -->
+          </div>
+        </section>
       </div>
 
     </div>
@@ -1049,6 +1086,77 @@ const occultPoolsData = [
         padding: 10px 14px;
       }
       .mutation-title { font-size: 13px; font-weight: 800; display: block; margin-bottom: 2px; }
+
+      /* TIENDAS */
+      .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 14px;
+      }
+      .shop-item-card {
+        background-color: #061924;
+        border: 1px solid #143d4f;
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 12px;
+        transition: all 0.2s;
+      }
+      .shop-item-card:hover {
+        border-color: #38efef;
+        transform: translateY(-2px);
+      }
+      .shop-item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .shop-item-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: #ffffff;
+      }
+      .shop-item-badge {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+      .shop-item-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 11px;
+      }
+      .shop-stat-chip {
+        background-color: rgba(12, 35, 49, 0.8);
+        border: 1px solid #0f2c3a;
+        padding: 3px 8px;
+        border-radius: 6px;
+        color: #d1fae5;
+      }
+      .shop-toggle-btn {
+        width: 100%;
+        background-color: #0a2938;
+        border: 1px solid #16485e;
+        color: #38efef;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .shop-toggle-btn.owned {
+        background: linear-gradient(135deg, rgba(78, 242, 187, 0.2), rgba(56, 239, 239, 0.1));
+        border-color: #4ef2bb;
+        color: #4ef2bb;
+      }
     </style>
 
     <!-- SCRIPTS DINÁMICOS -->
@@ -1154,18 +1262,23 @@ const occultPoolsData = [
         const bigC = parseVal(item.bigCatchRate) + (enchant ? parseVal(enchant.bigCatchRate) : 0);
         const weight = parseWeight(item.maxWeight) + (enchant ? parseWeight(enchant.maxWeight) : 0);
 
-        const luckScore = Math.min(100, Math.max(-50, luck)) * 0.25;
-        const attrScore = Math.min(100, Math.max(-50, attr)) * 0.25;
-        const miniGameScore = (Math.max(0, str) + Math.max(0, exp)) * 0.25;
-        const bigCatchScore = Math.min(60, Math.max(-50, bigC)) * 0.15;
-        const weightScore = Math.min(50, Math.log10(Math.max(1, weight)) * 10);
+        // Ponderación de Nivelación & Poder Realista (Levelling Speed & Efficiency Index)
+        // 1. Suerte: Escala la probabilidad de peces raros/míticos (Gran fuente de XP por captura).
+        const luckScore = luck >= 0 ? luck * 0.8 : luck * 1.5;
 
-        let penalty = 0;
-        if (luck < 0) penalty += Math.abs(luck) * 0.8;
-        if (attr < 0) penalty += Math.abs(attr) * 1.2;
-        if (bigC < -20) penalty += Math.abs(bigC) * 0.5;
+        // 2. Tasa de Atracción (Velocidad): Aumenta capturas/hora (Velocidad de subida de nivel).
+        const attrScore = attr >= 0 ? attr * 1.4 : attr * 2.0;
 
-        return (luckScore + attrScore + miniGameScore + bigCatchScore + weightScore) - penalty;
+        // 3. Minijuego (Fuerza + Pericia): Facilidad al recoger peces pesados sin fallar.
+        const miniGameScore = (Math.max(0, str) + Math.max(0, exp)) * 0.5;
+
+        // 4. Peces Grandes (Big Catch Rate): Multiplicador de peso y experiencia por captura.
+        const bigCatchScore = bigC * 0.35;
+
+        // 5. Peso Máximo: Escala logarítmica (Permite pescar monstruos marinos de gran XP sin romper línea).
+        const weightScore = weight > 0 ? Math.log10(Math.max(10, weight)) * 12 : 0;
+
+        return luckScore + attrScore + miniGameScore + bigCatchScore + weightScore;
       }
 
       function optimize() {
@@ -1218,7 +1331,8 @@ const occultPoolsData = [
         document.getElementById('opt-bobber').textContent = bestBobber.name;
 
         if (activeStat === 'balance') {
-          document.getElementById('opt-total-stat').textContent = 'Equilibrado';
+          const totalBalanceScore = calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) + calculateBalanceScore(bestLine) + calculateBalanceScore(bestBobber) + (islands * 15 * 0.8);
+          document.getElementById('opt-total-stat').textContent = `Score: ${Math.round(totalBalanceScore)}`;
         } else {
           const isPercent = activeStat === 'attractionRate';
           const bestStatScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(bestBobber, activeStat) + (activeStat === 'luck' ? islands * 15 : 0);
@@ -1247,6 +1361,98 @@ const occultPoolsData = [
 		document.getElementById('altar-target-rod').textContent = bestRodCombo.rod.name;
 		document.getElementById('altar-ench-effect').textContent = bestAltarEnch.description || bestAltarEnch.specialEffect || '-';
 		}
+
+        // EVALUACIÓN DE LA RUTA DE TIENDA (MEJOR MEJORA EN TIENDA DISPONIBLE)
+        const candidates = [];
+
+        function evalShopItem(item, type, categoryLabel, icon, idx) {
+          let isOwned = false;
+          if (type === 'rod') {
+            isOwned = !!document.querySelector(`.rod-inv-check[data-idx="${idx}"]:checked`);
+          } else if (type === 'line') {
+            isOwned = !!document.querySelector(`.line-inv-check[data-idx="${idx}"]:checked`);
+          } else if (type === 'bobber') {
+            isOwned = !!document.querySelector(`.bobber-inv-check[data-idx="${idx}"]:checked`);
+          }
+
+          if (isOwned) return;
+
+          let newScore = 0;
+          let currScore = 0;
+
+          if (type === 'rod') {
+            if (activeStat === 'balance') {
+              newScore = calculateBalanceScore(item, bestRodCombo.enchant) + calculateBalanceScore(bestLine) + calculateBalanceScore(bestBobber);
+              currScore = calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) + calculateBalanceScore(bestLine) + calculateBalanceScore(bestBobber);
+            } else {
+              newScore = getStatValue(item, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(bestBobber, activeStat);
+              currScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(bestBobber, activeStat);
+            }
+          } else if (type === 'line') {
+            if (activeStat === 'balance') {
+              newScore = calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) + calculateBalanceScore(item) + calculateBalanceScore(bestBobber);
+              currScore = calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) + calculateBalanceScore(bestLine) + calculateBalanceScore(bestBobber);
+            } else {
+              newScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(item, activeStat) + getStatValue(bestBobber, activeStat);
+              currScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(bestBobber, activeStat);
+            }
+          } else if (type === 'bobber') {
+            if (activeStat === 'balance') {
+              newScore = calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) + calculateBalanceScore(bestLine) + calculateBalanceScore(item);
+              currScore = calculateBalanceScore(bestRodCombo.rod, bestRodCombo.enchant) + calculateBalanceScore(bestLine) + calculateBalanceScore(bestBobber);
+            } else {
+              newScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(item, activeStat);
+              currScore = getStatValue(bestRodCombo.rod, activeStat) + getStatValue(bestRodCombo.enchant, activeStat) + getStatValue(bestLine, activeStat) + getStatValue(bestBobber, activeStat);
+            }
+          }
+
+          const gain = newScore - currScore;
+          candidates.push({ item, type, categoryLabel, icon, idx, gain, canAfford: budget >= item.costNum });
+        }
+
+        rodsData.forEach((r, idx) => evalShopItem(r, 'rod', 'Caña', '🎣', idx));
+        linesData.forEach((l, idx) => evalShopItem(l, 'line', 'Línea', '🧵', idx));
+        bobbersData.forEach((b, idx) => evalShopItem(b, 'bobber', 'Boya', '🎈', idx));
+
+        const affordableBest = candidates.filter(c => c.gain > 0 && c.canAfford).sort((a, b) => b.gain - a.gain)[0];
+        const unaffordableBest = candidates.filter(c => c.gain > 0 && !c.canAfford).sort((a, b) => a.item.costNum - b.item.costNum || b.gain - a.gain)[0];
+
+        const bestUpgrade = affordableBest || unaffordableBest;
+
+        if (bestUpgrade) {
+          const isPercent = activeStat === 'attractionRate';
+          const unitStr = isPercent ? '%' : '';
+          const gainValStr = `${bestUpgrade.gain >= 0 ? '+' : ''}${bestUpgrade.gain.toFixed(0)}${unitStr}`;
+
+          document.getElementById('next-gain').textContent = gainValStr;
+          document.getElementById('next-img-slot').textContent = bestUpgrade.icon;
+          document.getElementById('next-name').textContent = bestUpgrade.item.name;
+          document.getElementById('next-type').textContent = `${bestUpgrade.categoryLabel} • ${bestUpgrade.item.location}`;
+          document.getElementById('next-loc').textContent = bestUpgrade.item.location;
+          document.getElementById('next-price').textContent = bestUpgrade.item.price;
+
+          const affordEl = document.getElementById('next-afford-status');
+          if (bestUpgrade.canAfford) {
+            affordEl.textContent = `🟢 ¡Comprar ya! ($${budget.toLocaleString()} disp.)`;
+            affordEl.style.color = '#4ef2bb';
+          } else {
+            const diff = bestUpgrade.item.costNum - budget;
+            affordEl.textContent = `🔴 Te faltan $${diff.toLocaleString()}`;
+            affordEl.style.color = '#f43f5e';
+          }
+        } else {
+          document.getElementById('next-gain').textContent = 'MAX';
+          document.getElementById('next-img-slot').textContent = '👑';
+          document.getElementById('next-name').textContent = '¡Equipo Completo!';
+          document.getElementById('next-type').textContent = 'Todas las mejoras de tienda adquiridas';
+          document.getElementById('next-loc').textContent = 'Mochila al 100%';
+          document.getElementById('next-price').textContent = '$0';
+          const affordEl = document.getElementById('next-afford-status');
+          affordEl.textContent = '⭐ Tienes todo el equipo en tu mochila';
+          affordEl.style.color = '#ffd166';
+        }
+
+        renderShopCards();
 
         // Tiempos y Telemetría
         const waitTime = Math.max(0, 14.0 * (1 - totalAttraction / 100));
@@ -1286,6 +1492,111 @@ const occultPoolsData = [
           container.appendChild(card);
         }
       }
+
+      function renderShopCards() {
+        const container = document.getElementById('shop-cards-container');
+        if (!container) return;
+
+        const query = document.getElementById('shop-search-input')?.value.toLowerCase().trim() || '';
+        const locFilter = document.getElementById('shop-location-filter')?.value || 'ALL';
+        const catFilter = document.getElementById('shop-category-filter')?.value || 'ALL';
+        const budgetVal = parseFloat(document.getElementById('budget-input')?.value) || 0;
+
+        const allItems = [
+          ...rodsData.map((r, i) => ({ ...r, type: 'rod', categoryLabel: 'Caña', icon: '🎣', origIdx: i })),
+          ...linesData.map((l, i) => ({ ...l, type: 'line', categoryLabel: 'Línea', icon: '🧵', origIdx: i })),
+          ...bobbersData.map((b, i) => ({ ...b, type: 'bobber', categoryLabel: 'Boya', icon: '🎈', origIdx: i }))
+        ];
+
+        container.innerHTML = '';
+
+        allItems.forEach(item => {
+          const nameLower = item.name.toLowerCase();
+          const locLower = item.location.toLowerCase();
+
+          const matchesQuery = !query || nameLower.includes(query) || locLower.includes(query);
+          
+          let matchesLoc = true;
+          if (locFilter === 'SPECIAL') {
+            matchesLoc = !['coconut bay', 'crescent isle', 'tanglewood', 'luxian dunes', 'twilight realm'].includes(locLower);
+          } else if (locFilter !== 'ALL') {
+            matchesLoc = locLower.includes(locFilter.toLowerCase());
+          }
+
+          const matchesCat = catFilter === 'ALL' || item.type === catFilter;
+
+          if (!matchesQuery || !matchesLoc || !matchesCat) return;
+
+          let isOwned = false;
+          let checkSelector = '';
+          if (item.type === 'rod') checkSelector = `.rod-inv-check[data-idx="${item.origIdx}"]`;
+          else if (item.type === 'line') checkSelector = `.line-inv-check[data-idx="${item.origIdx}"]`;
+          else if (item.type === 'bobber') checkSelector = `.bobber-inv-check[data-idx="${item.origIdx}"]`;
+
+          const checkEl = document.querySelector(checkSelector);
+          if (checkEl) isOwned = checkEl.checked;
+
+          const card = document.createElement('div');
+          card.className = 'shop-item-card';
+
+          const canAfford = budgetVal >= item.costNum;
+          const priceColor = item.costNum === 0 ? '#4ef2bb' : (canAfford ? '#ffd166' : '#f43f5e');
+
+          const statPills = [];
+          if (item.luck && item.luck !== '-') statPills.push(`<span class="shop-stat-chip" style="color: #ffd166;">🍀 ${item.luck} Suerte</span>`);
+          if (item.attractionRate && item.attractionRate !== '-') statPills.push(`<span class="shop-stat-chip" style="color: #38efef;">⚡ ${item.attractionRate} Atracción</span>`);
+          if (item.strength && item.strength !== '-') statPills.push(`<span class="shop-stat-chip" style="color: #a7f3d0;">💪 ${item.strength} Fuerza</span>`);
+          if (item.expertise && item.expertise !== '-') statPills.push(`<span class="shop-stat-chip" style="color: #a7f3d0;">🧠 ${item.expertise} Pericia</span>`);
+          if (item.bigCatchRate && item.bigCatchRate !== '-') statPills.push(`<span class="shop-stat-chip" style="color: #fde68a;">🐋 ${item.bigCatchRate} BigCatch</span>`);
+          if (item.maxWeight && item.maxWeight !== '-') statPills.push(`<span class="shop-stat-chip" style="color: #67e8f9;">⚖️ ${item.maxWeight} MaxWeight</span>`);
+
+          card.innerHTML = `
+            <div>
+              <div class="shop-item-header">
+                <span class="shop-item-title">${item.icon} ${item.name}</span>
+                <span class="shop-item-badge island-tag-cyan">${item.categoryLabel}</span>
+              </div>
+              <div style="margin-top: 6px; font-size: 12px;">
+                <span style="color: #93c5b5;">Ubicación:</span> <strong style="color: #ffd166;">📍 ${item.location}</strong>
+              </div>
+              <div style="margin-top: 2px; font-size: 13px;">
+                <span style="color: #93c5b5;">Precio:</span> <strong style="color: ${priceColor}; font-weight: 800;">${item.price}</strong>
+              </div>
+            </div>
+            <div class="shop-item-stats">
+              ${statPills.join('')}
+            </div>
+            <button class="shop-toggle-btn ${isOwned ? 'owned' : ''}" data-type="${item.type}" data-idx="${item.origIdx}">
+              ${isOwned ? '✓ En tu Mochila' : '+ Añadir a Mochila'}
+            </button>
+          `;
+
+          container.appendChild(card);
+        });
+
+        container.querySelectorAll('.shop-toggle-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const type = e.currentTarget.dataset.type;
+            const idx = e.currentTarget.dataset.idx;
+            let selector = '';
+            if (type === 'rod') selector = `.rod-inv-check[data-idx="${idx}"]`;
+            else if (type === 'line') selector = `.line-inv-check[data-idx="${idx}"]`;
+            else if (type === 'bobber') selector = `.bobber-inv-check[data-idx="${idx}"]`;
+
+            const cb = document.querySelector(selector);
+            if (cb) {
+              cb.checked = !cb.checked;
+              optimize();
+            }
+          });
+        });
+      }
+
+      ['shop-search-input', 'shop-location-filter', 'shop-category-filter'].forEach(id => {
+        const el = document.getElementById(id);
+        el?.addEventListener('input', renderShopCards);
+        el?.addEventListener('change', renderShopCards);
+      });
 
       document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.addEventListener('change', optimize));
       document.querySelectorAll('.island-enchant-select').forEach(sel => sel.addEventListener('change', optimize));
