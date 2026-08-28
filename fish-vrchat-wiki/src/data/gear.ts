@@ -11,18 +11,10 @@ export interface GearItem {
     maxWeight: string;
 }
 
-export interface EnchantmentItem {
-    name: string;
-    rarity: string;
-    costNum: number;
-    luck: string;
-    strength: string;
-    expertise: string;
-    attractionRate: string;
-    bigCatchRate: string;
-    maxWeight: string;
-    description: string;
-}
+import { enchantmentsData as fullEnchantmentsData, type Enchantment } from './enchantments';
+
+export type EnchantmentItem = Enchantment;
+export const enchantmentsData = fullEnchantmentsData;
 
 export const rodsData: GearItem[] = [
     { name: "Stick and String", price: "$0", costNum: 0, location: "Default Rod", luck: "-50", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-100", maxWeight: "5kg" },
@@ -67,22 +59,4 @@ export const bobbersData: GearItem[] = [
     { name: "Rainbow Slime Bobber", price: "$35,000", costNum: 35000, location: "Vlad (Islander)", luck: "+30", strength: "+10", expertise: "-", attractionRate: "+10%", bigCatchRate: "+10", maxWeight: "-" },
     { name: "Pyramid Bobber", price: "$50,000", costNum: 50000, location: "Twilight Realm", luck: "+50", strength: "+10", expertise: "-", attractionRate: "+10%", bigCatchRate: "+10", maxWeight: "-" },
     { name: "Undying Heart", price: "$0", costNum: 0, location: "Quest: Undying Love", luck: "+50", strength: "+20", expertise: "+20", attractionRate: "+10%", bigCatchRate: "+5", maxWeight: "-" }
-];
-
-export const enchantmentsData: EnchantmentItem[] = [
-    { name: "Sin Encantamiento", rarity: "None", costNum: 0, luck: "0", strength: "0", expertise: "0", attractionRate: "0", bigCatchRate: "0", maxWeight: "0", description: "Ranura de encantamiento vacía." },
-    { name: "Lucky", rarity: "Common", costNum: 0, luck: "+15", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-", description: "Aumento ligero de suerte." },
-    { name: "Reinforced", rarity: "Common", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "+400kg", description: "Permite capturar peces medianos." },
-    { name: "Speedy", rarity: "Common", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+10%", bigCatchRate: "-", maxWeight: "-", description: "Reduce el tiempo de espera." },
-    { name: "Day Walker", rarity: "Uncommon", costNum: 0, luck: "+50", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-", description: "Bono notable de suerte diurna." },
-    { name: "Tubby Chaser", rarity: "Uncommon", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+5", maxWeight: "+1,000kg", description: "Enfocado en ejemplares pesados." },
-    { name: "Light-Speed Reels", rarity: "Rare", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+40%", bigCatchRate: "-", maxWeight: "-", description: "Gran aceleración de capturas." },
-    { name: "Notoriously Big", rarity: "Rare", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+10", maxWeight: "+50,000kg", description: "Capacidad para monstruos marinos." },
-    { name: "BIG BOYS ONLY", rarity: "Epic", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "+65", maxWeight: "+100,000kg", description: "Especializado en tamaños colosales." },
-    { name: "Master of Balance", rarity: "Epic", costNum: 0, luck: "+20", strength: "+20", expertise: "+20", attractionRate: "+20%", bigCatchRate: "+20", maxWeight: "+400kg", description: "Bonificación simétrica a todas las estadísticas." },
-    { name: "Shiny Hunter", rarity: "Epic", costNum: 0, luck: "+80", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-", description: "Farmeo de mutaciones Shiny." },
-    { name: "Speed Demon", rarity: "Epic", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+60%", bigCatchRate: "-", maxWeight: "-", description: "Elimina casi todo el tiempo de picada." },
-    { name: "God's Own Luck", rarity: "Legendary", costNum: 0, luck: "+250", strength: "-", expertise: "-", attractionRate: "-", bigCatchRate: "-", maxWeight: "-", description: "El mayor multiplicador de suerte pura." },
-    { name: "Messenger of the Heavens", rarity: "Legendary", costNum: 0, luck: "-", strength: "-", expertise: "-", attractionRate: "+100%", bigCatchRate: "-", maxWeight: "-", description: "Picada instantánea (0s de espera)." },
-    { name: "Strongest Angler", rarity: "Legendary", costNum: 0, luck: "+20", strength: "+85", expertise: "+85", attractionRate: "+10%", bigCatchRate: "+20", maxWeight: "+1,000,000kg", description: "Máxima facilidad en el minijuego de recogida." }
 ];

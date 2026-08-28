@@ -1245,7 +1245,7 @@ const occultPoolsData = [
 		document.getElementById('altar-ench-name').textContent = bestAltarEnch.name;
 		document.getElementById('altar-target-rarity').textContent = bestAltarEnch.rarity;
 		document.getElementById('altar-target-rod').textContent = bestRodCombo.rod.name;
-		document.getElementById('altar-ench-effect').textContent = bestAltarEnch.description;
+		document.getElementById('altar-ench-effect').textContent = bestAltarEnch.description || bestAltarEnch.specialEffect || '-';
 		}
 
         // Tiempos y Telemetría
